@@ -49,8 +49,9 @@ export function PropostasSobDemanda({
             return (
               <li key={id} id={id} className="scroll-mt-20 border-l-2 border-gray-300 pl-3">
                 <p className="flex flex-wrap items-center gap-2 text-xs text-gray-700">
-                  <span className="font-mono">{id}</span>
-                  <span>· {TIPO[it.t] ?? it.t}</span>
+                  <span>
+                    {TIPO[it.t] ?? it.t} · {pags}
+                  </span>
                   {sec ? <span className="chip">Tema secundário (principal: {it.cp})</span> : null}
                 </p>
                 <blockquote className="mt-1 text-sm text-gray-900">“{it.tl}”</blockquote>

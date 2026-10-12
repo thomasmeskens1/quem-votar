@@ -2,6 +2,7 @@ import type { CandidatoId, Vies } from "@/types";
 import { VIESES_ORDEM } from "@/types/comum";
 import { ViesTag } from "../ViesTag";
 import { ArgumentosSobDemanda } from "../sobDemanda/ArgumentosSobDemanda";
+import { textoLegivel } from "@/lib/data/texto";
 
 /** Qual análise de cada viés detalha a leitura (resolvida no navegador ao abrir). */
 export interface SelecaoAnalise {
@@ -31,7 +32,7 @@ export function LeiturasVieses({ leituras, candidato, origem, selecoes }: Leitur
         return (
           <div key={v} className={`caixa bl-${v} p-3`}>
             <ViesTag vies={v} />
-            <p className="mt-2 text-sm text-gray-900">{leituras[v]}</p>
+            <p className="mt-2 text-sm text-gray-900">{textoLegivel(leituras[v])}</p>
             {s && s.nPros + s.nContras > 0 ? (
               <ArgumentosSobDemanda
                 candidato={candidato}

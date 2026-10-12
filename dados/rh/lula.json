@@ -1,6 +1,6 @@
 {
   "candidato": "lula",
-  "gerado_em": "2026-10-12T13:44:48-03:00",
+  "gerado_em": "2026-10-12T18:01:09-03:00",
   "fontes": [
     {
       "id": "rh-lula-f1",
@@ -13,7 +13,7 @@
     },
     {
       "id": "rh-lula-f2",
-      "titulo": "Candidatos 2026 (consulta_cand_2026, arquivo BR) - Portal de Dados Abertos do TSE",
+      "titulo": "TSE — Dados abertos: candidaturas 2026 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
       "tipo": "oficial",
@@ -22,7 +22,7 @@
     },
     {
       "id": "rh-lula-f3",
-      "titulo": "Candidatos 2026 - informações complementares (consulta_cand_complementar_2026, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 2026, informações complementares (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand_complementar/consulta_cand_complementar_2026.zip",
       "tipo": "oficial",
@@ -31,7 +31,7 @@
     },
     {
       "id": "rh-lula-f4",
-      "titulo": "Bens de candidatos 2026 (bem_candidato_2026, arquivo BR)",
+      "titulo": "TSE — Dados abertos: bens declarados pelos candidatos em 2026 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/bem_candidato/bem_candidato_2026.zip",
       "tipo": "oficial",
@@ -40,7 +40,7 @@
     },
     {
       "id": "rh-lula-f5",
-      "titulo": "Certidões criminais 2026 - BR (arquivos 2026BR280002542548_*)",
+      "titulo": "TSE — Dados abertos: certidões criminais apresentadas no registro de candidatura de 2026 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/certidao_criminal/certidao_criminal_2026_BR.zip",
       "tipo": "oficial",
@@ -49,7 +49,7 @@
     },
     {
       "id": "rh-lula-f6",
-      "titulo": "Dados Abertos - Deputado 139289 (Luiz Inácio Lula da Silva)",
+      "titulo": "Câmara — Dados abertos: cadastro do deputado Luiz Inácio Lula da Silva",
       "orgao_ou_veiculo": "Câmara dos Deputados",
       "url": "https://dadosabertos.camara.leg.br/api/v2/deputados/139289",
       "tipo": "oficial",
@@ -67,7 +67,7 @@
     },
     {
       "id": "rh-lula-f8",
-      "titulo": "Dados Abertos - Proposições de autoria do deputado 139289",
+      "titulo": "Câmara — Dados abertos: proposições de autoria do deputado Luiz Inácio Lula da Silva",
       "orgao_ou_veiculo": "Câmara dos Deputados",
       "url": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?idDeputadoAutor=139289&itens=100",
       "tipo": "oficial",
@@ -247,7 +247,7 @@
     },
     {
       "id": "rh-lula-f28",
-      "titulo": "Dados Abertos - Mandatos externos do deputado 139289",
+      "titulo": "Câmara — Dados abertos: mandatos externos do deputado Luiz Inácio Lula da Silva",
       "orgao_ou_veiculo": "Câmara dos Deputados",
       "url": "https://dadosabertos.camara.leg.br/api/v2/deputados/139289/mandatosExternos",
       "tipo": "oficial",
@@ -391,7 +391,7 @@
     },
     {
       "id": "rh-lula-f45",
-      "titulo": "CEIS - Cadastro de Empresas Inidôneas e Suspensas (download 20261010)",
+      "titulo": "CGU — Portal da Transparência: Cadastro de Empresas Inidôneas e Suspensas (CEIS), arquivo de 10/10/2026",
       "orgao_ou_veiculo": "Controladoria-Geral da União (Portal da Transparência)",
       "url": "https://portaldatransparencia.gov.br/download-de-dados/ceis/20261010",
       "tipo": "oficial",
@@ -400,7 +400,7 @@
     },
     {
       "id": "rh-lula-f46",
-      "titulo": "CNEP - Cadastro Nacional de Empresas Punidas (download 20261010)",
+      "titulo": "CGU — Portal da Transparência: Cadastro Nacional de Empresas Punidas (CNEP), arquivo de 10/10/2026",
       "orgao_ou_veiculo": "Controladoria-Geral da União (Portal da Transparência)",
       "url": "https://portaldatransparencia.gov.br/download-de-dados/cnep/20261010",
       "tipo": "oficial",
@@ -409,7 +409,7 @@
     },
     {
       "id": "rh-lula-f47",
-      "titulo": "CEAF - Cadastro de Expulsões da Administração Federal (download 20261010)",
+      "titulo": "CGU — Portal da Transparência: Cadastro de Expulsões da Administração Federal (CEAF), arquivo de 10/10/2026",
       "orgao_ou_veiculo": "Controladoria-Geral da União (Portal da Transparência)",
       "url": "https://portaldatransparencia.gov.br/download-de-dados/ceaf/20261010",
       "tipo": "oficial",
@@ -418,7 +418,7 @@
     },
     {
       "id": "rh-lula-f48",
-      "titulo": "Dados Abertos - Lista de senadores das legislaturas 38 a 57",
+      "titulo": "Senado — Dados abertos: lista de senadores das legislaturas 38 a 57",
       "orgao_ou_veiculo": "Senado Federal",
       "url": "https://legis.senado.leg.br/dadosabertos/senador/lista/legislatura/38/57",
       "tipo": "oficial",
@@ -427,7 +427,7 @@
     },
     {
       "id": "rh-lula-f49",
-      "titulo": "Candidatos 1994 (consulta_cand_1994, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 1994 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_1994.zip",
       "tipo": "oficial",
@@ -436,7 +436,7 @@
     },
     {
       "id": "rh-lula-f50",
-      "titulo": "Candidatos 1998 (consulta_cand_1998, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 1998 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_1998.zip",
       "tipo": "oficial",
@@ -445,7 +445,7 @@
     },
     {
       "id": "rh-lula-f51",
-      "titulo": "Candidatos 2002 (consulta_cand_2002, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 2002 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2002.zip",
       "tipo": "oficial",
@@ -454,7 +454,7 @@
     },
     {
       "id": "rh-lula-f52",
-      "titulo": "Candidatos 2006 (consulta_cand_2006, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 2006 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2006.zip",
       "tipo": "oficial",
@@ -463,7 +463,7 @@
     },
     {
       "id": "rh-lula-f53",
-      "titulo": "Candidatos 2018 (consulta_cand_2018, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 2018 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2018.zip",
       "tipo": "oficial",
@@ -472,7 +472,7 @@
     },
     {
       "id": "rh-lula-f54",
-      "titulo": "Candidatos 2022 (consulta_cand_2022, arquivo BR)",
+      "titulo": "TSE — Dados abertos: candidaturas 2022 (abrangência nacional)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2022.zip",
       "tipo": "oficial",
@@ -481,7 +481,7 @@
     },
     {
       "id": "rh-lula-f55",
-      "titulo": "Votação nominal por município e zona 1994 (votacao_candidato_munzona_1994, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 1994",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_1994.zip",
       "tipo": "oficial",
@@ -490,7 +490,7 @@
     },
     {
       "id": "rh-lula-f56",
-      "titulo": "Votação nominal por município e zona 1998 (votacao_candidato_munzona_1998, arquivo BRASIL)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 1998",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_1998.zip",
       "tipo": "oficial",
@@ -499,7 +499,7 @@
     },
     {
       "id": "rh-lula-f57",
-      "titulo": "Votação nominal por município e zona 2002 (votacao_candidato_munzona_2002, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 2002",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2002.zip",
       "tipo": "oficial",
@@ -508,7 +508,7 @@
     },
     {
       "id": "rh-lula-f58",
-      "titulo": "Votação nominal por município e zona 2006 (votacao_candidato_munzona_2006, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 2006",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2006.zip",
       "tipo": "oficial",
@@ -517,7 +517,7 @@
     },
     {
       "id": "rh-lula-f59",
-      "titulo": "Votação nominal por município e zona 2022 (votacao_candidato_munzona_2022, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 2022",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2022.zip",
       "tipo": "oficial",
@@ -535,7 +535,7 @@
     },
     {
       "id": "rh-lula-f61",
-      "titulo": "Dados Abertos - Proposições do tipo DCR (denúncia por crime de responsabilidade), consulta por ano",
+      "titulo": "Câmara — Dados abertos: proposições do tipo denúncia por crime de responsabilidade, consulta por ano",
       "orgao_ou_veiculo": "Câmara dos Deputados",
       "url": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=DCR&ano=2023&itens=100",
       "tipo": "oficial",
@@ -544,7 +544,7 @@
     },
     {
       "id": "rh-lula-f62",
-      "titulo": "Votação nominal por município e zona 2026 (votacao_candidato_munzona_2026, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por candidato, município e zona, 2026",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2026.zip",
       "tipo": "oficial",
@@ -688,7 +688,7 @@
         "trecho_fonte": "Em 2011, o ex-presidente dedicou-se à organização do Instituto Lula. Também passou a fazer conferências / 98% DO CAPITAL SOCIAL DA L.I.L.S PALESTRAS, EVENTOS E PUBLICAÇÕES"
       },
       {
-        "afirmacao": "Esteve preso de 7 de abril de 2018 a 8 de novembro de 2019 em Curitiba (580 dias), em cumprimento da condenação no caso do triplex, posteriormente anulada pelo STF (ver processos_e_investigacoes).",
+        "afirmacao": "Esteve preso de 7 de abril de 2018 a 8 de novembro de 2019 em Curitiba (580 dias), em cumprimento da condenação no caso do triplex, posteriormente anulada pelo STF (ver a seção de processos e investigações).",
         "periodo": "2018-2019",
         "fonte_ids": [
           "rh-lula-f1"
@@ -883,7 +883,7 @@
         "trecho_fonte": "NM_COLIGACAO = BRASIL PRONTO PRA MAIS; DS_SITUACAO_CANDIDATO_TOT = DEFERIDO; DS_SITUACAO_JULGAMENTO = DEFERIDO"
       },
       {
-        "afirmacao": "Pedido de candidatura aceito em 08/08/2026 (processo de registro nº 0601426-81.2026.6.00.0000, conforme campo NR_PROCESSO). Idade na data da posse informada: 81 anos.",
+        "afirmacao": "Pedido de candidatura aceito em 08/08/2026 (processo de registro nº 0601426-81.2026.6.00.0000, conforme o campo de número do processo no arquivo do TSE). Idade na data da posse informada: 81 anos.",
         "periodo": "2026",
         "fonte_ids": [
           "rh-lula-f3"
@@ -975,7 +975,7 @@
         "trecho_fonte": "NM_COLIGACAO = A FORÇA DO POVO; DS_DETALHE_SITUACAO_CAND = DEFERIDO; NR_TURNO = 1 [...] DS_SIT_TOT_TURNO = 2º TURNO"
       },
       {
-        "afirmacao": "Eleição 2018 — pedido de candidatura a Presidente (nº 13, PT; coligação 'O Povo Feliz de Novo', PT/PCdoB/PROS). Situação da candidatura no arquivo oficial: INAPTO (registro indeferido pelo TSE; ver processos_e_investigacoes).",
+        "afirmacao": "Eleição 2018 — pedido de candidatura a Presidente (nº 13, PT; coligação 'O Povo Feliz de Novo', PT/PCdoB/PROS). Situação da candidatura no arquivo oficial: INAPTO (registro indeferido pelo TSE; ver a seção de processos e investigações).",
         "periodo": "2018",
         "fonte_ids": [
           "rh-lula-f53"
@@ -992,7 +992,7 @@
         "trecho_fonte": "NR_TURNO = 2; DT_ELEICAO = 30/10/2022 [...] DS_SIT_TOT_TURNO = ELEITO"
       },
       {
-        "afirmacao": "Eleição de 2026, Presidente da República (1º turno, 04/10/2026): resultado registrado pelo TSE \"2º TURNO\"; soma de 53.879.538 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2026_BR.csv (soma da coluna QT_VOTOS_NOMINAIS_VALIDOS em 6292 linhas município/zona do SQ_CANDIDATO 280002542548).",
+        "afirmacao": "Eleição de 2026, Presidente da República (1º turno, 04/10/2026): resultado registrado pelo TSE \"2º TURNO\"; soma de 53.879.538 votos (1º turno), calculada a partir do arquivo oficial de votação por município e zona de 2026 (nacional) (soma dos votos nominais válidos em 6292 linhas por município e zona do registro do candidato nº 280002542548).",
         "periodo": "2026",
         "fonte_ids": [
           "rh-lula-f62"
@@ -1003,7 +1003,7 @@
     "processos_e_investigacoes": [
       {
         "titulo": "Ação penal do triplex do Guarujá (Operação Lava Jato)",
-        "descricao": "Acusação de corrupção passiva e lavagem de dinheiro envolvendo a Construtora OAS, apartamento triplex no Guarujá (SP) e depósito do acervo presidencial. Condenado em 1ª instância em 12/07/2017 (pena de 9 anos e 6 meses) e pelo TRF4 em 24/01/2018 (12 anos e 1 mês); o STJ fixou a pena em 8 anos, 10 meses e 20 dias em 23/04/2019. Em 08/03/2021 o STF (HC 193726) declarou a incompetência da 13ª Vara Federal de Curitiba e anulou as decisões, inclusive a condenação; o Plenário confirmou em 15/04/2021 e fixou a Justiça Federal do DF como competente em 22/04/2021. Em 23/03/2021 a 2ª Turma do STF (HC 164493) declarou a suspeição do ex-juiz Sergio Moro; o Plenário manteve em 23/06/2021. Certidão anexada ao registro de 2026 indica que a petição criminal vinculada na SJDF (1028899-73.2021.4.01.3400) está em arquivo permanente. O arquivamento da ação principal na Justiça Federal do DF consta apenas em reportagem (ver desfecho_noticiado). As condenações foram anuladas; não há julgamento de mérito vigente sobre os fatos.",
+        "descricao": "Acusação de corrupção passiva e lavagem de dinheiro envolvendo a Construtora OAS, apartamento triplex no Guarujá (SP) e depósito do acervo presidencial. Condenado em 1ª instância em 12/07/2017 (pena de 9 anos e 6 meses) e pelo TRF4 em 24/01/2018 (12 anos e 1 mês); o STJ fixou a pena em 8 anos, 10 meses e 20 dias em 23/04/2019. Em 08/03/2021 o STF (HC 193726) declarou a incompetência da 13ª Vara Federal de Curitiba e anulou as decisões, inclusive a condenação; o Plenário confirmou em 15/04/2021 e fixou a Justiça Federal do DF como competente em 22/04/2021. Em 23/03/2021 a 2ª Turma do STF (HC 164493) declarou a suspeição do ex-juiz Sergio Moro; o Plenário manteve em 23/06/2021. Certidão anexada ao registro de 2026 indica que a petição criminal vinculada na SJDF (1028899-73.2021.4.01.3400) está em arquivo permanente. O arquivamento da ação principal na Justiça Federal do DF consta apenas em reportagem (ver o desfecho noticiado, abaixo). As condenações foram anuladas; não há julgamento de mérito vigente sobre os fatos.",
         "orgao": "13ª Vara Federal de Curitiba / TRF4 / STJ / STF / 12ª Vara Federal Criminal da SJDF",
         "numero_processo": "5046512-94.2016.4.04.7000",
         "status_atual": "arquivado",
@@ -1120,11 +1120,11 @@
           "observacao": "Reportagem — não constitui fato comprovado"
         },
         "data_certidao": "2026-07-17",
-        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', status_atual = 'arquivado', data_status = null (data do arquivamento não informada) e data_certidao = data de emissão da certidão. Neste caso, a certidão refere-se a processo vinculado (petição criminal 1028899-73.2021.4.01.3400), e não à ação principal."
+        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', o status atual é 'arquivado', a data do status fica em branco (a data do arquivamento não é informada) e a data da certidão é a data de emissão do documento. Neste caso, a certidão refere-se a processo vinculado (petição criminal 1028899-73.2021.4.01.3400), e não à ação principal."
       },
       {
         "titulo": "Ação penal do sítio de Atibaia (Operação Lava Jato)",
-        "descricao": "Acusação de corrupção passiva e lavagem de dinheiro relativa a reformas no sítio de Atibaia (SP) custeadas pelos grupos Odebrecht e OAS, segundo a sentença. Condenado em 1ª instância em fevereiro de 2019 (12 anos e 11 meses) e no TRF4 em 27/11/2019 (17 anos, 1 mês e 10 dias). Decisões anuladas pelo STF em 08/03/2021 (incompetência) e suspeição de Moro estendida ao caso em 24/06/2021. Na SJDF, certidão de objeto e pé de 18/07/2026 anexada ao registro de candidatura indica o recurso em sentido estrito do MPF contra Lula e outros (1032252-24.2021.4.01.3400) em arquivo permanente. A rejeição da denúncia no DF (agosto/2021) consta apenas em reportagem (ver seção reportagens); por isso 'denuncia_rejeitada' não foi atribuído e o fato consta apenas em desfecho_noticiado. As condenações foram anuladas; não há julgamento de mérito vigente sobre os fatos.",
+        "descricao": "Acusação de corrupção passiva e lavagem de dinheiro relativa a reformas no sítio de Atibaia (SP) custeadas pelos grupos Odebrecht e OAS, segundo a sentença. Condenado em 1ª instância em fevereiro de 2019 (12 anos e 11 meses) e no TRF4 em 27/11/2019 (17 anos, 1 mês e 10 dias). Decisões anuladas pelo STF em 08/03/2021 (incompetência) e suspeição de Moro estendida ao caso em 24/06/2021. Na SJDF, certidão de objeto e pé de 18/07/2026 anexada ao registro de candidatura indica o recurso em sentido estrito do MPF contra Lula e outros (1032252-24.2021.4.01.3400) em arquivo permanente. A rejeição da denúncia no DF (agosto/2021) consta apenas em reportagem (ver seção reportagens); por isso o status 'denúncia rejeitada' não foi atribuído e o fato consta apenas no desfecho noticiado. As condenações foram anuladas; não há julgamento de mérito vigente sobre os fatos.",
         "orgao": "13ª Vara Federal de Curitiba / TRF4 / STF / 12ª Vara Federal Criminal da SJDF",
         "numero_processo": "5021365-32.2017.4.04.7000 (origem); 1032252-24.2021.4.01.3400 (RESE na SJDF)",
         "status_atual": "arquivado",
@@ -1200,7 +1200,7 @@
             "rh-lula-f5"
           ]
         },
-        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', status_atual = 'arquivado', data_status = null (data do arquivamento não informada) e data_certidao = data de emissão da certidão. Neste caso, a certidão refere-se a processo vinculado (recurso em sentido estrito 1032252-24.2021.4.01.3400), e não à ação principal."
+        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', o status atual é 'arquivado', a data do status fica em branco (a data do arquivamento não é informada) e a data da certidão é a data de emissão do documento. Neste caso, a certidão refere-se a processo vinculado (recurso em sentido estrito 1032252-24.2021.4.01.3400), e não à ação principal."
       },
       {
         "titulo": "Ação penal sobre a sede do Instituto Lula (imóveis)",
@@ -1366,7 +1366,7 @@
       },
       {
         "titulo": "Ação penal por obstrução de justiça (caso Delcídio do Amaral / Nestor Cerveró)",
-        "descricao": "Em 28/07/2016 o juiz federal substituto da 10ª Vara Federal Criminal da SJDF recebeu a denúncia (oferecida pelo Procurador-Geral da República e encampada pelo MPF em 1º grau) contra Delcídio do Amaral Gomez (então senador), Luiz Inácio Lula da Silva e outros cinco acusados sem cargo público. O desfecho (absolvição em 12/07/2018) consta apenas em reportagem (ver desfecho_noticiado); não foi localizada fonte oficial sobre a sentença. Último status verificado em fonte oficial: denúncia recebida (réu) em 2016.",
+        "descricao": "Em 28/07/2016 o juiz federal substituto da 10ª Vara Federal Criminal da SJDF recebeu a denúncia (oferecida pelo Procurador-Geral da República e encampada pelo MPF em 1º grau) contra Delcídio do Amaral Gomez (então senador), Luiz Inácio Lula da Silva e outros cinco acusados sem cargo público. O desfecho (absolvição em 12/07/2018) consta apenas em reportagem (ver o desfecho noticiado, abaixo); não foi localizada fonte oficial sobre a sentença. Último status verificado em fonte oficial: denúncia recebida (réu) em 2016.",
         "orgao": "10ª Vara Federal Criminal da SJDF",
         "numero_processo": "40755-27.2016.4.01.3400",
         "status_atual": "desfecho_nao_confirmado",
@@ -1433,7 +1433,7 @@
               "rh-lula-f5",
               "rh-lula-f31"
             ],
-            "observacao": "data obtida em reportagem; existência da denúncia confirmada pela certidão oficial (arquivo 2026BR280002542548_280017015949: classe 'AÇÃO PENAL - PROCEDIMENTO ORDINÁRIO', Lula no polo passivo)",
+            "observacao": "data obtida em reportagem; existência da denúncia confirmada pela certidão oficial (certidão do pacote de 2026 do TSE, arquivo nº 280017015949: classe 'AÇÃO PENAL - PROCEDIMENTO ORDINÁRIO', Lula no polo passivo)",
             "status_descricao_fonte": null,
             "origem": "oficial"
           },
@@ -1467,7 +1467,7 @@
             "rh-lula-f5"
           ]
         },
-        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', status_atual = 'arquivado', data_status = null (data do arquivamento não informada) e data_certidao = data de emissão da certidão."
+        "observacao": "Regra aplicada igualmente a triplex, sítio de Atibaia e 'quadrilhão': quando a certidão oficial de 2026 mostra o processo em 'arquivo permanente', o status atual é 'arquivado', a data do status fica em branco (a data do arquivamento não é informada) e a data da certidão é a data de emissão do documento."
       },
       {
         "titulo": "Ação penal da Operação Zelotes (MP 471 - corrupção passiva)",
@@ -1596,7 +1596,7 @@
           "rh-lula-f44"
         ],
         "trecho_fonte": "sejam identificados todos os atuais mantenedores dos bens, bem como a localização, dos 568 bens recebidos pelo ex-Presidente Luiz Inácio Lula da Silva, incluídos no Sistema de Gestão de Acervos Privados da Presidência da República (Infoap)",
-        "observacao": "Status 'outro': trata-se de auditoria com determinações administrativas (incorporação de bens e identificação de mantenedores), sem condenação, arquivamento ou improcedência que se enquadre no vocabulário.",
+        "observacao": "Situação classificada como 'outra': trata-se de auditoria com determinações administrativas (incorporação de bens e identificação de mantenedores), sem condenação, arquivamento ou improcedência que se enquadre no vocabulário.",
         "ultimo_status_oficial": null,
         "desfecho_noticiado": null,
         "data_certidao": null
@@ -1996,7 +1996,7 @@
           "rh-lula-f5"
         ],
         "trecho_fonte": "arquivo 2026BR280002542548_280017015976: \"17/10/2016 - Baixa da Parte - Redistribuído à 13ª Federal\"; \"Processo ... extinto e arquivado\"",
-        "observacao": "Status 'outro': baixa no TJSP por redistribuição à 13ª Vara Federal; não houve encerramento de mérito registrado na certidão.",
+        "observacao": "Situação classificada como 'outra': baixa no TJSP por redistribuição à 13ª Vara Federal; não houve encerramento de mérito registrado na certidão.",
         "data_certidao": "2026 (data de emissão não transcrita na leitura)",
         "ultimo_status_oficial": null,
         "desfecho_noticiado": null
@@ -2824,7 +2824,7 @@
       },
       {
         "tema": "Certidões criminais do registro de 2026 — trechos não lidos ou ilegíveis",
-        "motivo": "Os 88 arquivos foram lidos visualmente. Não lidas integralmente apenas páginas que são tabelas de 'chaves de acesso' do PJe (amostradas): arquivo 2026BR280002542548_280017015949 (7 de 17 págs.), _280017015952 (4 de 30), _280017015970 (6 de 11) e _280017015986 (9 págs. + 5 amostras de 251). Tarjas pretas no original em _280017015985 (pág. 3), _280017015992 (pág. 0) e _280017016000 (pág. 1). No arquivo _280017015998, o número da exceção 1017993-24.2021.4.01.3400 aparece com dígito divergente no cabeçalho (…-34…); no arquivo _280017015982 a data impressa da sentença ('25/09/2029') parece erro do original."
+        "motivo": "Os 88 arquivos foram lidos visualmente. Não lidas integralmente apenas páginas que são tabelas de 'chaves de acesso' do PJe (amostradas): certidão do pacote de 2026 do TSE, arquivo nº 280017015949 (7 de 17 págs.), nº 280017015952 (4 de 30), nº 280017015970 (6 de 11) e nº 280017015986 (9 págs. + 5 amostras de 251). Tarjas pretas no original em nº 280017015985 (pág. 3), nº 280017015992 (pág. 0) e nº 280017016000 (pág. 1). No arquivo nº 280017015998, o número da exceção 1017993-24.2021.4.01.3400 aparece com dígito divergente no cabeçalho (…-34…); no arquivo nº 280017015982 a data impressa da sentença ('25/09/2029') parece erro do original."
       },
       {
         "tema": "TRF1 — consulta processual online",
@@ -2848,11 +2848,11 @@
       },
       {
         "tema": "Certidões de STJ e Justiça Eleitoral ausentes do pacote de 2026",
-        "motivo": "O pacote certidao_criminal_2026_BR do TSE para o candidato (88 arquivos) não contém certidão do STJ nem da Justiça Eleitoral (TSE/TREs); a consulta processual online do STJ e do TSE está bloqueada a acesso automatizado (ver lacunas específicas). A cobertura de certidões não é, portanto, idêntica à de outros registros."
+        "motivo": "O pacote de certidões criminais de 2026 (abrangência BR) do TSE para o candidato (88 arquivos) não contém certidão do STJ nem da Justiça Eleitoral (TSE/TREs); a consulta processual online do STJ e do TSE está bloqueada a acesso automatizado (ver lacunas específicas). A cobertura de certidões não é, portanto, idêntica à de outros registros."
       },
       {
         "tema": "Pedidos de impeachment (denúncias por crime de responsabilidade) contra o candidato",
-        "motivo": "Notícia oficial da Agência Câmara de 20/03/2020 informa que, segundo a Secretaria-Geral da Mesa, o ex-presidente Lula 'foi alvo de 37 pedidos' (mandatos 2003–2010), sem informar admissão ou parecer. Os pedidos não constam da API de proposições (tipo DCR) e não foi localizada lista oficial com a situação de pedidos de 2023–2026. Pela diretriz 8, nenhum pedido foi incluído em processos_e_investigacoes, pois não há registro oficial de que algum tenha passado da fase de protocolo."
+        "motivo": "Notícia oficial da Agência Câmara de 20/03/2020 informa que, segundo a Secretaria-Geral da Mesa, o ex-presidente Lula 'foi alvo de 37 pedidos' (mandatos 2003–2010), sem informar admissão ou parecer. Os pedidos não constam da API de proposições (tipo DCR) e não foi localizada lista oficial com a situação de pedidos de 2023–2026. Pela diretriz 8, nenhum pedido foi incluído na seção de processos e investigações, pois não há registro oficial de que algum tenha passado da fase de protocolo."
       },
       {
         "tema": "Ação penal 0017018-25.2016.8.26.0050 (TJSP) — correspondência na Justiça Federal",
@@ -2868,11 +2868,11 @@
       },
       {
         "tema": "Candidaturas de 1982, 1986 e 1989 e votos de 1989",
-        "motivo": "O Portal de Dados Abertos do TSE não disponibiliza arquivo consulta_cand para 1982, 1986 e 1989 (apenas legendas/vagas); os votos de 1989 (arquivo detalhe_votacao_uf) não foram extraídos. Essas candidaturas constam apenas da biografia da Presidência."
+        "motivo": "O Portal de Dados Abertos do TSE não disponibiliza o arquivo de candidatos para 1982, 1986 e 1989 (apenas legendas/vagas); os votos de 1989 (arquivo de detalhe da votação por UF) não foram extraídos. Essas candidaturas constam apenas da biografia da Presidência."
       },
       {
         "tema": "Fundamento do encerramento do 'quadrilhão do PT' e decisão do sítio de Atibaia no DF",
-        "motivo": "As certidões indicam arquivo permanente e trânsito em julgado (quadrilhão, 2020), sem o teor da decisão; a absolvição sumária (04/12/2019) e a rejeição da denúncia do sítio (agosto/2021) constam somente em reportagens e aparecem apenas em desfecho_noticiado."
+        "motivo": "As certidões indicam arquivo permanente e trânsito em julgado (quadrilhão, 2020), sem o teor da decisão; a absolvição sumária (04/12/2019) e a rejeição da denúncia do sítio (agosto/2021) constam somente em reportagens e aparecem apenas no desfecho noticiado."
       }
     ]
   }

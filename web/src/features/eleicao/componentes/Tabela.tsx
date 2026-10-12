@@ -92,14 +92,14 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
               const l = lider(f.candidatos, f.totais);
               const sel = f.codigo === selecionado;
               return (
-                <tr key={f.codigo} className={`border-t border-gray-200 ${sel ? "bg-yellow-50" : ""}`}>
+                <tr key={f.codigo} className={`border-t border-gray-200 hover:bg-gray-50 ${sel ? "bg-gray-100 font-semibold" : ""}`}>
                   <th scope="row" className="px-1 py-1 sm:px-2 text-left font-normal">
                     {onSelecionar ? (
                       <button
                         type="button"
                         onClick={() => onSelecionar(f)}
                         aria-current={sel ? "true" : undefined}
-                        className="text-left text-blue-800 underline underline-offset-2 hover:text-blue-950"
+                        className="w-full cursor-pointer rounded text-left text-gray-900 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900"
                       >
                         {f.nome}
                       </button>
@@ -112,7 +112,12 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
                   </th>
                   <td className="px-1 py-1 sm:px-2">
                     {l ? (
-                      <span style={{ color: corCandidato(l.numero) }} className="font-semibold">
+                      <span className="inline-flex items-start gap-1 text-gray-900">
+                        <span
+                          className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+                          style={{ backgroundColor: corCandidato(l.numero) }}
+                          aria-hidden="true"
+                        />
                         {nome(l.numero)}
                       </span>
                     ) : (
@@ -132,7 +137,7 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
                     {formatarNumero(f.totais.comparecimento)}
                   </td>
                   <td className="hidden px-1 py-1 sm:px-2 text-right tabular-nums sm:table-cell">
-                    {f.apuracao ? formatarPct(f.apuracao.pct_secoes_totalizadas) : <abbr title="Resultado consolidado do TSE">final</abbr>}
+                    {f.apuracao ? formatarPct(f.apuracao.pct_secoes_totalizadas) : <abbr title="Resultado consolidado do TSE" className="no-underline">final</abbr>}
                   </td>
                 </tr>
               );

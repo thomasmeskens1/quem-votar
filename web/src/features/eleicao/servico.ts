@@ -47,7 +47,7 @@ export async function obterResultado(
         avisos: [...(e.avisos ?? []), "TSE indisponível no momento; exibindo arquivo oficial consolidado."],
       };
     }
-    const motivo = erro instanceof Error ? erro.message : String(erro);
-    throw new SemDados(`Não foi possível obter os dados do TSE (${motivo})`, turno === 2);
+    console.warn("[eleicao] TSE indisponível:", erro instanceof Error ? erro.message : erro);
+    throw new SemDados("Não foi possível obter os dados do TSE no momento. Nova tentativa em instantes.", turno === 2);
   }
 }

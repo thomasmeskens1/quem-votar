@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import type { Argumento, CandidatoId } from "@/types";
 import { pdfPagina } from "@/lib/candidatos";
 import type { EstadoCarga, MapaPropostas } from "@/lib/cliente/sobDemanda";
+import { legivel } from "@/lib/texto";
 
 /** Mensagens de carregamento/erro de um bloco sob demanda (anunciadas por leitores de tela). */
 export function EstadoBloco({
@@ -52,22 +53,26 @@ export function DetalhesSobDemanda({
         if (e.currentTarget.open) aoAbrir();
       }}
     >
-      <summary className="lk sum">{resumo}</summary>
+      <summary>{resumo}</summary>
       {children}
     </details>
   );
 }
 
-/** Referência curta a um item do plano (id + página, link para o PDF). */
+/** Referência curta a um item do plano ("p. 15", link para o PDF); o id não é exibido. */
 export function RefCliente({ id, c, mapa }: { id: string; c: CandidatoId; mapa: MapaPropostas }) {
   const it = mapa[id];
-  if (!it) return <span className="chip font-mono">{id}</span>;
+  if (!it) return <span className="chip">proposta do plano</span>;
   return (
-    <a href={pdfPagina(c, it.p)} target="_blank" rel="noopener noreferrer" title={it.r} className="chip lk">
-      <span className="font-mono">{id}</span> p. {it.p}
-      <span className="sr-only"> (PDF do plano de governo, abre em nova aba)</span>
+    <a href={pdfPagina(c, it.p)} title={it.r} className="chip lk" aria-label={`Plano de governo, página ${it.p}`}>
+      p. {it.p}
     </a>
   );
+}
+
+/** Texto sem ids técnicos, com ids de propostas convertidos em página do plano. */
+export function textoCliente(t: string, mapa: MapaPropostas): string {
+  return legivel(t, { proposta: (id) => (mapa[id] ? `proposta da p. ${mapa[id].p}` : null) });
 }
 
 /** Argumento de um viés com as citações literais e as páginas do plano. */
@@ -81,10 +86,15 @@ export function ArgumentoCliente({
   mapa: MapaPropostas;
 }) {
   const citados = new Set(argumento.citacoes.map((ci) => ci.proposta_id));
-  const outros = argumento.proposta_ids.filter((id) => !citados.has(id));
+  const paginas = new Set<number>();
+  const outros = argumento.proposta_ids.filter((id) => {
+    if (citados.has(id) || !mapa[id] || paginas.has(mapa[id].p)) return false;
+    paginas.add(mapa[id].p);
+    return true;
+  });
   return (
     <div className="text-sm text-gray-900">
-      <p>{argumento.argumento}</p>
+      <p>{textoCliente(argumento.argumento, mapa)}</p>
       {argumento.citacoes.length ? (
         <ul className="mt-1 space-y-1">
           {argumento.citacoes.map((ci, i) => (
@@ -96,7 +106,7 @@ export function ArgumentoCliente({
       ) : null}
       {outros.length ? (
         <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-gray-700">
-          Também citadas:
+          Também citadas (página do plano):
           {outros.map((id) => (
             <RefCliente key={id} id={id} c={c} mapa={mapa} />
           ))}

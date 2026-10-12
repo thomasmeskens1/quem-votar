@@ -3,6 +3,7 @@ import { formatarData } from "@/lib/rotulos";
 import { DetalhesProcesso } from "../sobDemanda/DetalhesProcesso";
 import { StatusChip } from "../StatusChip";
 import { AvisoReportagem, FontesRh } from "./FontesRh";
+import { textoLegivel } from "@/lib/data/texto";
 
 export interface ProcessoCardProps {
   processo: Processo;
@@ -21,13 +22,13 @@ export interface ProcessoCardProps {
 export function ProcessoCard({ processo: p, fontes, candidato, secao, indice }: ProcessoCardProps) {
   return (
     <article className="cartao">
-      <h4 className="font-semibold text-gray-900">{p.titulo}</h4>
+      <h4 className="font-semibold text-gray-900">{textoLegivel(p.titulo)}</h4>
       <p className="mt-1">
-        <span className="rot">Órgão:</span> {p.orgao}
+        <span className="rot">Órgão:</span> {textoLegivel(p.orgao)}
         {p.numero_processo ? (
           <>
             {" · "}
-            <span className="rot">Número:</span> <span className="break-all font-mono text-xs">{p.numero_processo}</span>
+            <span className="rot">Número:</span> <span className="break-all">{p.numero_processo}</span>
           </>
         ) : null}
       </p>
@@ -41,10 +42,10 @@ export function ProcessoCard({ processo: p, fontes, candidato, secao, indice }: 
       </p>
       {p.status_descricao_fonte ? (
         <p className="meta mt-1">
-          Texto da fonte: <q className="italic">{p.status_descricao_fonte}</q>
+          Texto da fonte: <q className="italic">{textoLegivel(p.status_descricao_fonte)}</q>
         </p>
       ) : null}
-      <p className="mt-2 text-gray-900">{p.descricao}</p>
+      <p className="mt-2 text-gray-900">{textoLegivel(p.descricao)}</p>
 
       {p.ultimo_status_oficial ? (
         <div className="caixa mt-2 bg-gray-50">
@@ -62,7 +63,7 @@ export function ProcessoCard({ processo: p, fontes, candidato, secao, indice }: 
           <p className="fila meta font-semibold">
             Desfecho noticiado <AvisoReportagem />
           </p>
-          <p className="mt-1">{p.desfecho_noticiado.resumo}</p>
+          <p className="mt-1">{textoLegivel(p.desfecho_noticiado.resumo)}</p>
           <FontesRh ids={p.desfecho_noticiado.fonte_ids} fontes={fontes} />
         </div>
       ) : null}

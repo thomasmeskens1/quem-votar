@@ -1,5 +1,6 @@
+import path from "node:path";
 import type { Vies } from "@/types";
-import { existeJson, lerJson } from "./ler";
+import { lerJsonOpcional } from "./ler";
 
 export interface ItemAgendaDef {
   id: string;
@@ -17,7 +18,7 @@ export interface AgendaArquivo {
 
 /** Lista comum de agenda (content/agenda.json, extraída pelo sync-data). */
 export function getAgenda(): AgendaArquivo | null {
-  return existeJson("agenda.json") ? lerJson<AgendaArquivo>("agenda.json") : null;
+  return lerJsonOpcional<AgendaArquivo>(path.join(process.cwd(), "content", "agenda.json"));
 }
 
 export function criterioAgenda(id: string): string | undefined {

@@ -4,6 +4,8 @@ import { CandidatoBadge } from "../CandidatoBadge";
 import { StatusChip } from "../StatusChip";
 import { ViesTag } from "../ViesTag";
 import { PropostaRefs } from "../conteudo/PropostaRef";
+import { textoLegivel } from "@/lib/data/texto";
+import { capitalizar } from "@/lib/texto";
 
 export interface LinhaAgenda {
   id: string;
@@ -20,7 +22,7 @@ export interface AgendaTabelaProps {
 }
 
 /**
- * Lista comum de itens de agenda (diretriz 12): o mesmo item, com o mesmo
+ * Lista comum de itens de agenda: o mesmo item, com o mesmo
  * critério, aplicado aos dois planos. Em telas largas vira uma grade de 3 colunas.
  */
 export function AgendaTabela({ linhas }: AgendaTabelaProps) {
@@ -32,15 +34,14 @@ export function AgendaTabela({ linhas }: AgendaTabelaProps) {
       {linhas.map((l) => (
         <li key={l.id} className="grid grid-cols-1 gap-3 p-3 md:grid-cols-3">
           <div className="min-w-0">
-            <p className="text-sm font-medium text-gray-900">{l.item}</p>
+            <p className="text-sm font-medium text-gray-900">{capitalizar(textoLegivel(l.item))}</p>
             <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-gray-700">
-              <span className="font-mono">{l.id}</span>
-              <span>· item proposto a partir das prioridades do</span>
+              <span>Item proposto a partir das prioridades do</span>
               <ViesTag vies={l.vies_origem} />
             </div>
             {l.criterio ? (
               <p className="mt-1 text-xs text-gray-700">
-                <span className="font-medium">Critério:</span> {l.criterio}
+                <span className="font-medium">Critério:</span> {textoLegivel(l.criterio)}
               </p>
             ) : null}
           </div>
@@ -52,8 +53,8 @@ export function AgendaTabela({ linhas }: AgendaTabelaProps) {
                   <CandidatoBadge candidato={c} tamanho="sm" />
                   {s ? <StatusChip dominio="agenda" status={s.status} /> : <span className="text-xs text-gray-700">não avaliado</span>}
                 </div>
-                {s?.ids.length ? <PropostaRefs ids={s.ids} rotulo="Base" /> : null}
-                {s?.obs ? <p className="mt-1 text-xs text-gray-700">{s.obs}</p> : null}
+                {s?.ids.length ? <PropostaRefs ids={s.ids} rotulo="Base (página do plano)" /> : null}
+                {s?.obs ? <p className="mt-1 text-xs text-gray-700">{textoLegivel(s.obs)}</p> : null}
               </div>
             );
           })}

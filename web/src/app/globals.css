@@ -4,10 +4,10 @@
   --background: #ffffff;
   --foreground: #111827;
   /* Tokens de candidatos e vieses: ver src/lib/cores.ts */
-  --cor-lula: #5b21b6;
-  --cor-flavio: #0f5f5a;
-  --cor-esquerda: #92400e;
-  --cor-centro: #3f4b5b;
+  --cor-lula: #6d28d9;
+  --cor-flavio: #0369a1;
+  --cor-esquerda: #6b4f3a;
+  --cor-centro: #4b5563;
   --cor-direita: #9d174d;
 }
 
@@ -35,8 +35,51 @@ body {
   outline-offset: 2px;
 }
 
+/*
+ * Dropdowns (<details>/<summary>) em todo o site, inclusive na apuração:
+ * texto na cor padrão, sem sublinhado, seta alinhada e texto que quebra
+ * alinhado após a seta. Regras fora de @layer prevalecem sobre utilitários.
+ */
 details > summary {
-  list-style-position: outside;
+  position: relative;
+  display: block;
+  list-style: none;
+  cursor: pointer;
+  padding-left: 1.25rem;
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::marker {
+  content: "";
+}
+details > summary::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.7em;
+  top: 0.5lh;
+  width: 0;
+  height: 0;
+  border-top: 0.3rem solid transparent;
+  border-bottom: 0.3rem solid transparent;
+  border-left: 0.4rem solid currentColor;
+  transform: translateY(-50%);
+  transition: transform 0.15s;
+}
+details[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+}
+details > summary:hover {
+  color: #000;
+  background-color: #f3f4f6;
+}
+details > summary * {
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Classes curtas para elementos repetidos centenas de vezes (reduz o HTML). */
@@ -85,14 +128,14 @@ details > summary {
     font-weight: 600;
   }
   .st-positivo {
-    color: #14532d;
-    background: #e8f5ec;
-    border-color: #86c79a;
+    color: #ffffff;
+    background: #374151;
+    border-color: #374151;
   }
   .st-intermediario {
-    color: #713f12;
-    background: #fdf5e1;
-    border-color: #e5c172;
+    color: #1f2937;
+    background: #e5e7eb;
+    border-color: #6b7280;
   }
   .st-neutro {
     color: #374151;
@@ -129,14 +172,14 @@ details > summary {
     font-size: 0.875rem;
   }
   .vt-esquerda {
-    color: #92400e;
-    background: #fdf6e9;
-    border-color: #e0a458;
+    color: #6b4f3a;
+    background: #f6f1ec;
+    border-color: #b89a80;
   }
   .vt-centro {
-    color: #3f4b5b;
-    background: #f1f3f6;
-    border-color: #9aa5b4;
+    color: #4b5563;
+    background: #f3f4f6;
+    border-color: #9ca3af;
   }
   .vt-direita {
     color: #9d174d;
@@ -144,17 +187,29 @@ details > summary {
     border-color: #e889b0;
   }
   .bt-lula {
-    border-top: 4px solid #5b21b6;
+    border-top: 4px solid #6d28d9;
   }
   .bt-flavio {
-    border-top: 4px solid #0f5f5a;
+    border-top: 4px solid #0369a1;
+  }
+  .barra {
+    display: block;
+    height: 0.875rem;
+    min-width: 2px;
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+  .barra-lula {
+    background: #6d28d9;
+  }
+  .barra-flavio {
+    background: #0369a1;
   }
   .bl-esquerda {
-    border-color: #e0a458;
+    border-color: #b89a80;
     border-left-width: 4px;
   }
   .bl-centro {
-    border-color: #9aa5b4;
+    border-color: #9ca3af;
     border-left-width: 4px;
   }
   .bl-direita {
@@ -228,20 +283,20 @@ details > summary {
     color: #fff;
   }
   .cb-lula {
-    color: #5b21b6;
-    background: #f3f0ff;
+    color: #6d28d9;
+    background: #f5f3ff;
     border-color: #a78bfa;
   }
   .cb-lula .cb-n {
-    background: #5b21b6;
+    background: #6d28d9;
   }
   .cb-flavio {
-    color: #0f5f5a;
-    background: #ecfaf8;
-    border-color: #5eb8ae;
+    color: #0369a1;
+    background: #f0f9ff;
+    border-color: #7dd3fc;
   }
   .cb-flavio .cb-n {
-    background: #0f5f5a;
+    background: #0369a1;
   }
   .fontes {
     display: flex;

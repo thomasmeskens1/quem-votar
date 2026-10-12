@@ -1,9 +1,10 @@
 "use client";
 
+import { legivel } from "@/lib/texto";
 import type { CandidatoId, PassoCadeia } from "@/types";
 import { urlPropostas, useSobDemanda, type MapaPropostas } from "@/lib/cliente/sobDemanda";
 import { ROTULO_PASSO, formatarData } from "@/lib/rotulos";
-import { DetalhesSobDemanda, EstadoBloco, RefCliente } from "./Blocos";
+import { DetalhesSobDemanda, EstadoBloco, RefCliente, textoCliente } from "./Blocos";
 
 interface OrigemPublica {
   cadeia: PassoCadeia[];
@@ -38,6 +39,7 @@ export function CadeiaSobDemanda({ candidato: c, tema, cenario, origem, nPassos,
   );
   const o = estado.status === "ok" ? estado.dados[0][cenario]?.[origem] : undefined;
   const cadeia = o?.cadeia ?? [];
+  const txt = (t: string) => (estado.status === "ok" ? textoCliente(t, estado.dados[2]) : legivel(t));
   return (
     <DetalhesSobDemanda
       className="mt-2"
@@ -45,7 +47,7 @@ export function CadeiaSobDemanda({ candidato: c, tema, cenario, origem, nPassos,
       resumo={`Ver a cadeia (${nPassos} passos: proposta → fato oficial → consequência) e a justificativa da confiança`}
     >
       <EstadoBloco estado={estado} tentar={carregar} />
-      {o && titulo && o.to !== titulo ? <p className="meta mt-2">Título original: {o.to}</p> : null}
+      {o && titulo && o.to !== titulo ? <p className="meta mt-2">Título original: {txt(o.to)}</p> : null}
       {estado.status === "ok" ? (
         <ol className="mt-2 space-y-1.5" aria-label="Cadeia do cenário">
           {cadeia.map((p, j) => {
@@ -58,7 +60,7 @@ export function CadeiaSobDemanda({ candidato: c, tema, cenario, origem, nPassos,
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-700">
                   {j + 1}. {ROTULO_PASSO[p.passo] ?? p.passo}
                 </p>
-                <p className="mt-1 text-sm text-gray-900">{p.texto}</p>
+                <p className="mt-1 text-sm text-gray-900">{txt(p.texto)}</p>
                 {p.citacao ? (
                   <p className="mt-1 text-xs text-gray-800">
                     <q className="italic">{p.citacao}</q>
@@ -96,7 +98,7 @@ export function CadeiaSobDemanda({ candidato: c, tema, cenario, origem, nPassos,
       ) : null}
       {o ? (
         <p className="meta mt-2">
-          <span className="font-medium">Justificativa da confiança:</span> {o.j}
+          <span className="font-medium">Justificativa da confiança:</span> {txt(o.j)}
         </p>
       ) : null}
     </DetalhesSobDemanda>

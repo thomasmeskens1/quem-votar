@@ -19,6 +19,7 @@ import { categoriaPorSlug, getCategorias } from "@/lib/data/categorias";
 import { criterioAgenda } from "@/lib/data/agenda";
 import { getAnaliseRp, getCategoriaRp } from "@/lib/data/rp";
 import { slugify } from "@/lib/slug";
+import { textoLegivel } from "@/lib/data/texto";
 
 export function generateStaticParams() {
   return getCategorias().map((c) => ({ categoria: slugify(c.nome) }));
@@ -123,7 +124,7 @@ export default async function CategoriaPage({ params }: PageProps<"/comparativo/
           <Secao
             id="leituras"
             titulo="Leituras por viés"
-            descricao="Cada viés apenas interpreta os trechos citados do plano; nenhum acrescenta fatos (diretriz 9). As três leituras aparecem lado a lado."
+            descricao="Cada viés apenas interpreta os trechos citados do plano; nenhum acrescenta fatos. As três leituras aparecem lado a lado."
           >
             <div className="space-y-6">
               {ORDEM_CANDIDATOS.map((c) => {
@@ -186,7 +187,7 @@ export default async function CategoriaPage({ params }: PageProps<"/comparativo/
             {rp.observacao_simetria ? (
               <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-xs text-gray-800">
                 <span className="font-semibold">Nota de simetria da síntese:</span>{" "}
-                {rp.observacao_simetria}
+                {textoLegivel(rp.observacao_simetria)}
               </p>
             ) : null}
           </Secao>
@@ -194,7 +195,7 @@ export default async function CategoriaPage({ params }: PageProps<"/comparativo/
           <Secao
             id="agenda"
             titulo="Lista comum de itens de agenda"
-            descricao="O que cada plano traz ou não traz é apresentado somente por esta lista comum, com itens derivados igualmente das prioridades dos três vieses e aplicados da mesma forma aos dois candidatos (diretriz 12)."
+            descricao="O que cada plano traz ou não traz é apresentado somente por esta lista comum, com itens derivados igualmente das prioridades dos três vieses e aplicados da mesma forma aos dois candidatos."
           >
             <AgendaTabela linhas={[...agenda.values()]} />
           </Secao>

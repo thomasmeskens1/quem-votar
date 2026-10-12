@@ -58,7 +58,7 @@
     },
     {
       "id": "rh-flavio-f7",
-      "titulo": "Dados abertos TSE - Candidatos 2026 (consulta_cand_2026, arquivo BR, gerado em 11/10/2026)",
+      "titulo": "TSE — Dados abertos: candidaturas 2026 (arquivo de candidatos, BR)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
       "tipo": "oficial",
@@ -67,7 +67,7 @@
     },
     {
       "id": "rh-flavio-f8",
-      "titulo": "Dados abertos TSE - Bens de candidatos 2026 (bem_candidato_2026, arquivo BR)",
+      "titulo": "TSE — Dados abertos: bens declarados por candidatos, 2026 (BR)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/bem_candidato/bem_candidato_2026.zip",
       "tipo": "oficial",
@@ -76,7 +76,7 @@
     },
     {
       "id": "rh-flavio-f9",
-      "titulo": "Dados abertos TSE - Candidatos 2002 (consulta_cand_2002, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2002 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2002.zip",
       "tipo": "oficial",
@@ -85,7 +85,7 @@
     },
     {
       "id": "rh-flavio-f10",
-      "titulo": "Dados abertos TSE - Candidatos 2006 (consulta_cand_2006, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2006 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2006.zip",
       "tipo": "oficial",
@@ -94,7 +94,7 @@
     },
     {
       "id": "rh-flavio-f11",
-      "titulo": "Dados abertos TSE - Candidatos 2010 (consulta_cand_2010, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2010 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2010.zip",
       "tipo": "oficial",
@@ -103,7 +103,7 @@
     },
     {
       "id": "rh-flavio-f12",
-      "titulo": "Dados abertos TSE - Candidatos 2014 (consulta_cand_2014, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2014 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2014.zip",
       "tipo": "oficial",
@@ -112,7 +112,7 @@
     },
     {
       "id": "rh-flavio-f13",
-      "titulo": "Dados abertos TSE - Candidatos 2016 (consulta_cand_2016, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2016 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2016.zip",
       "tipo": "oficial",
@@ -121,7 +121,7 @@
     },
     {
       "id": "rh-flavio-f14",
-      "titulo": "Dados abertos TSE - Candidatos 2018 (consulta_cand_2018, RJ)",
+      "titulo": "TSE — Dados abertos: candidaturas 2018 (arquivo de candidatos, RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2018.zip",
       "tipo": "oficial",
@@ -383,7 +383,7 @@
     },
     {
       "id": "rh-flavio-f43",
-      "titulo": "Dados abertos TSE - Certidões criminais 2026, pacote da UF 'BR' (certidao_criminal_2026_BR.zip; 23 arquivos do SQ_CANDIDATO 280002551544, datados de 10/10/2026)",
+      "titulo": "TSE — Dados abertos: certidões criminais de candidatos, 2026 (pacote BR; 23 arquivos da candidatura 280002551544)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/certidao_criminal/certidao_criminal_2026_BR.zip",
       "tipo": "oficial",
@@ -446,7 +446,7 @@
     },
     {
       "id": "rh-flavio-f55",
-      "titulo": "Dados abertos TSE - Candidatos 2026, dados complementares (consulta_cand_complementar_2026, arquivo BR, gerado em 11/10/2026)",
+      "titulo": "TSE — Dados abertos: candidaturas 2026 (dados complementares, BR)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand_complementar/consulta_cand_complementar_2026.zip",
       "tipo": "oficial",
@@ -464,7 +464,7 @@
     },
     {
       "id": "rh-flavio-f57",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2002 (votacao_candidato_munzona_2002, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2002 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2002.zip",
       "tipo": "oficial",
@@ -473,7 +473,7 @@
     },
     {
       "id": "rh-flavio-f58",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2006 (votacao_candidato_munzona_2006, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2006 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2006.zip",
       "tipo": "oficial",
@@ -482,7 +482,7 @@
     },
     {
       "id": "rh-flavio-f59",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2010 (votacao_candidato_munzona_2010, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2010 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2010.zip",
       "tipo": "oficial",
@@ -491,7 +491,7 @@
     },
     {
       "id": "rh-flavio-f60",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2014 (votacao_candidato_munzona_2014, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2014 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2014.zip",
       "tipo": "oficial",
@@ -500,7 +500,7 @@
     },
     {
       "id": "rh-flavio-f61",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2016 (votacao_candidato_munzona_2016, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2016 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2016.zip",
       "tipo": "oficial",
@@ -509,7 +509,7 @@
     },
     {
       "id": "rh-flavio-f62",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2018 (votacao_candidato_munzona_2018, arquivo RJ)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2018 (RJ)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2018.zip",
       "tipo": "oficial",
@@ -518,7 +518,7 @@
     },
     {
       "id": "rh-flavio-f63",
-      "titulo": "Dados abertos TSE - Votação nominal por município e zona 2026 (votacao_candidato_munzona_2026, arquivo BR)",
+      "titulo": "TSE — Dados abertos: votação por município e zona, 2026 (BR)",
       "orgao_ou_veiculo": "Tribunal Superior Eleitoral",
       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2026.zip",
       "tipo": "oficial",
@@ -861,7 +861,7 @@
         "trecho_fonte": "\"VEÍCULO  2014\";\"133000,00\" / \"QUOTA E QUINHÃO DE CAPITAL\";\"46000,00\" / \"... SOCIEDADE INDIVIDUAL DE ADVOCACIA\";\"10000,00\" / \"QUOTA OU QUINHÃO DE CAPITAL\";\"249,00\""
       },
       {
-        "afirmacao": "Certidões no pacote de dados abertos do TSE (UF 'BR'): existem 23 arquivos PDF para o SQ_CANDIDATO 280002551544 (sufixos 280017104720 a 280017104745), totalizando 43 páginas. Todos são imagens digitalizadas sem camada de texto (extração automática retorna vazio); o conteúdo abaixo foi lido visualmente das imagens. As certidões positivas referem-se a ações cíveis (ver acoes_civeis); as negativas estão em consultas_sem_registro.",
+        "afirmacao": "Certidões no pacote de dados abertos do TSE (unidade 'BR'): existem 23 arquivos PDF vinculados ao número sequencial da candidatura no TSE (280002551544), totalizando 43 páginas. Todos são imagens digitalizadas sem camada de texto (a extração automática retorna vazio); o conteúdo foi lido visualmente das imagens pelo analista. As certidões positivas referem-se a ações cíveis (ver a seção de ações cíveis); as negativas estão na seção de consultas sem registro.",
         "periodo": "2026-07-14 a 2026-07-31",
         "fonte_ids": [
           "rh-flavio-f43"
@@ -877,7 +877,7 @@
         "trecho_fonte": "\"SUPREMO TRIBUNAL FEDERAL\" / \"Superior Tribunal de Justiça\" / \"TRIBUNAL SUPERIOR ELEITORAL\" / \"CONSELHO DA JUSTIÇA FEDERAL\" / \"TRIBUNAL REGIONAL FEDERAL DA 6ª REGIÃO\" / \"SEÇÃO JUDICIÁRIA DO DISTRITO FEDERAL\" / \"PJERJ\" / \"1º Ofício de Registro de Distribuição de Niterói/RJ\" / \"TJDFT\""
       },
       {
-        "afirmacao": "Eleição de 2002, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 31.293 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2002_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS em 259 linhas município/zona do SQ_CANDIDATO 851).",
+        "afirmacao": "Eleição de 2002, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 31.293 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2002, arquivo do RJ), somando os votos nominais de 259 linhas (municípios/zonas) do candidato (número sequencial 851).",
         "periodo": "2002",
         "fonte_ids": [
           "rh-flavio-f57"
@@ -885,7 +885,7 @@
         "trecho_fonte": "SQ_CANDIDATO 851; NR_TURNO 1; DS_SIT_TOT_TURNO \"ELEITO\"; soma QT_VOTOS_NOMINAIS = 31293"
       },
       {
-        "afirmacao": "Eleição de 2006, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 43.099 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2006_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS em 259 linhas município/zona do SQ_CANDIDATO 10354).",
+        "afirmacao": "Eleição de 2006, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 43.099 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2006, arquivo do RJ), somando os votos nominais de 259 linhas (municípios/zonas) do candidato (número sequencial 10354).",
         "periodo": "2006",
         "fonte_ids": [
           "rh-flavio-f58"
@@ -893,7 +893,7 @@
         "trecho_fonte": "SQ_CANDIDATO 10354; NR_TURNO 1; DS_SIT_TOT_TURNO \"ELEITO\"; soma QT_VOTOS_NOMINAIS = 43099"
       },
       {
-        "afirmacao": "Eleição de 2010, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 58.322 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2010_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS em 262 linhas município/zona do SQ_CANDIDATO 190000000070).",
+        "afirmacao": "Eleição de 2010, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 58.322 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2010, arquivo do RJ), somando os votos nominais de 262 linhas (municípios/zonas) do candidato (número sequencial 190000000070).",
         "periodo": "2010",
         "fonte_ids": [
           "rh-flavio-f59"
@@ -901,7 +901,7 @@
         "trecho_fonte": "SQ_CANDIDATO 190000000070; NR_TURNO 1; DS_SIT_TOT_TURNO \"ELEITO\"; soma QT_VOTOS_NOMINAIS = 58322"
       },
       {
-        "afirmacao": "Eleição de 2014, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO POR QP\"; soma de 160.359 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2014_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS em 262 linhas município/zona do SQ_CANDIDATO 190000000095).",
+        "afirmacao": "Eleição de 2014, Deputado estadual (RJ): resultado registrado pelo TSE \"ELEITO POR QP\"; soma de 160.359 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2014, arquivo do RJ), somando os votos nominais de 262 linhas (municípios/zonas) do candidato (número sequencial 190000000095).",
         "periodo": "2014",
         "fonte_ids": [
           "rh-flavio-f60"
@@ -909,7 +909,7 @@
         "trecho_fonte": "SQ_CANDIDATO 190000000095; NR_TURNO 1; DS_SIT_TOT_TURNO \"ELEITO POR QP\"; soma QT_VOTOS_NOMINAIS = 160359"
       },
       {
-        "afirmacao": "Eleição de 2016, Prefeito do Rio de Janeiro: resultado registrado pelo TSE \"NÃO ELEITO\"; soma de 424.307 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2016_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS_VALIDOS em 97 linhas município/zona do SQ_CANDIDATO 190000011736).",
+        "afirmacao": "Eleição de 2016, Prefeito do Rio de Janeiro: resultado registrado pelo TSE \"NÃO ELEITO\"; soma de 424.307 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2016, arquivo do RJ), somando os votos nominais válidos de 97 linhas (municípios/zonas) do candidato (número sequencial 190000011736).",
         "periodo": "2016",
         "fonte_ids": [
           "rh-flavio-f61"
@@ -917,7 +917,7 @@
         "trecho_fonte": "SQ_CANDIDATO 190000011736; NR_TURNO 1; DS_SIT_TOT_TURNO \"NÃO ELEITO\"; soma QT_VOTOS_NOMINAIS_VALIDOS = 424307"
       },
       {
-        "afirmacao": "Eleição de 2018, Senador (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 4.380.418 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2018_RJ.csv (soma da coluna QT_VOTOS_NOMINAIS_VALIDOS em 183 linhas município/zona do SQ_CANDIDATO 190000614721).",
+        "afirmacao": "Eleição de 2018, Senador (RJ): resultado registrado pelo TSE \"ELEITO\"; soma de 4.380.418 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2018, arquivo do RJ), somando os votos nominais válidos de 183 linhas (municípios/zonas) do candidato (número sequencial 190000614721).",
         "periodo": "2018",
         "fonte_ids": [
           "rh-flavio-f62"
@@ -925,7 +925,7 @@
         "trecho_fonte": "SQ_CANDIDATO 190000614721; NR_TURNO 1; DS_SIT_TOT_TURNO \"ELEITO\"; soma QT_VOTOS_NOMINAIS_VALIDOS = 4380418"
       },
       {
-        "afirmacao": "Eleição de 2026, Presidente da República (1º turno): resultado registrado pelo TSE \"2º TURNO\"; soma de 56.104.503 votos (1º turno), calculada a partir do arquivo oficial votacao_candidato_munzona_2026_BR.csv (soma da coluna QT_VOTOS_NOMINAIS_VALIDOS em 6292 linhas município/zona do SQ_CANDIDATO 280002551544).",
+        "afirmacao": "Eleição de 2026, Presidente da República (1º turno): resultado registrado pelo TSE \"2º TURNO\"; soma de 56.104.503 votos (1º turno), calculada pelo analista a partir do arquivo oficial de votação por município e zona do TSE (2026, arquivo nacional), somando os votos nominais válidos de 6292 linhas (municípios/zonas) do candidato (número sequencial 280002551544).",
         "periodo": "2026",
         "fonte_ids": [
           "rh-flavio-f63"
@@ -986,7 +986,7 @@
               "rh-flavio-f34"
             ],
             "status_descricao_fonte": "decisão do STJ que anulou quebras de sigilo",
-            "observacao": "data obtida em reportagem; justificativa do status 'outro': anulação de provas (quebras de sigilo), não do processo"
+            "observacao": "data obtida em reportagem; justificativa do situação classificada como 'outra': anulação de provas (quebras de sigilo), não do processo"
           },
           {
             "status": "outro",
@@ -996,7 +996,7 @@
               "rh-flavio-f20"
             ],
             "status_descricao_fonte": "anulou quatro dos cinco relatórios de inteligência financeira (RIFs) elaborados pelo Conselho de Controle de Atividades Financeiras (COAF) que embasaram a denúncia",
-            "observacao": "justificativa do status 'outro': anulação de provas (RIFs do COAF) em habeas corpus, sem trancamento do processo"
+            "observacao": "justificativa do situação classificada como 'outra': anulação de provas (RIFs do COAF) em habeas corpus, sem trancamento do processo"
           },
           {
             "status": "outro",
@@ -1006,7 +1006,7 @@
               "rh-flavio-f21"
             ],
             "status_descricao_fonte": "Transitado(a) em julgado (HC 201965)",
-            "observacao": "justificativa do status 'outro': trânsito em julgado do HC 201965 (incidente), não do processo principal"
+            "observacao": "justificativa do situação classificada como 'outra': trânsito em julgado do HC 201965 (incidente), não do processo principal"
           },
           {
             "status": "denuncia_rejeitada",
@@ -1063,7 +1063,7 @@
               "rh-flavio-f27"
             ],
             "status_descricao_fonte": "Protocolado - Petição Inicial (nº 28472) recebida em 10/03/2026 (requerente: Delegado de Polícia Federal)",
-            "observacao": "justificativa do status 'outro': pedido de instauração de inquérito protocolado pela Polícia Federal, anterior à instauração"
+            "observacao": "justificativa do situação classificada como 'outra': pedido de instauração de inquérito protocolado pela Polícia Federal, anterior à instauração"
           },
           {
             "status": "investigacao",
@@ -1231,7 +1231,7 @@
       {
         "ultimo_status_oficial": null,
         "desfecho_noticiado": null,
-        "observacao": "justificativa do status 'outro': a certidão informa apenas a distribuição; o andamento e o desfecho não foram verificados",
+        "observacao": "justificativa do situação classificada como 'outra': a certidão informa apenas a distribuição; o andamento e o desfecho não foram verificados",
         "titulo": "Procedimentos comuns cíveis no TJDFT (2025-2026)",
         "descricao": "Certidão positiva de distribuição especial do TJDFT (14/07/2026) lista dois procedimentos comuns cíveis com o nome do candidato: 0758916-40.2025.8.07.0001 (7ª Vara Cível de Brasília) e 0713453-41.2026.8.07.0001 (22ª Vara Cível de Brasília). A certidão registra para o primeiro a data de distribuição 08/04/2026, embora o número tenha ano 2025; a certidão não explica a diferença (pode tratar-se de redistribuição, não verificada). A certidão não informa o objeto, o polo ocupado pelo candidato nem o andamento.",
         "orgao": "Tribunal de Justiça do Distrito Federal e dos Territórios",
@@ -1248,7 +1248,7 @@
               "rh-flavio-f43"
             ],
             "status_descricao_fonte": "distribuído para 22ª VARA CÍVEL DE BRASÍLIA em 16/03/2026",
-            "observacao": "justificativa do status 'outro': registro de distribuição, sem informação de andamento"
+            "observacao": "justificativa do situação classificada como 'outra': registro de distribuição, sem informação de andamento"
           },
           {
             "status": "outro",
@@ -1258,7 +1258,7 @@
               "rh-flavio-f43"
             ],
             "status_descricao_fonte": "distribuído para 7ª VARA CÍVEL DE BRASÍLIA em 08/04/2026",
-            "observacao": "justificativa do status 'outro': registro de distribuição, sem informação de andamento; numeração com ano 2025 e distribuição registrada em 08/04/2026 (diferença não explicada na certidão)"
+            "observacao": "justificativa do situação classificada como 'outra': registro de distribuição, sem informação de andamento; numeração com ano 2025 e distribuição registrada em 08/04/2026 (diferença não explicada na certidão)"
           }
         ],
         "fonte_ids": [
@@ -1353,7 +1353,7 @@
         "consulta": "Certidões judiciais para fins eleitorais da Justiça Federal (TRF1 2º grau; TRF6; SJMG; CJF para TRF2 a TRF5)",
         "orgao": "Conselho da Justiça Federal / TRF1 / TRF6 / SJMG",
         "data_consulta": "2026-07-14 a 2026-07-21",
-        "resultado": "Não constam processos com potencial de gerar inelegibilidade (a certidão do TRF1 1º grau é positiva; ver declaracoes_tse)",
+        "resultado": "Não constam processos com potencial de gerar inelegibilidade (a certidão do TRF1 1º grau é positiva; ver a seção de declarações ao TSE)",
         "fonte_ids": [
           "rh-flavio-f43"
         ],
@@ -1450,7 +1450,7 @@
     "lacunas": [
       {
         "tema": "Data do julgamento do registro de candidatura 2026",
-        "motivo": "O DivulgaCandContas (TSE) retornou 'Access Denied' (HTTP 403, bloqueio Akamai); a situação 'DEFERIDO' e o número do processo vêm do arquivo consulta_cand_complementar_2026, que traz só a data de aceite (13/08/2026), não a do julgamento."
+        "motivo": "O DivulgaCandContas (TSE) retornou 'Access Denied' (HTTP 403, bloqueio Akamai); a situação 'DEFERIDO' e o número do processo vêm do arquivo de dados complementares de candidaturas 2026 do TSE, que traz só a data de aceite (13/08/2026), não a do julgamento."
       },
       {
         "tema": "Andamento da denúncia rejeitada após 16/05/2022",
@@ -1510,7 +1510,7 @@
       },
       {
         "tema": "Consulta online de sanções na CGU",
-        "motivo": "A API do Portal da Transparência (api.portaldatransparencia.gov.br/api-de-dados/ceis) retornou HTTP 401 (exige chave de acesso) e a consulta web de sanções retornou HTTP 202 sem resultados, com verificação anti-robô; a verificação foi feita nos arquivos de download de 10/10/2026 (ver consultas_sem_registro)."
+        "motivo": "A API do Portal da Transparência (api.portaldatransparencia.gov.br/api-de-dados/ceis) retornou HTTP 401 (exige chave de acesso) e a consulta web de sanções retornou HTTP 202 sem resultados, com verificação anti-robô; a verificação foi feita nos arquivos de download de 10/10/2026 (ver a seção de consultas sem registro)."
       },
       {
         "tema": "Consulta da ação popular 1069797-65.2020.4.01.3400 no TRF1",

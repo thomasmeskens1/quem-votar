@@ -1,5 +1,6 @@
 "use client";
 
+import { legivel } from "@/lib/texto";
 import type { CandidatoId } from "@/types";
 import { urlRh, useSobDemanda, type FontePublica, type RhPublico } from "@/lib/cliente/sobDemanda";
 import { AVISO_REPORTAGEM, ROTULO_ORIGEM, formatarData } from "@/lib/rotulos";
@@ -60,22 +61,22 @@ export function DetalhesProcesso({ candidato, secao, indice, nHistorico }: Detal
                 </div>
                 {h.status_descricao_fonte ? (
                   <p className="text-xs text-gray-800">
-                    Texto da fonte: <q className="italic">{h.status_descricao_fonte}</q>
+                    Texto da fonte: <q className="italic">{legivel(h.status_descricao_fonte)}</q>
                   </p>
                 ) : null}
-                {h.observacao ? <p className="text-xs text-gray-700">{h.observacao}</p> : null}
+                {h.observacao ? <p className="text-xs text-gray-700">{legivel(h.observacao)}</p> : null}
                 <Fontes ids={h.fonte_ids} fontes={fontes} />
               </li>
             ))}
           </ol>
           {d.trecho_fonte ? (
             <p className="text-xs text-gray-800">
-              <span className="font-medium">Trecho das fontes:</span> <q className="italic">{d.trecho_fonte}</q>
+              <span className="font-medium">Trecho das fontes:</span> <q className="italic">{legivel(d.trecho_fonte)}</q>
             </p>
           ) : null}
           {d.observacao ? (
             <p className="text-xs text-gray-700">
-              <span className="font-medium">Observação:</span> {d.observacao}
+              <span className="font-medium">Observação:</span> {legivel(d.observacao)}
             </p>
           ) : null}
         </div>

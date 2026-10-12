@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CandidatoBadge } from "@/components/CandidatoBadge";
-import { Legendas } from "@/components/Legenda";
+import { LegendaCandidatos } from "@/components/Legenda";
 import { StatusChip } from "@/components/StatusChip";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getCategorias } from "@/lib/data/categorias";
-import { getCategoriaRp } from "@/lib/data/rp";
+import { contagemPorCategoria, rotuloQuantidade } from "@/lib/data/contagem";
 import { slugify } from "@/lib/slug";
 
 export const metadata: Metadata = {
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 
 export default function ComparativoIndex() {
   const categorias = getCategorias();
+  const contagens = Object.fromEntries(ORDEM_CANDIDATOS.map((c) => [c, contagemPorCategoria(c)]));
   return (
     <div className="space-y-6">
       <header>
@@ -26,10 +27,11 @@ export default function ComparativoIndex() {
           lista comum de itens de agenda.
         </p>
       </header>
-      <Legendas />
+      <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
+        <LegendaCandidatos />
+      </div>
       <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {categorias.map((cat) => {
-          const rp = getCategoriaRp(cat.nome);
           return (
             <li key={cat.nome}>
               <Link
@@ -42,14 +44,20 @@ export default function ComparativoIndex() {
                 </span>
                 <span className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {ORDEM_CANDIDATOS.map((c) => {
-                    const p = rp?.por_candidato[c];
+                    const k = contagens[c].find((x) => x.categoria === cat.nome);
                     return (
-                      <span key={c} className="flex flex-col items-start gap-1">
+                      <span key={c} className="flex flex-col items-start gap-1.5">
                         <CandidatoBadge candidato={c} tamanho="sm" />
-                        <StatusChip dominio="categoria" status={p?.status ?? "sem_proposta_registrada"} />
-                        <span className="text-xs text-gray-700">
-                          {p?.proposta_ids.length ?? 0} proposta(s) associada(s)
-                        </span>
+                        {!k || k.status === "sem_proposta_registrada" ? (
+                          <StatusChip dominio="categoria" status="sem_proposta_registrada" />
+                        ) : (
+                          <span className="fila">
+                            <span className="st st-neutro">{rotuloQuantidade(k.quantidade)}</span>
+                            {k.status === "apenas_secundaria" ? (
+                              <StatusChip dominio="categoria" status="apenas_secundaria" />
+                            ) : null}
+                          </span>
+                        )}
                       </span>
                     );
                   })}

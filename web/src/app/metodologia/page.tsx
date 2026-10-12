@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CandidatoBadge } from "@/components/CandidatoBadge";
@@ -11,7 +12,9 @@ import { CANDIDATOS, ORDEM_CANDIDATOS, pdfPlano } from "@/lib/candidatos";
 import { CORES_CANDIDATOS, CORES_VIESES, ROTULO_VIES } from "@/lib/cores";
 import { getCategoriasArquivo } from "@/lib/data/categorias";
 import { getAgenda } from "@/lib/data/agenda";
-import { existeJson, lerJson } from "@/lib/data/ler";
+import { textoLegivel } from "@/lib/data/texto";
+import { capitalizar } from "@/lib/texto";
+import { lerJsonOpcional } from "@/lib/data/ler";
 import { getPropostas, getRegistro } from "@/lib/data/propostas";
 import { getDossie } from "@/lib/data/rh";
 import { getContextoRi, getSinteseRi } from "@/lib/data/ri";
@@ -20,7 +23,7 @@ import { formatarData } from "@/lib/rotulos";
 
 export const metadata: Metadata = {
   title: "Metodologia",
-  description: "Fontes, funcionamento dos agentes, critérios de neutralidade, lacunas e atualização.",
+  description: "Fontes, método de análise, critérios de neutralidade, lacunas e atualização.",
 };
 
 const NEUTRALIDADE = [
@@ -36,19 +39,48 @@ const NEUTRALIDADE = [
   "A interface usa a mesma estrutura, tamanho e destaque para os dois candidatos em todas as telas e não usa linguagem valorativa.",
 ];
 
-const AGENTES = [
-  ["Extração de propostas", "Lê o PDF de cada plano página a página, registra cada item (princípio, diagnóstico ou proposta) com trecho literal, página e resumo neutro, e o classifica nas 16 categorias com critérios comuns."],
-  ["Relações Públicas (3 vieses + síntese)", "Três analistas — de esquerda, de centro e de direita — apontam pontos a favor e ressalvas de cada categoria, sempre citando trechos literais. O sintetizador reúne consensos, divergências e o comparativo, sem criar argumentos novos."],
-  ["Relações Internacionais (3 vieses + contexto + síntese)", "Um agente de contexto reúne fatos geopolíticos e de comércio exterior de fontes oficiais. Os três analistas interpretam as propostas com impacto internacional e constroem cenários ligando proposta citada → fato oficial → consequência, com horizonte e confiança. O sintetizador agrupa tudo em temas comuns."],
-  ["Recursos Humanos (sem viés)", "Reúne formação, trajetória, cargos, declarações ao TSE, processos, ações e consultas de cada candidato a partir de fontes oficiais, registrando lacunas e marcando reportagens."],
-  ["Revisão", "Auditorias conferem fontes, linguagem, simetria de tratamento e a lista comum de agenda antes da publicação. As citações são conferidas por script como trechos literais dos planos."],
+const METODO = [
+  [
+    "1. Leitura dos planos",
+    "Os analistas leem o PDF de cada plano de governo página a página e registram cada item (princípio, diagnóstico ou proposta) com o trecho literal, a página e um resumo neutro. Cada item é classificado nas 16 categorias, com os mesmos critérios para os dois candidatos.",
+  ],
+  [
+    "2. Três leituras por categoria",
+    "Três analistas — com leituras de esquerda, de centro e de direita — apontam pontos a favor e ressalvas de cada categoria, sempre citando trechos literais dos planos. Nenhuma leitura acrescenta fatos que não estejam no plano.",
+  ],
+  [
+    "3. Contexto internacional e cenários",
+    "Para as propostas com impacto internacional, os analistas reúnem fatos de fontes oficiais (comércio exterior, acordos, organismos multilaterais, clima, defesa) e descrevem cenários que ligam a proposta citada a um fato oficial e a uma consequência possível, com horizonte e nível de confiança.",
+  ],
+  [
+    "4. Sínteses",
+    "As três leituras de cada categoria e de cada tema internacional são reunidas em consensos, divergências e um comparativo descritivo entre os planos, sem criar argumentos novos e sem atribuir nota ou vencedor.",
+  ],
+  [
+    "5. Histórico dos candidatos",
+    "Sem viés, os analistas reúnem formação, trajetória, cargos, declarações ao TSE, processos, ações e consultas de cada candidato a partir de fontes oficiais, registrando lacunas e identificando reportagens.",
+  ],
+  [
+    "6. Verificação e auditorias",
+    "Antes da publicação, cada citação é conferida como trecho literal do plano, e auditorias revisam fontes, linguagem, simetria de tratamento entre os candidatos e a lista comum de agenda.",
+  ],
 ];
+
+/** "DEFERIDO (CAMPO_X ...); resultado 1º turno: 2º TURNO (CAMPO_Y)" → texto sem nomes de campo. */
+function situacaoLegivel(t: string): string {
+  return textoLegivel(t.replace(/\b[A-Z0-9]+(?:_[A-Z0-9]+)+\s*=\s*/g, "").replace(/'/g, ""));
+}
+
+/** Método da lista de agenda sem referências a arquivos internos. */
+function metodoLegivel(t: string): string {
+  return textoLegivel(t.replace(/\s+por script/g, ""));
+}
 
 export default function MetodologiaPage() {
   const cats = getCategoriasArquivo();
   const ctx = getContextoRi();
   const agenda = getAgenda();
-  const sync = existeJson("_sync.json") ? lerJson<{ sincronizado_em: string }>("_sync.json") : null;
+  const sync = lerJsonOpcional<{ sincronizado_em: string }>(path.join(process.cwd(), "content", "_sync.json"));
   const datas: [string, string][] = [
     ...ORDEM_CANDIDATOS.map((c): [string, string] => [`Propostas — ${CANDIDATOS[c].nome}`, getPropostas(c).gerado_em]),
     ...ORDEM_CANDIDATOS.flatMap((c) =>
@@ -79,15 +111,15 @@ export default function MetodologiaPage() {
             const r = getRegistro(c);
             return (
               <div className="space-y-3 text-sm">
-                <p className="text-gray-800">Situação: {r.situacao_candidatura}</p>
+                <p className="text-gray-800">Situação da candidatura: {situacaoLegivel(r.situacao_candidatura)}</p>
                 {r.fontes.map((f) => (
                   <div key={f.id} className="space-y-1">
-                    <p className="font-medium text-gray-900">{f.titulo}</p>
+                    <p className="font-medium text-gray-900">{textoLegivel(f.titulo)}</p>
                     <FonteLink href={pdfPlano(c)} tipo="pdf">
                       Baixar PDF ({f.num_paginas} páginas, {(f.tamanho_bytes / 1048576).toFixed(1)} MB)
                     </FonteLink>
                     <p className="text-xs text-gray-800">
-                      SHA-256: <code className="break-all font-mono">{f.sha256}</code>
+                      Código de verificação SHA-256: <span className="break-all">{f.sha256}</span>
                     </p>
                     <p className="text-xs text-gray-700">
                       Órgão: {f.orgao} · coletado em {formatarData(f.data_coleta)}
@@ -98,29 +130,25 @@ export default function MetodologiaPage() {
                     </div>
                   </div>
                 ))}
-                <details>
-                  <summary className="cursor-pointer text-sm font-medium text-blue-800 underline underline-offset-2">
-                    Observações da coleta ({r.observacoes.length})
-                  </summary>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-gray-800">
-                    {r.observacoes.map((o, i) => (
-                      <li key={i}>{o}</li>
-                    ))}
-                  </ul>
-                </details>
+                <p className="text-xs text-gray-800">
+                  O PDF foi obtido no Portal de Dados Abertos do TSE, no arquivo oficial com as
+                  propostas de todos os candidatos a Presidente, porque a página do DivulgaCandContas
+                  não pôde ser acessada no momento da coleta. A correspondência entre o arquivo e o
+                  candidato foi conferida pelo número de identificação do candidato no cadastro do TSE.
+                </p>
               </div>
             );
           }}
         />
         <p className="mt-3 text-sm text-gray-800">
-          Para conferir a integridade, calcule o SHA-256 do PDF baixado (ex.: <code>sha256sum plano-de-governo.pdf</code>)
+          Para conferir a integridade, calcule o SHA-256 do PDF baixado (por exemplo, com o comando sha256sum)
           e compare com o valor acima.
         </p>
       </Secao>
 
-      <Secao id="agentes" titulo="Como os agentes funcionam">
+      <Secao id="metodo" titulo="Como as análises são feitas">
         <ol className="space-y-3">
-          {AGENTES.map(([t, d]) => (
+          {METODO.map(([t, d]) => (
             <li key={t} className="rounded-lg border border-gray-300 bg-white p-3 text-sm">
               <p className="font-semibold text-gray-900">{t}</p>
               <p className="mt-1 text-gray-800">{d}</p>
@@ -147,11 +175,11 @@ export default function MetodologiaPage() {
       <Secao
         id="agenda"
         titulo="Lista comum de itens de agenda"
-        descricao="O que cada plano traz ou não traz é apresentado somente por esta lista, aplicada igualmente aos dois planos (diretriz 12)."
+        descricao="O que cada plano traz ou não traz é apresentado somente por esta lista, aplicada igualmente aos dois planos."
       >
         {agenda ? (
           <div className="space-y-3 text-sm">
-            {agenda.metodo ? <p className="text-gray-800">{agenda.metodo}</p> : null}
+            {agenda.metodo ? <p className="text-gray-800">{metodoLegivel(agenda.metodo)}</p> : null}
             <p className="text-xs text-gray-700">
               Versão {agenda.versao ?? "—"} · {agenda.checklist.length} itens. Status: presente (o critério é
               atendido), parcial (o tema é tratado, mas falta o elemento exigido pelo critério) ou ausente
@@ -161,9 +189,9 @@ export default function MetodologiaPage() {
               {agenda.checklist.map((i) => (
                 <li key={i.id} className="grid grid-cols-1 gap-1 p-3 md:grid-cols-[14rem_1fr]">
                   <div className="min-w-0">
-                    <p className="font-medium text-gray-900">{i.item}</p>
+                    <p className="font-medium text-gray-900">{capitalizar(i.item)}</p>
                     <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-gray-700">
-                      <span className="font-mono">{i.id}</span> · {i.categoria} <ViesTag vies={i.vies_origem} />
+                      {i.categoria} · proposto a partir do <ViesTag vies={i.vies_origem} />
                     </p>
                   </div>
                   <p className="min-w-0 text-gray-800">
@@ -208,17 +236,12 @@ export default function MetodologiaPage() {
               const p = getPropostas(c);
               return (
                 <div>
-                  <p className="font-medium text-gray-900">Extração do plano</p>
+                  <p className="font-medium text-gray-900">Leitura do plano</p>
                   <p className="text-xs text-gray-700">
                     {p.cobertura.paginas_processadas.length} de {p.cobertura.total_paginas} páginas
-                    processadas; páginas sem texto extraível: {p.cobertura.paginas_sem_texto.join(", ") || "nenhuma"}.
+                    lidas; páginas só com imagem, sem texto: {p.cobertura.paginas_sem_texto.join(", ") || "nenhuma"}.
                   </p>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-gray-800">
-                    {p.cobertura.observacoes.map((o, i) => (
-                      <li key={i}>{o}</li>
-                    ))}
-                  </ul>
-                  <Link href={`/candidatos/${c}#lacunas`} className="mt-2 inline-block text-blue-800 underline underline-offset-2">
+                  <Link href={`/candidatos/${c}#lacunas`} className="lk mt-2 inline-block">
                     Lacunas do dossiê
                   </Link>
                 </div>
@@ -230,12 +253,12 @@ export default function MetodologiaPage() {
             <ul className="mt-2 space-y-1 text-xs text-gray-800">
               {(ctx.secoes.lacunas ?? []).map((l) => (
                 <li key={l.id}>
-                  <span className="font-medium">{l.tema}:</span> {l.motivo}
+                  <span className="font-medium">{textoLegivel(l.tema)}:</span> {textoLegivel(l.motivo)}
                 </li>
               ))}
             </ul>
             <details className="mt-3">
-              <summary className="cursor-pointer text-sm font-medium text-blue-800 underline underline-offset-2">
+              <summary>
                 Fontes oficiais do contexto internacional ({ctx.fontes.length})
               </summary>
               <ul className="mt-2 space-y-1">

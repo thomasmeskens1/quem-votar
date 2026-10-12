@@ -7,6 +7,7 @@ import { Secao } from "@/components/Secao";
 import { CANDIDATOS, ORDEM_CANDIDATOS, isCandidatoId } from "@/lib/candidatos";
 import { fontesRhPorId, getDossie } from "@/lib/data/rh";
 import { formatarData } from "@/lib/rotulos";
+import { textoLegivel } from "@/lib/data/texto";
 
 export function generateStaticParams() {
   return ORDEM_CANDIDATOS.map((slug) => ({ slug }));
@@ -40,10 +41,10 @@ export default async function CandidatoPage({ params }: PageProps<"/candidatos/[
           <ul className="space-y-3">
             {s.cargos_e_mandatos.map((c, i) => (
               <li key={i} className="cartao">
-                <p className="font-semibold text-gray-900">{c.cargo}</p>
+                <p className="font-semibold text-gray-900">{textoLegivel(c.cargo)}</p>
                 <p className="meta">
                   {formatarData(c.inicio)} — {c.fim ? formatarData(c.fim) : "em exercício ou sem data de término"} ·{" "}
-                  {c.como_obteve}
+                  {textoLegivel(c.como_obteve)}
                 </p>
                 <FontesRh ids={c.fonte_ids} fontes={fontes} />
               </li>
@@ -68,9 +69,9 @@ export default async function CandidatoPage({ params }: PageProps<"/candidatos/[
           <ul className="space-y-3">
             {s.consultas_sem_registro.map((c, i) => (
               <li key={i} className="cartao">
-                <p className="font-medium text-gray-900">{c.consulta}</p>
+                <p className="font-medium text-gray-900">{textoLegivel(c.consulta)}</p>
                 <p className="meta">
-                  {c.orgao} · consulta: {formatarData(c.data_consulta)} · resultado: {c.resultado}
+                  {textoLegivel(c.orgao)} · consulta: {formatarData(c.data_consulta)} · resultado: {textoLegivel(c.resultado)}
                 </p>
                 <FontesRh ids={c.fonte_ids} fontes={fontes} />
               </li>
@@ -89,8 +90,8 @@ export default async function CandidatoPage({ params }: PageProps<"/candidatos/[
           <ul className="space-y-2">
             {s.lacunas.map((l, i) => (
               <li key={i} className="caixa bg-gray-50 text-sm">
-                <p className="font-medium text-gray-900">{l.tema}</p>
-                <p className="text-gray-800">{l.motivo}</p>
+                <p className="font-medium text-gray-900">{textoLegivel(l.tema)}</p>
+                <p className="text-gray-800">{textoLegivel(l.motivo)}</p>
               </li>
             ))}
           </ul>

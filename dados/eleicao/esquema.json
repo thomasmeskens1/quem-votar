@@ -5,6 +5,7 @@
     "dados/eleicao/2026/<turno>/uf/<UF>.json": "Uma UF com todos os seus municípios (27 arquivos)",
     "dados/eleicao/2026/<turno>/exterior.json": "Votos no exterior por país e cidade",
     "dados/eleicao/2026/<turno>/candidatos.json": "Lista de candidatos do turno (número, nome, partido, cor)",
+    "dados/eleicao/2026/<turno>/locais/<UF>/<cod_tse>.json": "Locais de votação (colégios eleitorais) de um município, com coordenadas e resultado agregado das seções de cada local. Formato: {eleicao, turno, uf, cod_tse, cod_ibge, nome, gerado_em, fonte, locais:[{nr_zona, nr_local, nome, endereco, bairro, lat, lon, secoes, totais:{...mesmo formato de totais}, candidatos:[{numero, votos}]}], sem_coordenadas:[ids dos locais sem lat/lon]}. Compactação: 'fonte' e 'notas' ficam uma única vez em locais/fonte.json (cada arquivo de município traz só gerado_em); candidatos com 0 voto são omitidos em cada local (ausência = 0); lat/lon com 5 casas decimais. Campos opcionais por local: fora_do_municipio (true quando a coordenada do TSE cai fora do contorno do município) e coordenadas_tse_fora_do_brasil (valor original quando inválido; nesse caso lat/lon = null).",
     "<turno>": "1turno | 2turno"
   },
   "_regras": [

@@ -9,6 +9,7 @@ import { VIESES_ORDEM } from "@/types/comum";
 import { ViesTag } from "../ViesTag";
 import { PropostaRefs } from "../conteudo/PropostaRef";
 import { OrigensSobDemanda } from "../sobDemanda/ArgumentosSobDemanda";
+import { textoLegivel } from "@/lib/data/texto";
 
 export interface ConsensoDivergenciasProps {
   consenso: PontoConsenso[];
@@ -51,7 +52,7 @@ export function ConsensoDivergencias({
                 <span className="chip mr-1 font-semibold">
                   {TIPO[p.tipo]}
                 </span>
-                {p.ponto}
+                {textoLegivel(p.ponto)}
                 <PropostaRefs ids={p.proposta_ids} />
                 <OrigensSobDemanda refs={enxugar(p.refs)} {...ctx} />
               </li>
@@ -70,7 +71,7 @@ export function ConsensoDivergencias({
                 <span className="chip mr-1 font-semibold">
                   {TIPO[p.tipo]}
                 </span>
-                {p.ponto}
+                {textoLegivel(p.ponto)}
                 <div className="mt-1 flex flex-wrap gap-1">
                   {p.vieses.map((v) => (
                     <ViesTag key={v} vies={v} />
@@ -89,7 +90,7 @@ export function ConsensoDivergencias({
           <ul className="mt-2 space-y-4">
             {divergencias.map((d, i) => (
               <li key={i}>
-                <p className="font-medium text-gray-900">{d.ponto}</p>
+                <p className="font-medium text-gray-900">{textoLegivel(d.ponto)}</p>
                 {d.proposta_ids?.length ? <PropostaRefs ids={d.proposta_ids} /> : null}
                 <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-3">
                   {VIESES_ORDEM.map((v) => {
@@ -99,7 +100,7 @@ export function ConsensoDivergencias({
                         <ViesTag vies={v} />
                         {pos ? (
                           <>
-                            <p className="mt-1">{pos.posicao}</p>
+                            <p className="mt-1">{textoLegivel(pos.posicao)}</p>
                             <OrigensSobDemanda refs={enxugar(pos.refs)} {...ctx} />
                           </>
                         ) : (

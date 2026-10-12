@@ -5,3 +5,5 @@ export * from "./rp";
 export * from "./ri";
 export * from "./rh";
 export * from "./agenda";
+export * from "./texto";
+export * from "./contagem";

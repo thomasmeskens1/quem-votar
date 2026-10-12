@@ -5,8 +5,8 @@
  */
 import { CORES_CANDIDATOS } from "@/lib/cores";
 
-/** Cor única (cinza) para os demais candidatos do 1º turno. */
-export const COR_OUTROS = "#6b7280";
+/** Cor única (cinza-escuro, distinta do cinza "sem dados") para os demais candidatos do 1º turno. */
+export const COR_OUTROS = "#4b5563";
 
 export const NUMERO_LULA = 13;
 export const NUMERO_FLAVIO = 22;

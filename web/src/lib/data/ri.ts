@@ -1,3 +1,4 @@
+import path from "node:path";
 import type {
   AnaliseRiArquivo,
   Argumento,
@@ -14,7 +15,7 @@ import { slugify } from "@/lib/slug";
 import { lerJson } from "./ler";
 
 export function getSinteseRi(): SinteseRiArquivo {
-  return lerJson<SinteseRiArquivo>("ri/sintese.json");
+  return lerJson<SinteseRiArquivo>(path.join(process.cwd(), "content", "ri", "sintese.json"));
 }
 
 export function getTemasRi(): TemaRi[] {
@@ -26,7 +27,7 @@ export function temaRiPorSlug(slug: string): TemaRi | null {
 }
 
 export function getAnaliseRiArquivo(vies: Vies, c: CandidatoId): AnaliseRiArquivo {
-  return lerJson<AnaliseRiArquivo>(`ri/${vies}/${c}.json`);
+  return lerJson<AnaliseRiArquivo>(path.join(process.cwd(), "content", "ri", vies, `${c}.json`));
 }
 
 /** Resolve uma referência da síntese de RI (vies + indice_analise + lista + indice). */
@@ -37,7 +38,7 @@ export function resolverRefRi(c: CandidatoId, ref: RefArgumento): Argumento | nu
 }
 
 export function getContextoRi(): ContextoRiArquivo {
-  return lerJson<ContextoRiArquivo>("ri/contexto.json");
+  return lerJson<ContextoRiArquivo>(path.join(process.cwd(), "content", "ri", "contexto.json"));
 }
 
 let indiceCtx: Map<string, ItemContexto> | null = null;

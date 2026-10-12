@@ -50,11 +50,11 @@ interface ExteriorJson extends ArquivoBase {
   lacunas?: Array<{ cod_tse: string; nome?: string; motivo?: string }>;
 }
 
-async function lerJson<T>(relativo: string): Promise<T | null> {
-  // Caminho estaticamente limitado a content/eleicao (evita rastrear o projeto todo no build).
+// Cada caminho é escrito por extenso (só turno e UF variam), para o build rastrear
+// apenas esses arquivos e não a pasta de locais de votação inteira.
+async function lerJson<T>(arquivo: string): Promise<T | null> {
   try {
-    const txt = await readFile(path.join(process.cwd(), "content", "eleicao", "2026", relativo), "utf8");
-    return JSON.parse(txt) as T;
+    return JSON.parse(await readFile(arquivo, "utf8")) as T;
   } catch {
     return null;
   }
@@ -77,13 +77,15 @@ function bloco(b: Bloco): Bloco {
 }
 
 export async function candidatosEstaticos(turno: Turno): Promise<CandidatoInfo[]> {
-  const arq = await lerJson<{ candidatos?: CandidatoInfo[] }>(`${pastaTurno(turno)}/candidatos.json`);
+  const arq = await lerJson<{ candidatos?: CandidatoInfo[] }>(
+    path.join(process.cwd(), "content", "eleicao", "2026", pastaTurno(turno), "candidatos.json"),
+  );
   return arq?.candidatos ?? [];
 }
 
 /** Mapa cod_tse da cidade no exterior → país (do exterior.json do 1º turno). */
 export async function paisPorCidade(): Promise<Map<string, string>> {
-  const ext = await lerJson<ExteriorJson>(`1turno/exterior.json`);
+  const ext = await lerJson<ExteriorJson>(path.join(process.cwd(), "content", "eleicao", "2026", "1turno", "exterior.json"));
   const mapa = new Map<string, string>();
   for (const p of ext?.paises ?? []) {
     if (p.lacuna) continue;
@@ -123,7 +125,7 @@ export async function lerEstatico(
   const info = await candidatosEstaticos(turno);
 
   if (abr.nivel === "BR") {
-    const br = await lerJson<BrasilJson>(`${pasta}/brasil.json`);
+    const br = await lerJson<BrasilJson>(path.join(process.cwd(), "content", "eleicao", "2026", pasta, "brasil.json"));
     if (!br) return null;
     const filhos = br.ufs.map((u) => ({
       codigo: u.uf,
@@ -134,7 +136,7 @@ export async function lerEstatico(
   }
 
   if (abr.nivel === "UF" || abr.nivel === "MUN") {
-    const uf = await lerJson<UfJson>(`${pasta}/uf/${abr.uf}.json`);
+    const uf = await lerJson<UfJson>(path.join(process.cwd(), "content", "eleicao", "2026", pasta, "uf", `${abr.uf}.json`));
     if (!uf) return null;
     const nomeUf = uf.nome ?? NOME_UF[abr.uf] ?? abr.uf;
     if (abr.nivel === "UF") {
@@ -156,7 +158,7 @@ export async function lerEstatico(
     }, m);
   }
 
-  const ext = await lerJson<ExteriorJson>(`${pasta}/exterior.json`);
+  const ext = await lerJson<ExteriorJson>(path.join(process.cwd(), "content", "eleicao", "2026", pasta, "exterior.json"));
   if (!ext) return null;
   if (abr.nivel === "EXTERIOR") {
     const filhos = ext.paises.map((p) => ({

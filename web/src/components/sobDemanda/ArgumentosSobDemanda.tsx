@@ -1,5 +1,6 @@
 "use client";
 
+import { legivel } from "@/lib/texto";
 import type { Argumento, CandidatoId, Vies } from "@/types";
 import { VIESES_ORDEM } from "@/types/comum";
 import {
@@ -64,7 +65,7 @@ export function ArgumentosSobDemanda(p: ArgumentosSobDemandaProps) {
         .filter((a) => a.observacao)
         .map((a, i) => (
           <p key={i} className="mt-2 text-xs text-gray-700">
-            <span className="font-medium">Observação do analista:</span> {a.observacao}
+            <span className="font-medium">Observação do analista:</span> {legivel(a.observacao)}
           </p>
         ))}
     </DetalhesSobDemanda>

@@ -17,6 +17,7 @@ import { StatusChip } from "@/components/StatusChip";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getAnaliseRiArquivo, getTemasRi, temaRiPorSlug } from "@/lib/data/ri";
 import { slugify } from "@/lib/slug";
+import { textoLegivel } from "@/lib/data/texto";
 
 export function generateStaticParams() {
   return getTemasRi().map((t) => ({ tema: slugify(t.categoria) }));
@@ -72,7 +73,7 @@ export default async function TemaPage({ params }: PageProps<"/internacional/[te
         </p>
         <h1 className="text-2xl font-bold text-gray-900">{t.categoria}</h1>
         <p className="max-w-3xl text-sm text-gray-800">
-          <span className="font-medium">Escopo:</span> {t.escopo}
+          <span className="font-medium">Escopo:</span> {textoLegivel(t.escopo)}
         </p>
         <Legendas />
         <nav aria-label="Seções desta página" className="text-sm">
@@ -105,7 +106,7 @@ export default async function TemaPage({ params }: PageProps<"/internacional/[te
       <Secao
         id="leituras"
         titulo="Leituras por viés"
-        descricao="Cada viés apenas interpreta trechos citados; as três leituras aparecem lado a lado (diretriz 9)."
+        descricao="Cada viés apenas interpreta trechos citados; as três leituras aparecem lado a lado."
       >
         <div className="space-y-6">
           {ORDEM_CANDIDATOS.map((c) => {
@@ -180,7 +181,7 @@ export default async function TemaPage({ params }: PageProps<"/internacional/[te
         <ComparativoLista aproximacoes={t.comparativo.aproximacoes} diferencas={t.comparativo.diferencas} />
         {t.observacao_simetria ? (
           <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-xs text-gray-800">
-            <span className="font-semibold">Nota de simetria da síntese:</span> {t.observacao_simetria}
+            <span className="font-semibold">Nota de simetria da síntese:</span> {textoLegivel(t.observacao_simetria)}
           </p>
         ) : null}
       </Secao>
@@ -188,7 +189,7 @@ export default async function TemaPage({ params }: PageProps<"/internacional/[te
       <Secao
         id="agenda"
         titulo="Lista comum de itens de agenda"
-        descricao="Itens da lista comum aplicados igualmente aos dois planos (diretriz 12)."
+        descricao="Itens da lista comum aplicados igualmente aos dois planos."
       >
         <AgendaTabela linhas={linhas} />
       </Secao>

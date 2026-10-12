@@ -44,3 +44,5 @@ next-env.d.ts
 /content/
 /public/fontes/
 /public/dados/
+/content.tmp-*/
+/content.old-*/

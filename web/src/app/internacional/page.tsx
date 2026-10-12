@@ -6,12 +6,21 @@ import { StatusChip } from "@/components/StatusChip";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getSinteseRi } from "@/lib/data/ri";
 import { slugify } from "@/lib/slug";
+import { textoLegivel } from "@/lib/data/texto";
 
 export const metadata: Metadata = {
   title: "Internacional",
   description:
     "Propostas com impacto internacional, leituras de três vieses e cenários ligados a fatos oficiais.",
 };
+
+const NOTAS = [
+  "Os temas são comuns aos dois candidatos; um candidato aparece com \"Sem proposta registrada\" apenas quando não tem nenhuma proposta no tema.",
+  "Consenso reúne pontos em que as três leituras convergem; convergência parcial, pontos em que duas convergem e a terceira não se manifestou; divergência mostra a posição de cada leitura.",
+  "Cenários equivalentes de leituras diferentes foram agrupados; cada leitura mantém sua cadeia, seu horizonte e seu nível de confiança.",
+  "O comparativo é descritivo: não há vencedor nem nota. O que um plano não traz aparece apenas pela lista comum de itens de agenda.",
+  "O mesmo critério de detalhamento vale para os dois candidatos: críticas por falta de metas, prazos ou recursos são registradas para os dois quando se aplicam.",
+];
 
 export default function InternacionalIndex() {
   const s = getSinteseRi();
@@ -35,7 +44,7 @@ export default function InternacionalIndex() {
               className="block h-full rounded-lg border border-gray-300 bg-white p-4 hover:border-gray-500 hover:bg-gray-50"
             >
               <span className="block text-lg font-semibold text-gray-900">{t.categoria}</span>
-              <span className="mt-1 block text-xs text-gray-700">{t.escopo}</span>
+              <span className="mt-1 block text-xs text-gray-700">{textoLegivel(t.escopo)}</span>
               <span className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {ORDEM_CANDIDATOS.map((c) => (
                   <span key={c} className="flex flex-col items-start gap-1">
@@ -53,11 +62,11 @@ export default function InternacionalIndex() {
       </ul>
       <section aria-labelledby="notas-ri" className="rounded-lg border border-gray-200 bg-gray-50 p-4">
         <h2 id="notas-ri" className="font-semibold text-gray-900">
-          Notas metodológicas da síntese
+          Como ler esta seção
         </h2>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-800">
-          {s.notas_metodologicas.map((n, i) => (
-            <li key={i}>{n}</li>
+          {NOTAS.map((n) => (
+            <li key={n}>{n}</li>
           ))}
         </ul>
       </section>

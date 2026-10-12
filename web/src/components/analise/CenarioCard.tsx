@@ -3,8 +3,9 @@ import { getFonteContexto, getItemContexto } from "@/lib/data/ri";
 import { ROTULO_RELACAO } from "@/lib/rotulos";
 import { ConfiancaBadge, HorizonteBadge } from "../ConfiancaBadge";
 import { ViesTag } from "../ViesTag";
-import { PropostaRef } from "../conteudo/PropostaRef";
+import { PropostaRef, idsPorPagina } from "../conteudo/PropostaRef";
 import { CadeiaSobDemanda } from "../sobDemanda/CadeiaSobDemanda";
+import { textoLegivel } from "@/lib/data/texto";
 
 export interface CenarioCardProps {
   cenario: CenarioSintese;
@@ -31,7 +32,7 @@ function Base({ o }: { o: OrigemCenario }) {
       {props.length ? (
         <p className="fila">
           <span className="font-medium">Proposta:</span>
-          {props.map((id) => (
+          {idsPorPagina(props).map((id) => (
             <PropostaRef key={id} id={id} />
           ))}
         </p>
@@ -57,7 +58,7 @@ function Base({ o }: { o: OrigemCenario }) {
 export function CenarioCard({ cenario, candidato, temaIndice, cenarioIndice }: CenarioCardProps) {
   return (
     <article className="cartao bg-gray-50">
-      <h4 className="font-semibold text-gray-900">{cenario.titulo}</h4>
+      <h4 className="font-semibold text-gray-900">{textoLegivel(cenario.titulo)}</h4>
       <p className="meta mt-1">
         {ROTULO_RELACAO[cenario.relacao_entre_vieses] ?? cenario.relacao_entre_vieses}
       </p>

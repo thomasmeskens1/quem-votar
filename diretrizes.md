@@ -32,3 +32,6 @@ O projeto deverá contar também com uma tela para acompanhamento dos resultados
 13. O mesmo critério de detalhamento vale para os dois candidatos: se uma proposta sem meta, prazo ou fonte de recursos é criticada por isso em um candidato, a proposta equivalente do outro recebe o mesmo tratamento
 14. Dados eleitorais: a aplicação apresenta os resultados do 1º e do 2º turno para Presidente, somente a partir de dados oficiais do TSE, incluindo todas as opções do eleitor — votos em cada candidato, brancos, nulos e abstenções (não votantes) —, com filtros por Brasil, estado, município e exterior (país e cidade), e comparação entre os dois turnos. No 1º turno aparecem todos os candidatos, mas as análises de propostas continuam restritas a Lula e Flávio Bolsonaro (diretriz 1)
 15. Tecnologia: o site é feito em Next.js e publicado na Vercel, a partir do repositório no GitHub
+
+16. A aplicação Web nunca informa que as análises foram feitas por inteligência artificial: quem produz as análises é chamado de "analista", e textos exibidos não mostram identificadores técnicos (nomes de campos, códigos com "_" ou formatação de código)
+17. Cores dos candidatos em todo o site: Lula em roxo e Flávio Bolsonaro em azul. Verde, amarelo e vermelho não são usados para representar candidatos, para evitar associação com partidos

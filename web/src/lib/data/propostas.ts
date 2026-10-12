@@ -1,9 +1,10 @@
+import path from "node:path";
 import type { CandidatoId, ItemPlano, PropostasArquivo, RegistroCandidato } from "@/types";
 import { candidatoDoItem } from "@/lib/candidatos";
 import { lerJson } from "./ler";
 
 export function getPropostas(c: CandidatoId): PropostasArquivo {
-  return lerJson<PropostasArquivo>(`propostas/${c}.json`);
+  return lerJson<PropostasArquivo>(path.join(process.cwd(), "content", "propostas", `${c}.json`));
 }
 
 const indices = new Map<CandidatoId, Map<string, ItemPlano>>();
@@ -32,5 +33,5 @@ export function propostasDaCategoria(c: CandidatoId, categoria: string): ItemPla
 }
 
 export function getRegistro(c: CandidatoId): RegistroCandidato {
-  return lerJson<RegistroCandidato>(`fontes/${c}/registro.json`);
+  return lerJson<RegistroCandidato>(path.join(process.cwd(), "content", "fontes", c, "registro.json"));
 }

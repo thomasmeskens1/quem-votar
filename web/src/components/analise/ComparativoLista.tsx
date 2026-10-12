@@ -3,7 +3,8 @@ import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { CandidatoBadge } from "../CandidatoBadge";
 import { ConfiancaBadge } from "../ConfiancaBadge";
 import { ViesTag } from "../ViesTag";
-import { PropostaRef } from "../conteudo/PropostaRef";
+import { PropostaRef, idsPorPagina } from "../conteudo/PropostaRef";
+import { textoLegivel } from "@/lib/data/texto";
 
 export interface ComparativoListaProps {
   aproximacoes: PontoComparativo[];
@@ -18,7 +19,7 @@ function Ids({ p }: { p: PontoComparativo }) {
         return (
           <div key={c} className="flex flex-wrap items-center gap-1">
             <CandidatoBadge candidato={c} tamanho="sm" comNumero={false} />
-            {ids.length ? ids.map((id) => <PropostaRef key={id} id={id} />) : <span className="text-xs text-gray-700">—</span>}
+            {ids.length ? idsPorPagina(ids).map((id) => <PropostaRef key={id} id={id} />) : <span className="text-xs text-gray-700">—</span>}
           </div>
         );
       })}
@@ -46,7 +47,7 @@ function Concretude({ d }: { d: DiferencaRi }) {
                 <CandidatoBadge candidato={b.candidato} tamanho="sm" comNumero={false} />
                 <ViesTag vies={b.vies} />
                 <ConfiancaBadge confianca={b.confianca} />
-                <span>{b.justificativa_confianca}</span>
+                <span>{textoLegivel(b.justificativa_confianca)}</span>
               </li>
             ))}
           </ul>
@@ -66,7 +67,7 @@ export function ComparativoLista({ aproximacoes, diferencas }: ComparativoListaP
           <ul className="mt-2 space-y-3 text-sm">
             {aproximacoes.map((p, i) => (
               <li key={i}>
-                {p.ponto}
+                {textoLegivel(p.ponto)}
                 <Ids p={p} />
               </li>
             ))}
@@ -81,7 +82,7 @@ export function ComparativoLista({ aproximacoes, diferencas }: ComparativoListaP
           <ul className="mt-2 space-y-3 text-sm">
             {diferencas.map((p, i) => (
               <li key={i}>
-                {p.ponto}
+                {textoLegivel(p.ponto)}
                 <Ids p={p} />
                 {"tipo" in p && p.tipo === "concretude" ? <Concretude d={p} /> : null}
               </li>

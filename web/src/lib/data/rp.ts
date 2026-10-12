@@ -1,3 +1,4 @@
+import path from "node:path";
 import type {
   AnaliseRp,
   AnaliseRpArquivo,
@@ -11,7 +12,7 @@ import type {
 import { lerJson } from "./ler";
 
 export function getSinteseRp(): SinteseRpArquivo {
-  return lerJson<SinteseRpArquivo>("rp/sintese.json");
+  return lerJson<SinteseRpArquivo>(path.join(process.cwd(), "content", "rp", "sintese.json"));
 }
 
 export function getCategoriaRp(nome: string): CategoriaRp | null {
@@ -19,7 +20,7 @@ export function getCategoriaRp(nome: string): CategoriaRp | null {
 }
 
 export function getAnaliseRpArquivo(vies: Vies, c: CandidatoId): AnaliseRpArquivo {
-  return lerJson<AnaliseRpArquivo>(`rp/${vies}/${c}.json`);
+  return lerJson<AnaliseRpArquivo>(path.join(process.cwd(), "content", "rp", vies, `${c}.json`));
 }
 
 export function getAnaliseRp(vies: Vies, c: CandidatoId, categoria: string): AnaliseRp | null {

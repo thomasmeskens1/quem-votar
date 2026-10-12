@@ -7,6 +7,7 @@ import { formatarData } from "@/lib/rotulos";
 import { CandidatoBadge } from "../CandidatoBadge";
 import { FonteLink } from "../FonteLink";
 import { FontesRh } from "./FontesRh";
+import { textoLegivel } from "@/lib/data/texto";
 
 export type AbaDossie = "perfil" | "processos";
 
@@ -110,9 +111,9 @@ export function ListaAfirmacoes({ itens, fontes }: { itens: Afirmacao[]; fontes:
     <ul className="space-y-3">
       {itens.map((a, i) => (
         <li key={i} className="cartao">
-          {a.periodo ? <p className="meta font-medium">{a.periodo}</p> : null}
-          <p className="text-gray-900">{a.afirmacao}</p>
-          {a.observacao ? <p className="meta mt-1">{a.observacao}</p> : null}
+          {a.periodo ? <p className="meta font-medium">{textoLegivel(a.periodo)}</p> : null}
+          <p className="text-gray-900">{textoLegivel(a.afirmacao)}</p>
+          {a.observacao ? <p className="meta mt-1">{textoLegivel(a.observacao)}</p> : null}
           <FontesRh ids={a.fonte_ids} fontes={fontes} />
         </li>
       ))}

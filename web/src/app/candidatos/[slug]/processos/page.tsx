@@ -6,6 +6,7 @@ import { ProcessoCard } from "@/components/rh/ProcessoCard";
 import { Secao } from "@/components/Secao";
 import { CANDIDATOS, ORDEM_CANDIDATOS, isCandidatoId } from "@/lib/candidatos";
 import { fontesRhPorId, getDossie } from "@/lib/data/rh";
+import { textoLegivel } from "@/lib/data/texto";
 
 export function generateStaticParams() {
   return ORDEM_CANDIDATOS.map((slug) => ({ slug }));
@@ -71,9 +72,9 @@ export default async function ProcessosPage({ params }: PageProps<"/candidatos/[
             {s.reportagens.map((rep, i) => (
               <li key={i} className="cartao border-dashed border-gray-500">
                 <p className="fila font-medium text-gray-900">
-                  {rep.tema} <AvisoReportagem />
+                  {textoLegivel(rep.tema)} <AvisoReportagem />
                 </p>
-                <p className="mt-1">{rep.resumo_neutro}</p>
+                <p className="mt-1">{textoLegivel(rep.resumo_neutro)}</p>
                 <FontesRh ids={rep.fonte_ids} fontes={fontes} />
               </li>
             ))}

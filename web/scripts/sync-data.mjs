@@ -3,7 +3,8 @@
  * Sincroniza os dados do projeto para dentro de web/ antes de `dev` e `build`.
  *
  * - ../dados/**            -> web/content/**        (exceto dados/revisao, que é interno)
- * - ../dados/eleicao/**    -> web/public/dados/eleicao/**  (servido estaticamente)
+ *   (as pastas "locais" de dados/eleicao NÃO vão para content/: só para public/)
+ * - ../dados/eleicao/**    -> web/public/dados/eleicao/**  (servido estaticamente, inclusive locais)
  * - ../fontes/<c>/plano-de-governo.pdf -> web/public/fontes/<c>/plano-de-governo.pdf
  * - ../fontes/<c>/registro.json        -> web/content/fontes/<c>/registro.json
  * - ../dados/revisao/ausencias.json     -> web/content/agenda.json (somente versao, metodo e
@@ -22,21 +23,30 @@ const rootDir = path.resolve(webDir, "..");
 const dadosDir = path.join(rootDir, "dados");
 const fontesDir = path.join(rootDir, "fontes");
 
-const contentDir = path.join(webDir, "content");
+const contentFinal = path.join(webDir, "content");
+/** Durante a sincronização, os arquivos vão para uma pasta temporária, trocada no fim. */
+let contentDir = contentFinal;
 const publicFontesDir = path.join(webDir, "public", "fontes");
 const publicDadosDir = path.join(webDir, "public", "dados");
 const publicEleicaoDir = path.join(publicDadosDir, "eleicao");
 
 const EXCLUIR_DE_DADOS = new Set(["revisao"]);
+/** Pastas que vão SOMENTE para public/ (lidas pelo navegador), nunca para content/. */
+const SOMENTE_PUBLIC = new Set(["locais"]);
 
-function copiarArvore(origem, destino, filtroTopo) {
+/**
+ * Copia uma árvore de arquivos. `filtroTopo` vale só para o primeiro nível;
+ * `ignorarPastas` (nomes de pasta) vale em qualquer nível.
+ */
+function copiarArvore(origem, destino, filtroTopo, ignorarPastas) {
   let n = 0;
   fs.mkdirSync(destino, { recursive: true });
   for (const entrada of fs.readdirSync(origem, { withFileTypes: true })) {
     if (filtroTopo && !filtroTopo(entrada.name)) continue;
+    if (entrada.isDirectory() && ignorarPastas?.has(entrada.name)) continue;
     const o = path.join(origem, entrada.name);
     const d = path.join(destino, entrada.name);
-    if (entrada.isDirectory()) n += copiarArvore(o, d);
+    if (entrada.isDirectory()) n += copiarArvore(o, d, null, ignorarPastas);
     else if (entrada.isFile()) {
       fs.copyFileSync(o, d);
       n += 1;
@@ -45,13 +55,29 @@ function copiarArvore(origem, destino, filtroTopo) {
   return n;
 }
 
+/** Substitui content/ pela pasta temporária com a menor janela possível. */
+function trocarContent() {
+  const antigo = path.join(webDir, `content.old-${process.pid}`);
+  if (fs.existsSync(contentFinal)) {
+    try {
+      fs.renameSync(contentFinal, antigo);
+    } catch {
+      // Windows pode bloquear a renomeação se outro processo estiver lendo: remove e segue.
+      limpar(contentFinal);
+    }
+  }
+  fs.renameSync(contentDir, contentFinal);
+  contentDir = contentFinal;
+  limpar(antigo);
+}
+
 function limpar(dir) {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
 function main() {
   if (!fs.existsSync(dadosDir)) {
-    if (fs.existsSync(contentDir)) {
+    if (fs.existsSync(contentFinal)) {
       console.log("[sync-data] ../dados não encontrado; mantendo web/content existente.");
       return;
     }
@@ -59,8 +85,15 @@ function main() {
     process.exit(1);
   }
 
+  // Gera em pasta temporária e troca no fim: um build em paralelo nunca vê content/ vazio.
+  contentDir = path.join(webDir, `content.tmp-${process.pid}`);
   limpar(contentDir);
-  const nDados = copiarArvore(dadosDir, contentDir, (nome) => !EXCLUIR_DE_DADOS.has(nome));
+  const nDados = copiarArvore(
+    dadosDir,
+    contentDir,
+    (nome) => !EXCLUIR_DE_DADOS.has(nome),
+    SOMENTE_PUBLIC,
+  );
 
   let nEleicao = 0;
   limpar(publicEleicaoDir);
@@ -93,6 +126,7 @@ function main() {
     path.join(contentDir, "_sync.json"),
     JSON.stringify({ sincronizado_em: new Date().toISOString() }, null, 2),
   );
+  trocarContent();
   console.log(
     `[sync-data] ${nDados} arquivos em content/, ${nEleicao} em public/dados/eleicao/, ` +
       `${nPdf} PDFs em public/fontes/, ${nAgenda} itens em content/agenda.json, ` +
