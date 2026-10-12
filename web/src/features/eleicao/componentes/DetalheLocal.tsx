@@ -53,7 +53,7 @@ export function DetalheLocal({ local, nome, numeros, modo }: DetalheLocalProps) 
       </p>
       <ul>
         {linhas.map((c) => (
-          <li key={c.chave} className="flex justify-between gap-3">
+          <li key={c.chave} className="flex justify-between gap-4 whitespace-nowrap">
             <span style={{ color: c.cor }}>{c.rotulo}</span>
             <span className="tabular-nums">
               {formatarNumero(c.votos)} · {formatarPct(pctCandidato(c.votos, t))}

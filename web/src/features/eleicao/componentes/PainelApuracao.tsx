@@ -95,6 +95,8 @@ export function PainelApuracao() {
   const [alvo, setAlvo] = useState<Abrangencia>({ nivel: "BR" });
   const [voltouDe, setVoltouDe] = useState<Abrangencia | null>(null);
   const [focoLocal, setFocoLocal] = useState<FocoLocal | null>(null);
+  // Linha da tabela sob o mouse/foco: destaca a mesma área no mapa.
+  const [destaque, setDestaque] = useState<string | null>(null);
 
   const abrMapaAlvo = useMemo(() => nivelMapa(alvo), [alvo]);
   const exteriorAlvo = alvo.nivel === "EXTERIOR" || alvo.nivel === "PAIS" || alvo.nivel === "CIDADE";
@@ -160,6 +162,7 @@ export function PainelApuracao() {
   const irPara = useCallback((a: Abrangencia, de: Abrangencia | null = null, historico = true) => {
     setVoltouDe(de);
     setFocoLocal(null);
+    setDestaque(null);
     setAlvo(a);
     // URL compartilhável sem navegação do Next (sem recarregar nem remontar a página).
     if (historico) window.history.pushState({ eleicao: chave(a) }, "", urlDe(a));
@@ -284,6 +287,7 @@ export function PainelApuracao() {
             locais={locais}
             focoLocal={focoLocal}
             onFocoLocal={setFocoLocal}
+            destaque={destaque}
           />
           <div className="min-w-0">
             <Tabela
@@ -294,6 +298,8 @@ export function PainelApuracao() {
               candidatos={info}
               selecionado={abr.nivel === "MUN" ? abr.municipio : abr.nivel === "CIDADE" ? abr.cidade : undefined}
               onSelecionar={(f) => irPara(entrarEm(abrMapa, f))}
+              onDestaque={setDestaque}
+              preencher
             />
           </div>
         </section>

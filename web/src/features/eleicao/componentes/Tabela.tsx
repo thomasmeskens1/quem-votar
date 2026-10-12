@@ -15,11 +15,16 @@ export interface TabelaProps {
   candidatos: CandidatoInfo[];
   selecionado?: string;
   onSelecionar?: (f: ResultadoFilho) => void;
+  /** Hover/foco numa linha destaca a área no mapa (null ao sair). */
+  onDestaque?: (codigo: string | null) => void;
+  /** Ocupa a altura do contêiner (a tabela rola por dentro) em telas largas. */
+  preencher?: boolean;
 }
 
 type Ordem = "nome" | "votos" | number;
 
-export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, selecionado, onSelecionar }: TabelaProps) {
+export function Tabela(props: TabelaProps) {
+  const { titulo, rotuloUnidade, filhos, colunas, candidatos, selecionado, onSelecionar, onDestaque, preencher } = props;
   const [busca, setBusca] = useState("");
   const [ordem, setOrdem] = useState<Ordem>("nome");
   const nome = (n: number) => candidatos.find((c) => c.numero === n)?.nome_urna ?? `Nº ${n}`;
@@ -39,7 +44,7 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
 
   const idBusca = `busca-${rotuloUnidade}`;
   return (
-    <div className="min-w-0">
+    <div className={`min-w-0 ${preencher ? "lg:flex lg:h-full lg:flex-col" : ""}`}>
       <div className="mb-2 flex min-w-0 flex-wrap items-end gap-3">
         <label htmlFor={idBusca} className="text-sm text-gray-800">
           Filtrar {rotuloUnidade}
@@ -71,7 +76,13 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
           </select>
         </label>
       </div>
-      <div className="max-h-[28rem] w-full max-w-full overflow-auto rounded border border-gray-300">
+      {/* Em telas largas a tabela ocupa a altura restante da coluna (igual à do mapa) e rola por dentro. */}
+      <div className={preencher ? "relative lg:min-h-[16rem] lg:flex-1" : ""}>
+      <div
+        className={`max-h-[28rem] w-full max-w-full overflow-auto rounded border border-gray-300 ${
+          preencher ? "lg:absolute lg:inset-0 lg:max-h-none" : ""
+        }`}
+      >
         <table className="w-full border-collapse text-xs sm:text-sm">
           <caption className="sr-only">
             {titulo}. Em telas estreitas, comparecimento e seções apuradas aparecem ao selecionar a linha.
@@ -92,7 +103,14 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
               const l = lider(f.candidatos, f.totais);
               const sel = f.codigo === selecionado;
               return (
-                <tr key={f.codigo} className={`border-t border-gray-200 hover:bg-gray-50 ${sel ? "bg-gray-100 font-semibold" : ""}`}>
+                <tr
+                  key={f.codigo}
+                  className={`border-t border-gray-200 hover:bg-gray-50 ${sel ? "bg-gray-100 font-semibold" : ""}`}
+                  onMouseEnter={() => onDestaque?.(f.codigo)}
+                  onMouseLeave={() => onDestaque?.(null)}
+                  onFocus={() => onDestaque?.(f.codigo)}
+                  onBlur={() => onDestaque?.(null)}
+                >
                   <th scope="row" className="px-1 py-1 sm:px-2 text-left font-normal">
                     {onSelecionar ? (
                       <button
@@ -151,6 +169,7 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
             ) : null}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

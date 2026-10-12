@@ -91,7 +91,8 @@ export function carregarFonteLocais(turno: Turno): Promise<FonteLocais | null> {
 /** Local em destaque: pelo mapa (abre o tooltip) ou pela lista (só realça o pin). */
 export interface FocoLocal {
   id: string;
-  origem: "mapa" | "lista";
+  /** mapa = hover/foco no pin; tabela = hover/foco na linha (mesmo efeito); lista = linha aberta (só realça). */
+  origem: "mapa" | "tabela" | "lista";
 }
 
 /** Carrega os locais do município (null = nenhum município aberto). */

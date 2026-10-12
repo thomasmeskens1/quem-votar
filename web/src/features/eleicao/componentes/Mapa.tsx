@@ -16,6 +16,7 @@ import { COR_DESTAQUE, COR_SEM_DADOS, COR_TRACO_CLARO, corCandidato, corMapa } f
 import { carregarMalha, chaveFeicao, nomeFeicao, type ColecaoMalha, type TipoMalha } from "../malhas";
 import type { CandidatoInfo, ResultadoFilho } from "../tipos";
 import { EstiloRealce, estiloRealce, useRealce } from "./Realce";
+import { TooltipFixo } from "./TooltipFixo";
 
 export interface MapaProps {
   url: string;
@@ -30,6 +31,8 @@ export interface MapaProps {
   onSelecionar?: (chave: string, filho: ResultadoFilho) => void;
   /** Ao montar, começa ampliado nesta feição e se afasta (animação de "voltar"). */
   zoomDe?: string;
+  /** Área destacada de fora (hover/foco numa linha da tabela): mesmo efeito do hover no mapa. */
+  destaque?: string | null;
   candidatos: CandidatoInfo[];
   rotulo: string;
 }
@@ -58,9 +61,10 @@ export const movimentoReduzido = () =>
   typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 export function Mapa(props: MapaProps) {
-  const { url, objeto, tipo, dados, somente, selecionado, onSelecionar, zoomDe, candidatos, rotulo } = props;
+  const { url, objeto, tipo, dados, somente, selecionado, onSelecionar, zoomDe, destaque, candidatos, rotulo } = props;
   const [carga, setCarga] = useState<{ url: string; geo?: ColecaoMalha; erro?: string } | null>(null);
-  const [foco, setFoco] = useState<{ chave: string; x: number; y: number } | null>(null);
+  const [foco, setFoco] = useState<{ chave: string } | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const [alvo, setAlvo] = useState<string | null>(null);
   const [pronto, setPronto] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -103,7 +107,9 @@ export function Mapa(props: MapaProps) {
   }, [caminhos.length]);
   useEffect(() => () => clearTimeout(timer.current), []);
   // "Grow up" da área em foco (só áreas com dados; nunca durante o zoom de entrada).
-  const realce = useRealce(!alvo && foco && dados.has(foco.chave) ? foco.chave : null);
+  // Área em foco: hover/teclado no mapa ou destaque vindo da tabela.
+  const efetivo = foco?.chave ?? (destaque && dados.has(destaque) ? destaque : null);
+  const realce = useRealce(!alvo && efetivo && dados.has(efetivo) ? efetivo : null);
 
   function transfPara(chave: string | null | undefined): Transf {
     const c = chave ? caminhos.find((x) => x.chave === chave) : undefined;
@@ -159,12 +165,12 @@ export function Mapa(props: MapaProps) {
     opacity: pronto || zoomDe || reduzido ? 1 : 0,
     transition: reduzido ? "none" : "opacity 400ms ease-out",
   };
-  const ativo = foco ? dados.get(foco.chave) : undefined;
-  const nomeAtivo = foco ? caminhos.find((c) => c.chave === foco.chave)?.nome : undefined;
+  const ativo = efetivo && !alvo ? dados.get(efetivo) : undefined;
+  const nomeAtivo = efetivo ? caminhos.find((c) => c.chave === efetivo)?.nome : undefined;
 
   return (
     <div className="relative w-full min-w-0 overflow-hidden" style={entrada}>
-      <svg viewBox={`0 0 ${LARGURA} ${altura}`} className="h-auto w-full" role="group" aria-label={rotulo} onMouseLeave={() => setFoco(null)}>
+      <svg ref={svgRef} viewBox={`0 0 ${LARGURA} ${altura}`} className="h-auto w-full" role="group" aria-label={rotulo} onMouseLeave={() => setFoco(null)}>
         <EstiloRealce />
         <g style={estiloGrupo}>
           {caminhos.map((c) => {
@@ -193,8 +199,9 @@ export function Mapa(props: MapaProps) {
                 aria-pressed={interativo ? sel : undefined}
                 style={{ opacity: apagado ? 0.25 : 1, transition: reduzido ? undefined : "opacity 400ms" }}
                 className={`outline-none focus-visible:stroke-black focus-visible:[stroke-width:2.5] ${interativo ? "cursor-pointer hover:brightness-110" : ""}`}
-                onMouseMove={() => !alvo && setFoco({ chave: c.chave, x: c.cx, y: c.cy })}
-                onFocus={() => !alvo && setFoco({ chave: c.chave, x: c.cx, y: c.cy })}
+                data-chave={c.chave}
+                onMouseMove={() => !alvo && foco?.chave !== c.chave && setFoco({ chave: c.chave })}
+                onFocus={() => !alvo && setFoco({ chave: c.chave })}
                 onBlur={() => setFoco(null)}
                 onClick={() => escolher(c.chave, f)}
                 onKeyDown={(e) => {
@@ -225,28 +232,23 @@ export function Mapa(props: MapaProps) {
           })}
         </g>
       </svg>
-      {foco && nomeAtivo && ativo ? (
-        <div
-          role="tooltip"
-          className="pointer-events-none absolute z-10 w-44 max-w-[60%] -translate-x-1/2 -translate-y-full rounded border border-gray-300 bg-white px-2 py-1 text-xs shadow"
-          style={{
-            left: `${Math.min(80, Math.max(20, (foco.x / LARGURA) * 100))}%`,
-            top: `${Math.max(15, (foco.y / altura) * 100)}%`,
-          }}
-        >
-          <p className="font-semibold text-gray-900">{nomeAtivo}</p>
+      {efetivo && nomeAtivo && ativo ? (
+        <TooltipFixo ancora={() => svgRef.current?.querySelector(`[data-chave="${efetivo}"]`) ?? null}>
+          <p className="whitespace-nowrap font-semibold text-gray-900">{nomeAtivo}</p>
           <ul>
             {ativo.candidatos.slice(0, 3).map((c) => (
-              <li key={c.numero} className="flex justify-between gap-3">
+              <li key={c.numero} className="flex justify-between gap-4 whitespace-nowrap">
                 <span style={{ color: corCandidato(c.numero) }}>{nomeCand(c.numero)}</span>
                 <span className="tabular-nums">{formatarPct(pctCandidato(c.votos, ativo.totais))}</span>
               </li>
             ))}
             {ativo.apuracao ? (
-              <li className="text-gray-600">Seções apuradas: {formatarPct(ativo.apuracao.pct_secoes_totalizadas)}</li>
+              <li className="whitespace-nowrap text-gray-600">
+                Seções apuradas: {formatarPct(ativo.apuracao.pct_secoes_totalizadas)}
+              </li>
             ) : null}
           </ul>
-        </div>
+        </TooltipFixo>
       ) : null}
     </div>
   );

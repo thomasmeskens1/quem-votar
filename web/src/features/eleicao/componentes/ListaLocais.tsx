@@ -117,7 +117,14 @@ export function ListaLocais({ turno, nomeMunicipio, locais, candidatos, foco, on
               const t = l.totais;
               const p = percentuais(t);
               return (
-                <tr key={id} className={`border-t border-gray-200 align-top ${foco?.id === id ? "bg-gray-100 [&>th]:bg-gray-100" : ""}`}>
+                <tr
+                  key={id}
+                  className={`border-t border-gray-200 align-top hover:bg-gray-50 ${foco?.id === id ? "bg-gray-100 [&>th]:bg-gray-100" : ""}`}
+                  onMouseEnter={() => onFoco({ id, origem: "tabela" })}
+                  onMouseLeave={() => foco?.origem === "tabela" && foco.id === id && onFoco(null)}
+                  onFocus={() => onFoco({ id, origem: "tabela" })}
+                  onBlur={() => foco?.origem === "tabela" && foco.id === id && onFoco(null)}
+                >
                   <th scope="row" className="sticky left-0 z-[1] min-w-[9rem] border-r border-gray-200 bg-white px-2 py-1 text-left font-normal sm:min-w-[14rem]">
                     <details onToggle={(e) => onFoco((e.currentTarget as HTMLDetailsElement).open ? { id, origem: "lista" } : null)}>
                       <summary className="cursor-pointer rounded text-gray-900 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900">

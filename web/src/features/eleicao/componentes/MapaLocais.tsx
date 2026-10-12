@@ -9,7 +9,6 @@
  */
 import { geoMercator, geoPath } from "d3-geo";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { formatarPct, lider, pctCandidato } from "../calculos";
 import { COR_CONTORNO, COR_DESTAQUE, COR_SEM_DADOS, COR_TRACO_CLARO, NUMERO_FLAVIO, NUMERO_LULA, tomEscala } from "../cores-eleicao";
 import { idLocal, temCoordenadas, type EstadoLocais, type FocoLocal, type LocalVotacao } from "../locais";
@@ -18,6 +17,7 @@ import type { CandidatoInfo, Turno } from "../tipos";
 import { DetalheLocal, votosNoLocal } from "./DetalheLocal";
 import { movimentoReduzido } from "./Mapa";
 import { EstiloRealce, estiloRealce, useRealce } from "./Realce";
+import { TooltipFixo } from "./TooltipFixo";
 
 export interface MapaLocaisProps {
   turno: Turno;
@@ -32,24 +32,6 @@ export interface MapaLocaisProps {
 
 const L = 600;
 const A = 520;
-const LARG_TOOLTIP = 272;
-const MARGEM = 8;
-
-/** Posiciona o tooltip (fixed) junto ao pin, sem sair da janela. */
-function posicionar(el: HTMLDivElement | null, ancora: Element | null) {
-  if (!el || !ancora) return;
-  const r = ancora.getBoundingClientRect();
-  const h = el.offsetHeight;
-  const w = Math.min(LARG_TOOLTIP, window.innerWidth - 2 * MARGEM);
-  const left = Math.min(Math.max(MARGEM, r.left + r.width / 2 - w / 2), window.innerWidth - w - MARGEM);
-  const acima = r.top - h - MARGEM;
-  const top = acima >= MARGEM ? acima : Math.max(MARGEM, Math.min(r.bottom + MARGEM, window.innerHeight - h - MARGEM));
-  el.style.width = `${w}px`;
-  el.style.left = `${left}px`;
-  el.style.top = `${top}px`;
-  el.style.visibility = "visible";
-}
-
 export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, locais, foco, onFoco }: MapaLocaisProps) {
   const [malha, setMalha] = useState<{ uf: string; geo: ColecaoMalha } | null>(null);
   const [pronto, setPronto] = useState(false);
@@ -80,18 +62,8 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
     return () => cancelAnimationFrame(id);
   }, [desenho]);
 
-  // O tooltip é fixo na janela: some ao rolar a página ou redimensionar.
-  const tooltipAberto = foco?.origem === "mapa";
-  useEffect(() => {
-    if (!tooltipAberto) return;
-    const fechar = () => onFoco(null);
-    window.addEventListener("scroll", fechar, { passive: true, capture: true });
-    window.addEventListener("resize", fechar);
-    return () => {
-      window.removeEventListener("scroll", fechar, { capture: true });
-      window.removeEventListener("resize", fechar);
-    };
-  }, [tooltipAberto, onFoco]);
+  // Tooltip: hover/foco no pin ou hover/foco na linha da tabela de locais.
+  const tooltipAberto = foco?.origem === "mapa" || foco?.origem === "tabela";
 
   const nome = (n: number) => candidatos.find((c) => c.numero === n)?.nome_urna ?? `Nº ${n}`;
   const numeros = candidatos.map((c) => c.numero);
@@ -135,7 +107,7 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
             className="h-auto w-full"
             role="group"
             aria-label={`Mapa de ${nomeMunicipio} com ${pins.length} locais de votação. Use Tab para percorrer os locais; a lista completa está abaixo.`}
-            onMouseLeave={() => tooltipAberto && onFoco(null)}
+            onMouseLeave={() => foco?.origem === "mapa" && onFoco(null)}
           >
             <EstiloRealce />
             <path d={desenho.d} fill={COR_TRACO_CLARO} stroke={COR_CONTORNO} strokeWidth={1.2} aria-hidden="true" />
@@ -161,7 +133,7 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
                   onMouseEnter={() => onFoco({ id, origem: "mapa" })}
                   onFocus={() => onFoco({ id, origem: "mapa" })}
                   onClick={() => onFoco({ id, origem: "mapa" })}
-                  onBlur={() => tooltipAberto && onFoco(null)}
+                  onBlur={() => foco?.origem === "mapa" && onFoco(null)}
                 />
               );
             })}
@@ -192,19 +164,11 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
           </div>
         )}
       </div>
-      {ativo
-        ? createPortal(
-            <div
-              role="tooltip"
-              ref={(el) => posicionar(el, svgRef.current?.querySelector(`[data-local="${idLocal(ativo.l)}"]`) ?? null)}
-              className="pointer-events-none fixed z-[1000] max-h-[80vh] overflow-auto rounded border border-gray-300 bg-white px-2 py-1 text-xs shadow-lg"
-              style={{ visibility: "hidden", left: 0, top: 0, width: LARG_TOOLTIP }}
-            >
-              <DetalheLocal local={ativo.l} nome={nome} numeros={numeros} modo="resumo" />
-            </div>,
-            document.body,
-          )
-        : null}
+      {ativo ? (
+        <TooltipFixo ancora={() => svgRef.current?.querySelector(`[data-local="${idLocal(ativo.l)}"]`) ?? null}>
+          <DetalheLocal local={ativo.l} nome={nome} numeros={numeros} modo="resumo" />
+        </TooltipFixo>
+      ) : null}
     </div>
   );
 }

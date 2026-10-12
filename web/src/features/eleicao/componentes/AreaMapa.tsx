@@ -82,10 +82,12 @@ export interface AreaMapaProps {
   locais: EstadoLocais | null;
   focoLocal: FocoLocal | null;
   onFocoLocal: (f: FocoLocal | null) => void;
+  /** Código do filho destacado pela tabela (hover/foco na linha). */
+  destaque: string | null;
 }
 
 export function AreaMapa(props: AreaMapaProps) {
-  const { turno, abr, dados, info, onEntrar, voltar, voltouDe, locais, focoLocal, onFocoLocal } = props;
+  const { turno, abr, dados, info, onEntrar, voltar, voltouDe, locais, focoLocal, onFocoLocal, destaque } = props;
   const exterior = abr.nivel === "EXTERIOR" || abr.nivel === "PAIS" || abr.nivel === "CIDADE";
   const paises = usePaisesTse(exterior);
   const nome = (n: number) => info.find((c) => c.numero === n)?.nome_urna ?? `Nº ${n}`;
@@ -158,6 +160,9 @@ export function AreaMapa(props: AreaMapaProps) {
         dados={config.dados}
         somente={config.somente}
         zoomDe={zoomDe}
+        destaque={
+          destaque ? ([...config.dados.entries()].find(([, f]) => f.codigo === destaque)?.[0] ?? null) : null
+        }
         onSelecionar={config.clicavel ? (_, f) => onEntrar(f) : undefined}
         candidatos={info}
         rotulo={
