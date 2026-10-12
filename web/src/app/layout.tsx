@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AvisoFontes, ReabrirAviso } from "@/components/AvisoFontes";
 import { NavPrincipal } from "@/components/NavPrincipal";
 import "./globals.css";
 
@@ -38,12 +39,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <p>
               Fontes: planos de governo registrados no TSE e fontes oficiais citadas em cada
               informação. Candidatos sempre exibidos na ordem do número de urna (13, 22).{" "}
-              <Link href="/metodologia" className="text-blue-800 underline underline-offset-2">
+              <Link href="/metodologia" className="lk">
                 Metodologia
               </Link>
+              {" · "}
+              <ReabrirAviso />
             </p>
           </div>
         </footer>
+        <AvisoFontes />
       </body>
     </html>
   );

@@ -12,9 +12,10 @@
   --cor-flavio-preenchimento: #93d3a6;
   --cor-flavio-fundo: #e4f4e9;
   /* Vieses */
-  --cor-esquerda: #6d28d9;
-  --cor-centro: #4b5563;
-  --cor-direita: #0369a1;
+  /* Vieses: degradê de azul (claro → escuro) */
+  --cor-esquerda: #1e4e8c;
+  --cor-centro: #173f72;
+  --cor-direita: #0f2a50;
 }
 
 @theme inline {
@@ -39,6 +40,26 @@ body {
 :focus-visible {
   outline: 3px solid #1d4ed8;
   outline-offset: 2px;
+}
+
+/* Aviso inicial (<dialog> nativo em src/components/AvisoFontes.tsx) */
+html.modal-aberto {
+  overflow: hidden;
+}
+dialog.aviso {
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  margin: auto;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--foreground);
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+dialog.aviso::backdrop {
+  background: rgba(17, 24, 39, 0.6);
 }
 
 /*
@@ -178,19 +199,19 @@ details > summary * {
     font-size: 0.875rem;
   }
   .vt-esquerda {
-    color: #6d28d9;
-    background: #f3eefe;
-    border-color: #8b5cf6;
+    color: #1e4e8c;
+    background: #e6f1fb;
+    border-color: #9cc3ec;
   }
   .vt-centro {
-    color: #4b5563;
-    background: #f3f4f6;
-    border-color: #9ca3af;
+    color: #173f72;
+    background: #c3dcf5;
+    border-color: #5d97d6;
   }
   .vt-direita {
-    color: #0369a1;
-    background: #e6f3fb;
-    border-color: #2b8fc4;
+    color: #0f2a50;
+    background: #9cc3ec;
+    border-color: #2f6db3;
   }
   .bt-lula {
     border-top: 4px solid #d9534f;
@@ -202,6 +223,7 @@ details > summary * {
   .seg {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-width: 3px;
     padding: 0 0.375rem;
     white-space: nowrap;
@@ -212,7 +234,6 @@ details > summary * {
     background: #f4a7a1;
   }
   .seg-flavio {
-    justify-content: flex-end;
     color: #14532d;
     background: #93d3a6;
   }
@@ -222,19 +243,22 @@ details > summary * {
   .txt-flavio {
     color: #14532d;
   }
-  .bl-esquerda {
-    background: #f3eefe;
-    border-color: #8b5cf6;
+  .bl-esquerda,
+  .caixa.bl-esquerda {
+    background: #e6f1fb;
+    border-color: #9cc3ec;
     border-left-width: 4px;
   }
-  .bl-centro {
-    background: #f3f4f6;
-    border-color: #9ca3af;
+  .bl-centro,
+  .caixa.bl-centro {
+    background: #c3dcf5;
+    border-color: #5d97d6;
     border-left-width: 4px;
   }
-  .bl-direita {
-    background: #e6f3fb;
-    border-color: #2b8fc4;
+  .bl-direita,
+  .caixa.bl-direita {
+    background: #9cc3ec;
+    border-color: #2f6db3;
     border-left-width: 4px;
   }
   /* Selo neutro (horizonte, confiança) */

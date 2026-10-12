@@ -4,7 +4,7 @@ import type { CandidatoId, Vies } from "@/types/comum";
  * Tokens de cor da interface (os mesmos valores estão em src/app/globals.css).
  *
  * Candidatos: Lula (13) em vermelho pastel, Flávio (22) em verde pastel.
- * Vieses: roxo (esquerda), cinza (centro) e azul (direita), sem relação com
+ * Vieses: degradê de azul (claro, intermediário, escuro), sem relação com
  * as cores dos candidatos. Status: tons de cinza, sem cores valorativas.
  *
  * Contrastes medidos (WCAG 2): ver comentário de cada token.
@@ -59,13 +59,18 @@ export const ESCALA_MAPA: Record<CandidatoId, readonly [string, string, string, 
   flavio: ["#a1dbb5", "#67c587", "#3fa661", "#23783f"],
 };
 
+/**
+ * Vieses: degradê de azul em três tons (esquerda = mais claro, centro =
+ * intermediário, direita = mais escuro), sem relação com o vermelho de Lula
+ * nem com o verde de Flávio. A etiqueta sempre traz o nome do viés escrito.
+ */
 export const CORES_VIESES: Record<Vies, TokenCor> = {
-  // base/fundo 6,25:1 · borda/fundo 3,72:1
-  esquerda: { base: "#6d28d9", fundo: "#f3eefe", borda: "#8b5cf6", nomeCor: "roxo" },
-  // base/fundo 6,87:1
-  centro: { base: "#4b5563", fundo: "#f3f4f6", borda: "#9ca3af", nomeCor: "cinza" },
-  // base/fundo 5,25:1 · borda/fundo 3,19:1
-  direita: { base: "#0369a1", fundo: "#e6f3fb", borda: "#2b8fc4", nomeCor: "azul" },
+  // texto/fundo 7,27:1 · texto/branco 8,32:1 · luminância do fundo 0,867
+  esquerda: { base: "#1e4e8c", fundo: "#e6f1fb", borda: "#9cc3ec", nomeCor: "azul-claro" },
+  // texto/fundo 7,47:1 · texto/branco 10,55:1 · borda/branco 3,06:1 · luminância do fundo 0,694
+  centro: { base: "#173f72", fundo: "#c3dcf5", borda: "#5d97d6", nomeCor: "azul intermediário" },
+  // texto/fundo 7,79:1 · texto/branco 14,31:1 · borda/branco 5,30:1 · luminância do fundo 0,522
+  direita: { base: "#0f2a50", fundo: "#9cc3ec", borda: "#2f6db3", nomeCor: "azul-escuro" },
 };
 
 /** Cores dos status (presente/parcial/ausente etc.), independentes de candidato. */

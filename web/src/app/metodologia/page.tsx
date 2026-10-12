@@ -212,7 +212,7 @@ export default function MetodologiaPage() {
             Os candidatos aparecem sempre na ordem crescente do número de urna: 13 ({CANDIDATOS.lula.nome}) e
             depois 22 ({CANDIDATOS.flavio.nome}). Cada candidato tem uma cor em tom
             pastel (vermelho para {CANDIDATOS.lula.nome}, verde para {CANDIDATOS.flavio.nome}) e as
-            três leituras usam cores próprias (roxo, cinza e azul). As cores servem apenas para
+            três leituras usam três tons de azul (do mais claro, esquerda, ao mais escuro, direita). As cores servem apenas para
             identificação e não expressam avaliação.
           </p>
           <Legendas />

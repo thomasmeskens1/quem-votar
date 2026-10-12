@@ -46,7 +46,7 @@ export default function ComparativoIndex() {
                   {ORDEM_CANDIDATOS.map((c) => {
                     const k = contagens[c].find((x) => x.categoria === cat.nome);
                     return (
-                      <span key={c} className="flex flex-col items-start gap-1.5">
+                      <span key={c} className="flex flex-col items-start gap-2.5">
                         <CandidatoBadge candidato={c} tamanho="sm" />
                         <QuantidadePropostas
                           quantidade={k?.quantidade ?? 0}

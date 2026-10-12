@@ -47,12 +47,9 @@ export default function InternacionalIndex() {
               <span className="mt-1 block text-xs text-gray-700">{textoLegivel(t.escopo)}</span>
               <span className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {ORDEM_CANDIDATOS.map((c) => (
-                  <span key={c} className="flex flex-col items-start gap-1">
+                  <span key={c} className="flex flex-col items-start gap-2.5">
                     <CandidatoBadge candidato={c} tamanho="sm" />
                     <QuantidadePropostas quantidade={t.por_candidato[c].proposta_ids.length} status={t.por_candidato[c].status} />
-                    <span className="text-xs text-gray-700">
-                      {t.cenarios.filter((x) => x.candidato === c).length} cenário(s)
-                    </span>
                   </span>
                 ))}
               </span>

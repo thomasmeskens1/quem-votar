@@ -41,13 +41,15 @@ function montar(lula: ContagemCategoria[], flavio: ContagemCategoria[]): Linha[]
   });
 }
 
+/** Rótulo visível: só o número de propostas (+ marcação de tema secundário). */
 function rotulo(l: Linha, c: CandidatoId) {
-  return `${l.n[c]} · ${l.pct[c]}%${l.secundaria[c] ? " (tema secundário)" : ""}`;
+  return `${l.n[c]}${l.secundaria[c] ? " (tema secundário)" : ""}`;
 }
 
 /**
- * Uma barra 100% por categoria: Lula (13) à esquerda, Flávio (22) à direita,
- * com número de propostas e percentual sobre a soma dos dois. Visual em
+ * Uma barra 100% por categoria: Lula (13) à esquerda, Flávio (22) à direita.
+ * A largura de cada segmento é a fatia do candidato na soma dos dois; o rótulo
+ * mostra só o número de propostas, centralizado no segmento. Visual em
  * HTML/CSS (aria-hidden) + tabela equivalente para leitores de tela.
  */
 export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
@@ -68,9 +70,9 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
           const foraF = !cabeDentro(rotulo(l, "flavio"), l.pct.flavio);
           return (
             <li key={l.categoria} className="grid grid-cols-1 gap-1 md:grid-cols-[15rem_1fr] md:items-center md:gap-3">
-              <span className="text-xs text-gray-800 md:text-right">{l.categoria}</span>
+              <span className="text-xs font-bold text-gray-900 md:text-right">{l.categoria}</span>
               <div>
-                <div className="flex h-6 w-full overflow-hidden rounded text-xs font-semibold text-white">
+                <div className="flex h-6 w-full overflow-hidden rounded text-xs font-bold">
                   {l.pct.lula > 0 ? (
                     <span className="seg seg-lula" style={{ width: `${l.pct.lula}%` }}>
                       {foraL ? null : rotulo(l, "lula")}
@@ -83,7 +85,7 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
                   ) : null}
                 </div>
                 {foraL || foraF ? (
-                  <div className="mt-0.5 flex justify-between gap-2 text-xs font-semibold">
+                  <div className="mt-0.5 flex justify-between gap-2 text-xs font-bold">
                     <span className="txt-lula">{foraL ? rotulo(l, "lula") : ""}</span>
                     <span className="txt-flavio text-right">{foraF ? rotulo(l, "flavio") : ""}</span>
                   </div>
@@ -98,7 +100,7 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
       <div className="sr-only">
       <table>
         <caption>
-          Quantidade de propostas por categoria e percentual de cada candidato sobre a soma dos dois
+          Quantidade de propostas por categoria, por candidato
         </caption>
         <thead>
           <tr>
@@ -112,10 +114,10 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
             <tr key={l.categoria}>
               <th scope="row">{l.categoria}</th>
               <td>
-                {l.n.lula} propostas, {l.pct.lula}%{l.secundaria.lula ? ", apenas como tema secundário" : ""}
+                {l.n.lula} propostas{l.secundaria.lula ? ", apenas como tema secundário" : ""}
               </td>
               <td>
-                {l.n.flavio} propostas, {l.pct.flavio}%{l.secundaria.flavio ? ", apenas como tema secundário" : ""}
+                {l.n.flavio} propostas{l.secundaria.flavio ? ", apenas como tema secundário" : ""}
               </td>
             </tr>
           ))}

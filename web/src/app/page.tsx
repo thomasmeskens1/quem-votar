@@ -109,7 +109,7 @@ export default function Home() {
         <p className="mt-1 max-w-3xl text-sm text-gray-700">
           Quantidade de propostas de cada plano associadas a cada uma das 16 categorias (como
           categoria principal ou secundária), a mesma contagem exibida no Comparativo. Cada barra
-          mostra a divisão entre os dois planos: número de propostas e percentual sobre a soma dos dois. A quantidade não mede qualidade nem detalhamento das propostas.
+          mostra a divisão entre os dois planos, com o número de propostas de cada um. A quantidade não mede qualidade nem detalhamento das propostas.
         </p>
         <div className="mt-3">
           <GraficoComparado lula={contagemPorCategoria("lula")} flavio={contagemPorCategoria("flavio")} />
