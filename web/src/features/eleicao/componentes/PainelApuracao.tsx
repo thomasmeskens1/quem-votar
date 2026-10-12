@@ -12,7 +12,9 @@ import { useResultado } from "../useResultado";
 import { Apurado, Cartoes } from "./Cartoes";
 import { Comparativo } from "./Comparativo";
 import { FonteDados } from "./FonteDados";
+import { useLocais, type FocoLocal } from "../locais";
 import { AreaMapa } from "./AreaMapa";
+import { ListaLocais } from "./ListaLocais";
 import { Seletores } from "./Seletores";
 import { Tabela } from "./Tabela";
 
@@ -66,6 +68,7 @@ export function PainelApuracao() {
   const [turnoManual, setTurno] = useState<Turno | null>(null);
   const [abr, setAbr] = useState<Abrangencia>({ nivel: "BR" });
   const [voltouDe, setVoltouDe] = useState<Abrangencia | null>(null);
+  const [focoLocal, setFocoLocal] = useState<FocoLocal | null>(null);
 
   const abrMapa = useMemo(() => nivelMapa(abr), [abr]);
   const exterior = abr.nivel === "EXTERIOR" || abr.nivel === "PAIS" || abr.nivel === "CIDADE";
@@ -93,6 +96,8 @@ export function PainelApuracao() {
     return { ...d, filhos: filhosLidos, totais: s.totais, candidatos: s.candidatos, apuracao: s.apuracao };
   }, [atual.dados, diretos.filhos]);
   const vista = recorte(dados, abr);
+  // Locais de votação: só do turno exibido (no 2º turno nunca se mostram os do 1º).
+  const locais = useLocais(turno, abr.nivel === "MUN" ? abr.uf : null, abr.nivel === "MUN" ? abr.municipio : null);
   const info = useMemo(
     () => (dados?.candidatos_info.length ? dados.candidatos_info : (r1.dados?.candidatos_info ?? [])),
     [dados, r1.dados],
@@ -101,6 +106,7 @@ export function PainelApuracao() {
   // Navegação: seletores, tabela e mapa usam irPara; "Voltar" guarda de onde veio (animação de afastar).
   const irPara = useCallback((a: Abrangencia, de: Abrangencia | null = null) => {
     setVoltouDe(de);
+    setFocoLocal(null);
     setAbr(a);
   }, []);
   const anterior = pai(abr);
@@ -191,7 +197,7 @@ export function PainelApuracao() {
       {dados && (dados.filhos?.length || dados.pendentes) ? (
         <section aria-labelledby="titulo-mapa" className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-[5fr_7fr]">
           <h2 id="titulo-mapa" className="text-lg font-bold text-gray-900 lg:col-span-2">
-            {abr.nivel === "MUN" && vista ? `Locais de votação — ${vista.nome}` : `Resultado por ${rotuloFilho.toLowerCase()}`}
+            {abr.nivel === "MUN" && vista ? `Mapa dos locais de votação — ${vista.nome}` : `Resultado por ${rotuloFilho.toLowerCase()}`}
           </h2>
           <AreaMapa
             turno={turno}
@@ -201,6 +207,9 @@ export function PainelApuracao() {
             onEntrar={(f) => irPara(entrarEm(abrMapa, f))}
             voltar={voltar}
             voltouDe={voltouDe}
+            locais={locais}
+            focoLocal={focoLocal}
+            onFocoLocal={setFocoLocal}
           />
           <div className="min-w-0">
             <Tabela
@@ -214,6 +223,17 @@ export function PainelApuracao() {
             />
           </div>
         </section>
+      ) : null}
+
+      {abr.nivel === "MUN" && locais ? (
+        <ListaLocais
+          turno={turno}
+          nomeMunicipio={vista?.nome ?? abr.municipio}
+          locais={locais}
+          candidatos={info}
+          foco={focoLocal}
+          onFoco={setFocoLocal}
+        />
       ) : null}
 
       <section aria-labelledby="titulo-comparativo" className="space-y-2">

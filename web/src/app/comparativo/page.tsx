@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CandidatoBadge } from "@/components/CandidatoBadge";
 import { LegendaCandidatos } from "@/components/Legenda";
-import { StatusChip } from "@/components/StatusChip";
+import { QuantidadePropostas } from "@/components/QuantidadePropostas";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getCategorias } from "@/lib/data/categorias";
-import { contagemPorCategoria, rotuloQuantidade } from "@/lib/data/contagem";
+import { contagemPorCategoria } from "@/lib/data/contagem";
 import { slugify } from "@/lib/slug";
 
 export const metadata: Metadata = {
@@ -48,16 +48,10 @@ export default function ComparativoIndex() {
                     return (
                       <span key={c} className="flex flex-col items-start gap-1.5">
                         <CandidatoBadge candidato={c} tamanho="sm" />
-                        {!k || k.status === "sem_proposta_registrada" ? (
-                          <StatusChip dominio="categoria" status="sem_proposta_registrada" />
-                        ) : (
-                          <span className="fila">
-                            <span className="st st-neutro">{rotuloQuantidade(k.quantidade)}</span>
-                            {k.status === "apenas_secundaria" ? (
-                              <StatusChip dominio="categoria" status="apenas_secundaria" />
-                            ) : null}
-                          </span>
-                        )}
+                        <QuantidadePropostas
+                          quantidade={k?.quantidade ?? 0}
+                          status={k?.status ?? "sem_proposta_registrada"}
+                        />
                       </span>
                     );
                   })}

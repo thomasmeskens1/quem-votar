@@ -13,7 +13,7 @@ import { Legendas } from "@/components/Legenda";
 import { ParCandidatos } from "@/components/ParCandidatos";
 import { Secao } from "@/components/Secao";
 import { SemProposta } from "@/components/SemProposta";
-import { StatusChip } from "@/components/StatusChip";
+import { QuantidadePropostas } from "@/components/QuantidadePropostas";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { categoriaPorSlug, getCategorias } from "@/lib/data/categorias";
 import { criterioAgenda } from "@/lib/data/agenda";
@@ -113,7 +113,7 @@ export default async function CategoriaPage({ params }: PageProps<"/comparativo/
                 }
                 return (
                   <div className="space-y-3">
-                    <StatusChip dominio="categoria" status={p.status} comDescricao />
+                    <QuantidadePropostas quantidade={p.proposta_ids.length} status={p.status} />
                     <PropostasLista candidato={c} ids={p.proposta_ids} categoria={cat.nome} />
                   </div>
                 );

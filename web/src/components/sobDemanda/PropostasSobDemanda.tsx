@@ -34,8 +34,8 @@ export function PropostasSobDemanda({
   const { estado, carregar } = useSobDemanda<[MapaPropostas]>([urlPropostas(c)]);
   const ids = [...principais, ...secundarias];
   const resumo = categoria
-    ? `${ids.length} item(ns) do plano — ${principais.length} com esta categoria como principal, ${secundarias.length} como secundária`
-    : `${ids.length} item(ns) do plano`;
+    ? `Ver as propostas (${principais.length} com esta categoria como principal, ${secundarias.length} como secundária)`
+    : `Ver as propostas`;
   return (
     <DetalhesSobDemanda resumo={resumo} aoAbrir={carregar}>
       <EstadoBloco estado={estado} tentar={carregar} />

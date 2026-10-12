@@ -88,10 +88,18 @@ export function carregarFonteLocais(turno: Turno): Promise<FonteLocais | null> {
   return f;
 }
 
-export function useLocais(turno: Turno, uf: string, codTse: string): EstadoLocais {
-  const chave = `${turno}|${uf}|${codTse}`;
+/** Local em destaque: pelo mapa (abre o tooltip) ou pela lista (só realça o pin). */
+export interface FocoLocal {
+  id: string;
+  origem: "mapa" | "lista";
+}
+
+/** Carrega os locais do município (null = nenhum município aberto). */
+export function useLocais(turno: Turno, uf: string | null, codTse: string | null): EstadoLocais | null {
+  const chave = uf && codTse ? `${turno}|${uf}|${codTse}` : null;
   const [estado, setEstado] = useState<{ chave: string; v: EstadoLocais } | null>(null);
   useEffect(() => {
+    if (!chave || !uf || !codTse) return;
     let vivo = true;
     buscar(turno, uf, codTse).then((d) => {
       if (vivo) setEstado({ chave, v: d ? { estado: "ok", dados: d } : { estado: "ausente" } });
@@ -100,5 +108,6 @@ export function useLocais(turno: Turno, uf: string, codTse: string): EstadoLocai
       vivo = false;
     };
   }, [chave, turno, uf, codTse]);
+  if (!chave) return null;
   return estado?.chave === chave ? estado.v : { estado: "carregando" };
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CandidatoBadge } from "@/components/CandidatoBadge";
 import { Legendas } from "@/components/Legenda";
-import { StatusChip } from "@/components/StatusChip";
+import { QuantidadePropostas } from "@/components/QuantidadePropostas";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getSinteseRi } from "@/lib/data/ri";
 import { slugify } from "@/lib/slug";
@@ -49,7 +49,7 @@ export default function InternacionalIndex() {
                 {ORDEM_CANDIDATOS.map((c) => (
                   <span key={c} className="flex flex-col items-start gap-1">
                     <CandidatoBadge candidato={c} tamanho="sm" />
-                    <StatusChip dominio="categoria" status={t.por_candidato[c].status} />
+                    <QuantidadePropostas quantidade={t.por_candidato[c].proposta_ids.length} status={t.por_candidato[c].status} />
                     <span className="text-xs text-gray-700">
                       {t.cenarios.filter((x) => x.candidato === c).length} cenário(s)
                     </span>

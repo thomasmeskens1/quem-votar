@@ -13,7 +13,7 @@ import { Legendas } from "@/components/Legenda";
 import { ParCandidatos } from "@/components/ParCandidatos";
 import { Secao } from "@/components/Secao";
 import { SemProposta } from "@/components/SemProposta";
-import { StatusChip } from "@/components/StatusChip";
+import { QuantidadePropostas } from "@/components/QuantidadePropostas";
 import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 import { getAnaliseRiArquivo, getTemasRi, temaRiPorSlug } from "@/lib/data/ri";
 import { slugify } from "@/lib/slug";
@@ -95,7 +95,7 @@ export default async function TemaPage({ params }: PageProps<"/internacional/[te
             if (semProposta(p) || !p.proposta_ids.length) return <SemProposta texto={p?.mensagem} />;
             return (
               <div className="space-y-3">
-                <StatusChip dominio="categoria" status={p.status} comDescricao />
+                <QuantidadePropostas quantidade={p.proposta_ids.length} status={p.status} />
                 <PropostasLista candidato={c} ids={p.proposta_ids} />
               </div>
             );

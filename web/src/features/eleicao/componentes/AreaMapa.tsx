@@ -10,6 +10,7 @@ import { FonteLink } from "@/components/FonteLink";
 import type { Abrangencia } from "../abrangencia";
 import { FAIXAS_MARGEM, intensidade } from "../calculos";
 import { COR_OUTROS, COR_SEM_DADOS, corCandidato, misturar, NUMERO_FLAVIO, NUMERO_LULA } from "../cores-eleicao";
+import type { EstadoLocais, FocoLocal } from "../locais";
 import { carregarPaisesTse, MALHA } from "../malhas";
 import { NOME_UF } from "../tse/config";
 import type { CandidatoInfo, ResultadoAbrangencia, ResultadoFilho, Turno } from "../tipos";
@@ -74,9 +75,14 @@ export interface AreaMapaProps {
   voltar: { rotulo: string; acao: () => void } | null;
   /** Área de onde o usuário voltou (para a animação de afastar). */
   voltouDe: Abrangencia | null;
+  /** Locais de votação do município aberto (nível MUN). */
+  locais: EstadoLocais | null;
+  focoLocal: FocoLocal | null;
+  onFocoLocal: (f: FocoLocal | null) => void;
 }
 
-export function AreaMapa({ turno, abr, dados, info, onEntrar, voltar, voltouDe }: AreaMapaProps) {
+export function AreaMapa(props: AreaMapaProps) {
+  const { turno, abr, dados, info, onEntrar, voltar, voltouDe, locais, focoLocal, onFocoLocal } = props;
   const exterior = abr.nivel === "EXTERIOR" || abr.nivel === "PAIS" || abr.nivel === "CIDADE";
   const paises = usePaisesTse(exterior);
   const nome = (n: number) => info.find((c) => c.numero === n)?.nome_urna ?? `Nº ${n}`;
@@ -126,9 +132,11 @@ export function AreaMapa({ turno, abr, dados, info, onEntrar, voltar, voltouDe }
         turno={turno}
         uf={abr.uf}
         codIbge={f?.cod_ibge}
-        codTse={abr.municipio}
         nomeMunicipio={f?.nome ?? abr.municipio}
         candidatos={info}
+        locais={locais ?? { estado: "carregando" }}
+        foco={focoLocal}
+        onFoco={onFocoLocal}
       />
     );
   } else if (config && "semMapa" in config) {

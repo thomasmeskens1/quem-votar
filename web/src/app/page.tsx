@@ -4,9 +4,8 @@ import { FonteLink } from "@/components/FonteLink";
 import { ParCandidatos } from "@/components/ParCandidatos";
 import { pdfPlano } from "@/lib/candidatos";
 import { getRegistro } from "@/lib/data/propostas";
-import { GraficoCategorias } from "@/components/analise/GraficoCategorias";
+import { GraficoComparado } from "@/components/analise/GraficoComparado";
 import { contagemPorCategoria } from "@/lib/data/contagem";
-import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
 
 const ATALHOS = [
   {
@@ -37,8 +36,6 @@ const ATALHOS = [
 ];
 
 export default function Home() {
-  const contagens = Object.fromEntries(ORDEM_CANDIDATOS.map((c) => [c, contagemPorCategoria(c)]));
-  const maximo = Math.max(...Object.values(contagens).flat().map((d) => d.quantidade));
   return (
     <div className="space-y-8">
       <section aria-labelledby="titulo-home">
@@ -111,11 +108,11 @@ export default function Home() {
         </h2>
         <p className="mt-1 max-w-3xl text-sm text-gray-700">
           Quantidade de propostas de cada plano associadas a cada uma das 16 categorias (como
-          categoria principal ou secundária), a mesma contagem exibida no Comparativo. Os dois
-          gráficos usam a mesma escala. A quantidade não mede qualidade nem detalhamento das propostas.
+          categoria principal ou secundária), a mesma contagem exibida no Comparativo. Cada barra
+          mostra a divisão entre os dois planos: número de propostas e percentual sobre a soma dos dois. A quantidade não mede qualidade nem detalhamento das propostas.
         </p>
         <div className="mt-3">
-          <ParCandidatos render={(c) => <GraficoCategorias candidato={c} dados={contagens[c]} maximo={maximo} />} />
+          <GraficoComparado lula={contagemPorCategoria("lula")} flavio={contagemPorCategoria("flavio")} />
         </div>
       </section>
 
