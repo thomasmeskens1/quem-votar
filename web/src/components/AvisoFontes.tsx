@@ -92,7 +92,7 @@ export function AvisoFontes() {
       className="aviso"
     >
       <h2 id="aviso-titulo" className="text-lg font-bold tracking-wide text-gray-900">
-        ATENÇÃO
+        ATENÇÃO!
       </h2>
       <div id="aviso-texto" className="mt-3 space-y-3 text-sm leading-relaxed text-gray-800">
         <p>
@@ -109,7 +109,7 @@ export function AvisoFontes() {
       </div>
       <div className="mt-5 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/metodologia" className="lk text-center text-sm" onClick={() => ref.current?.close()}>
-          Saiba mais na Metodologia
+          Saiba mais da nossa Metodologia
         </Link>
         <form method="dialog">
           <button
