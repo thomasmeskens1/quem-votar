@@ -13,6 +13,7 @@ import type { EstadoLocais, FocoLocal } from "../locais";
 import { carregarPaisesTse, MALHA } from "../malhas";
 import { NOME_UF } from "../tse/config";
 import type { CandidatoInfo, ResultadoAbrangencia, ResultadoFilho, Turno } from "../tipos";
+import { FonteLocaisTexto } from "./ListaLocais";
 import { Mapa } from "./Mapa";
 import { MapaLocais } from "./MapaLocais";
 
@@ -200,6 +201,7 @@ export function AreaMapa(props: AreaMapaProps) {
         </FonteLink>
         {abr.nivel === "UF" || abr.nivel === "MUN" ? ` · ${NOME_UF[abr.uf]}` : ""}
       </p>
+      {abr.nivel === "MUN" ? <FonteLocaisTexto turno={turno} /> : null}
     </div>
   );
 }

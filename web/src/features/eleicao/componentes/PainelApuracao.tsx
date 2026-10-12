@@ -290,30 +290,30 @@ export function PainelApuracao() {
             destaque={destaque}
           />
           <div className="min-w-0">
-            <Tabela
-              titulo={`Resultado por ${rotuloFilho.toLowerCase()} em ${dados.nome}`}
-              rotuloUnidade={rotuloFilho}
-              filhos={filhos}
-              colunas={COLUNAS}
-              candidatos={info}
-              selecionado={abr.nivel === "MUN" ? abr.municipio : abr.nivel === "CIDADE" ? abr.cidade : undefined}
-              onSelecionar={(f) => irPara(entrarEm(abrMapa, f))}
-              onDestaque={setDestaque}
-              preencher
-            />
+            {abr.nivel === "MUN" ? (
+              <ListaLocais
+                turno={turno}
+                nomeMunicipio={vista?.nome ?? abr.municipio}
+                locais={locais ?? { estado: "carregando" }}
+                candidatos={info}
+                foco={focoLocal}
+                onFoco={setFocoLocal}
+              />
+            ) : (
+              <Tabela
+                titulo={`Resultado por ${rotuloFilho.toLowerCase()} em ${dados.nome}`}
+                rotuloUnidade={rotuloFilho}
+                filhos={filhos}
+                colunas={COLUNAS}
+                candidatos={info}
+                selecionado={abr.nivel === "CIDADE" ? abr.cidade : undefined}
+                onSelecionar={(f) => irPara(entrarEm(abrMapa, f))}
+                onDestaque={setDestaque}
+                preencher
+              />
+            )}
           </div>
         </section>
-      ) : null}
-
-      {abr.nivel === "MUN" && locais ? (
-        <ListaLocais
-          turno={turno}
-          nomeMunicipio={vista?.nome ?? abr.municipio}
-          locais={locais}
-          candidatos={info}
-          foco={focoLocal}
-          onFoco={setFocoLocal}
-        />
       ) : null}
 
       <section aria-labelledby="titulo-comparativo" className="space-y-2">

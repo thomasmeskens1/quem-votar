@@ -32,7 +32,7 @@ export interface MapaLocaisProps {
 
 const L = 600;
 const A = 520;
-export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, locais, foco, onFoco }: MapaLocaisProps) {
+export function MapaLocais({ uf, codIbge, nomeMunicipio, candidatos, locais, foco, onFoco }: MapaLocaisProps) {
   const [malha, setMalha] = useState<{ uf: string; geo: ColecaoMalha } | null>(null);
   const [pronto, setPronto] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -85,13 +85,6 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
 
   return (
     <div className="space-y-3">
-      {locais.estado === "ausente" ? (
-        <p role="status" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-          {turno === 2
-            ? "Dados por local de votação do 2º turno serão publicados pelo TSE após a totalização."
-            : "Os dados por local de votação deste município ainda não estão disponíveis."}
-        </p>
-      ) : null}
       <div
         className="w-full min-w-0 rounded border border-gray-200 bg-gray-50"
         style={{

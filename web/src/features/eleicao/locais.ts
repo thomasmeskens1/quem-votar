@@ -82,7 +82,9 @@ export function carregarFonteLocais(turno: Turno): Promise<FonteLocais | null> {
   const f =
     fontes[turno] ??
     fetch(`/dados/eleicao/2026/${turno}turno/locais/fonte.json`)
-      .then((r) => (r.ok ? (r.json() as Promise<FonteLocais>) : null))
+      // O arquivo traz os dados de origem dentro de "fonte" (ver dados/eleicao/esquema.json).
+      .then((r) => (r.ok ? (r.json() as Promise<{ fonte?: FonteLocais } & FonteLocais>) : null))
+      .then((j) => (j ? (j.fonte ?? j) : null))
       .catch(() => null);
   fontes = { ...fontes, [turno]: f };
   return f;
