@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LarguraTotal } from "@/features/eleicao/componentes/LarguraTotal";
 import { PainelApuracao } from "@/features/eleicao/componentes/PainelApuracao";
 
 export const metadata: Metadata = {
@@ -9,15 +10,17 @@ export const metadata: Metadata = {
 
 export default function PaginaEleicao() {
   return (
-    <main className="mx-auto w-full max-w-6xl space-y-4 px-4 py-6">
-      <header className="space-y-1">
-        <h1 className="text-2xl font-bold text-gray-900">Apuração — Presidente 2026</h1>
-        <p className="text-sm text-gray-700">
-          Resultados oficiais do Tribunal Superior Eleitoral (TSE). 1º turno em 04/10/2026; 2º turno em 25/10/2026,
-          com atualização automática durante a apuração.
-        </p>
-      </header>
-      <PainelApuracao />
-    </main>
+    <LarguraTotal>
+      <div className="space-y-4">
+        <header className="space-y-1">
+          <h1 className="text-2xl font-bold text-gray-900">Apuração — Presidente 2026</h1>
+          <p className="text-sm text-gray-700">
+            Resultados oficiais do Tribunal Superior Eleitoral (TSE). 1º turno em 04/10/2026; 2º turno em 25/10/2026,
+            com atualização automática durante a apuração.
+          </p>
+        </header>
+        <PainelApuracao />
+      </div>
+    </LarguraTotal>
   );
 }

@@ -70,6 +70,11 @@ export function useResultado(turno: Turno, abr: Abrangencia | null): EstadoResul
   }, [url]);
 
   if (!url) return { dados: null, erro: null, aguardando: false, carregando: false };
-  if (estado.url !== url) return { dados: null, erro: null, aguardando: false, carregando: true };
+  if (estado.url !== url) {
+    // Volta a uma área já vista: usa a resposta em memória, sem piscar.
+    const m = memoria.get(url);
+    if (m?.resp.ok) return { dados: m.resp.dados, erro: null, aguardando: false, carregando: true };
+    return { dados: null, erro: null, aguardando: false, carregando: true };
+  }
   return estado;
 }

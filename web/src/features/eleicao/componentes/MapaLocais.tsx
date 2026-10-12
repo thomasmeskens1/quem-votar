@@ -17,6 +17,7 @@ import { carregarMalha, chaveFeicao, MALHA, type ColecaoMalha } from "../malhas"
 import type { CandidatoInfo, Turno } from "../tipos";
 import { DetalheLocal, votosNoLocal } from "./DetalheLocal";
 import { movimentoReduzido } from "./Mapa";
+import { EstiloRealce, estiloRealce, useRealce } from "./Realce";
 
 export interface MapaLocaisProps {
   turno: Turno;
@@ -108,6 +109,7 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
     : [];
   const ativo = tooltipAberto ? pins.find((p) => idLocal(p.l) === foco.id) : undefined;
   const reduzido = movimentoReduzido();
+  const realce = useRealce(foco?.id ?? null);
 
   return (
     <div className="space-y-3">
@@ -135,6 +137,7 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
             aria-label={`Mapa de ${nomeMunicipio} com ${pins.length} locais de votação. Use Tab para percorrer os locais; a lista completa está abaixo.`}
             onMouseLeave={() => tooltipAberto && onFoco(null)}
           >
+            <EstiloRealce />
             <path d={desenho.d} fill={COR_TRACO_CLARO} stroke={COR_CONTORNO} strokeWidth={1.2} aria-hidden="true" />
             {pins.map(({ l, x, y, r }) => {
               const ld = lider(l.candidatos, l.totais);
@@ -159,6 +162,26 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
                   onFocus={() => onFoco({ id, origem: "mapa" })}
                   onClick={() => onFoco({ id, origem: "mapa" })}
                   onBlur={() => tooltipAberto && onFoco(null)}
+                />
+              );
+            })}
+            {(["saindo", "entrando"] as const).map((fase) => {
+              const id = realce[fase];
+              const p = id ? pins.find((x) => idLocal(x.l) === id) : undefined;
+              if (!p) return null;
+              const ld = lider(p.l.candidatos, p.l.totais);
+              return (
+                <circle
+                  key={`${fase}-${id}`}
+                  cx={p.x}
+                  cy={p.y}
+                  r={p.r}
+                  fill={ld ? tomEscala(ld.numero, 2) : COR_SEM_DADOS}
+                  stroke={COR_DESTAQUE}
+                  strokeWidth={2}
+                  vectorEffect="non-scaling-stroke"
+                  aria-hidden="true"
+                  style={estiloRealce(fase, 1.5, reduzido)}
                 />
               );
             })}

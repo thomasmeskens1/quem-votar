@@ -15,6 +15,7 @@ import { formatarPct, lider, pctCandidato } from "../calculos";
 import { COR_DESTAQUE, COR_SEM_DADOS, COR_TRACO_CLARO, corCandidato, corMapa } from "../cores-eleicao";
 import { carregarMalha, chaveFeicao, nomeFeicao, type ColecaoMalha, type TipoMalha } from "../malhas";
 import type { CandidatoInfo, ResultadoFilho } from "../tipos";
+import { EstiloRealce, estiloRealce, useRealce } from "./Realce";
 
 export interface MapaProps {
   url: string;
@@ -101,6 +102,8 @@ export function Mapa(props: MapaProps) {
     return () => cancelAnimationFrame(id);
   }, [caminhos.length]);
   useEffect(() => () => clearTimeout(timer.current), []);
+  // "Grow up" da área em foco (só áreas com dados; nunca durante o zoom de entrada).
+  const realce = useRealce(!alvo && foco && dados.has(foco.chave) ? foco.chave : null);
 
   function transfPara(chave: string | null | undefined): Transf {
     const c = chave ? caminhos.find((x) => x.chave === chave) : undefined;
@@ -130,7 +133,8 @@ export function Mapa(props: MapaProps) {
     setAlvo(chave);
     timer.current = setTimeout(() => {
       onSelecionar(chave, f);
-      setAlvo(null);
+      // Fica ampliado até o próximo nível chegar (o mapa é trocado); se não chegar, volta.
+      timer.current = setTimeout(() => setAlvo(null), 8000);
     }, DURACAO_MS);
   }
 
@@ -161,6 +165,7 @@ export function Mapa(props: MapaProps) {
   return (
     <div className="relative w-full min-w-0 overflow-hidden" style={entrada}>
       <svg viewBox={`0 0 ${LARGURA} ${altura}`} className="h-auto w-full" role="group" aria-label={rotulo} onMouseLeave={() => setFoco(null)}>
+        <EstiloRealce />
         <g style={estiloGrupo}>
           {caminhos.map((c) => {
             const f = dados.get(c.chave);
@@ -198,6 +203,23 @@ export function Mapa(props: MapaProps) {
                     escolher(c.chave, f);
                   }
                 }}
+              />
+            );
+          })}
+          {(["saindo", "entrando"] as const).map((fase) => {
+            const chave = realce[fase];
+            const c = chave ? caminhos.find((x) => x.chave === chave) : undefined;
+            if (!c) return null;
+            return (
+              <path
+                key={`${fase}-${c.chave}`}
+                d={c.d}
+                fill={cor(c.chave)}
+                stroke={COR_DESTAQUE}
+                strokeWidth={1.5}
+                vectorEffect="non-scaling-stroke"
+                aria-hidden="true"
+                style={estiloRealce(fase, tipo === "ufs" || mundo ? 1.08 : 1.12, reduzido)}
               />
             );
           })}

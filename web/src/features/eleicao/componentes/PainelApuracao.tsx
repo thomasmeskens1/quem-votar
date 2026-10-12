@@ -1,8 +1,8 @@
 "use client";
 
 /** Painel de apuração (inspirado no painel de TV): seletores, mapa, cartões, comparativo e fonte. */
-import { useCallback, useMemo, useState } from "react";
-import { pai, PAIS_NAO_IDENTIFICADO, type Abrangencia } from "../abrangencia";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { chave, pai, PAIS_NAO_IDENTIFICADO, parseAbrangencia, type Abrangencia } from "../abrangencia";
 import { somar } from "../tse/normalizar";
 import { useFilhosDiretos } from "../useFilhosDiretos";
 import { NUMERO_FLAVIO, NUMERO_LULA } from "../cores-eleicao";
@@ -46,6 +46,31 @@ function recorte(d: ResultadoAbrangencia | null, abr: Abrangencia): Recorte | nu
   return d;
 }
 
+interface Quadro {
+  abr: Abrangencia;
+  dados: ResultadoAbrangencia;
+  r1: ResultadoAbrangencia | null;
+  r2: ResultadoAbrangencia | null;
+  turno: Turno;
+}
+
+/** Os dados recebidos são da abrangência do mapa pedida? */
+function corresponde(d: ResultadoAbrangencia, a: Abrangencia): boolean {
+  if (a.nivel === "BR") return d.nivel === "BR";
+  if (a.nivel === "UF") return d.nivel === "UF" && d.codigo === a.uf;
+  if (a.nivel === "EXTERIOR") return d.nivel === "EXTERIOR";
+  if (a.nivel === "PAIS") return d.nivel === "PAIS" && d.codigo === a.pais;
+  return false;
+}
+
+/** "?area=uf/SP/71072" (vazio = Brasil), preservando os outros parâmetros. */
+function urlDe(a: Abrangencia): string {
+  const u = new URL(window.location.href);
+  if (a.nivel === "BR") u.searchParams.delete("area");
+  else u.searchParams.set("area", chave(a));
+  return `${u.pathname}${u.search}${u.hash}`;
+}
+
 /** Abrangência ao entrar num filho do mapa/tabela. */
 function entrarEm(abrMapa: Abrangencia, f: ResultadoFilho): Abrangencia {
   if (abrMapa.nivel === "BR") return f.codigo === "ZZ" ? { nivel: "EXTERIOR" } : { nivel: "UF", uf: f.codigo };
@@ -66,28 +91,29 @@ function rotuloDe(a: Abrangencia): string {
 export function PainelApuracao() {
   // null = automático: mostra o 2º turno assim que o TSE tiver seções totalizadas.
   const [turnoManual, setTurno] = useState<Turno | null>(null);
-  const [abr, setAbr] = useState<Abrangencia>({ nivel: "BR" });
+  // alvo = área pedida; o que aparece na tela (quadro) só troca quando os dados do alvo chegam.
+  const [alvo, setAlvo] = useState<Abrangencia>({ nivel: "BR" });
   const [voltouDe, setVoltouDe] = useState<Abrangencia | null>(null);
   const [focoLocal, setFocoLocal] = useState<FocoLocal | null>(null);
 
-  const abrMapa = useMemo(() => nivelMapa(abr), [abr]);
-  const exterior = abr.nivel === "EXTERIOR" || abr.nivel === "PAIS" || abr.nivel === "CIDADE";
+  const abrMapaAlvo = useMemo(() => nivelMapa(alvo), [alvo]);
+  const exteriorAlvo = alvo.nivel === "EXTERIOR" || alvo.nivel === "PAIS" || alvo.nivel === "CIDADE";
 
   // O 2º turno só é buscado em profundidade quando o TSE já tem seções totalizadas.
   const r2br = useResultado(2, { nivel: "BR" });
   const iniciou2 =
     !!r2br.dados && (r2br.dados.fonte.tipo === "estatico" || (r2br.dados.apuracao?.secoes_totalizadas ?? 0) > 0);
-  const r1 = useResultado(1, abrMapa);
-  const r2prof = useResultado(2, iniciou2 && abrMapa.nivel !== "BR" ? abrMapa : null);
-  const r2 = abrMapa.nivel === "BR" ? r2br : r2prof;
-  const listaPaises = useResultado(1, exterior ? { nivel: "EXTERIOR" } : null);
+  const r1 = useResultado(1, abrMapaAlvo);
+  const r2prof = useResultado(2, iniciou2 && abrMapaAlvo.nivel !== "BR" ? abrMapaAlvo : null);
+  const r2 = abrMapaAlvo.nivel === "BR" ? r2br : r2prof;
+  const listaPaises = useResultado(1, exteriorAlvo ? { nivel: "EXTERIOR" } : null);
 
   const turnoEscolhido: Turno = turnoManual ?? (iniciou2 ? 2 : 1);
-  const turno: Turno = turnoEscolhido === 2 && iniciou2 ? 2 : 1;
-  const atual = turno === 2 ? r2 : r1;
+  const turnoAlvo: Turno = turnoEscolhido === 2 && iniciou2 ? 2 : 1;
+  const atual = turnoAlvo === 2 ? r2 : r1;
   // Ao vivo, municípios/cidades da área aberta são lidos pelo navegador direto no TSE.
-  const diretos = useFilhosDiretos(atual.dados, abrMapa.nivel === "EXTERIOR");
-  const dados = useMemo(() => {
+  const diretos = useFilhosDiretos(atual.dados, abrMapaAlvo.nivel === "EXTERIOR");
+  const dadosAlvo = useMemo(() => {
     const d = atual.dados;
     if (!d?.pendentes) return d;
     const filhosLidos = diretos.filhos ?? [];
@@ -95,20 +121,59 @@ export function PainelApuracao() {
     const s = somar(filhosLidos);
     return { ...d, filhos: filhosLidos, totais: s.totais, candidatos: s.candidatos, apuracao: s.apuracao };
   }, [atual.dados, diretos.filhos]);
+
+  // Quadro exibido: troca só quando os dados do alvo chegam (sem tela em branco nem "reload").
+  const pronto = !!dadosAlvo && corresponde(dadosAlvo, abrMapaAlvo);
+  const quadroNovo: Quadro | null = pronto
+    ? { abr: alvo, dados: dadosAlvo, r1: r1.dados, r2: r2.dados, turno: turnoAlvo }
+    : null;
+  const [ultimo, setUltimo] = useState<Quadro | null>(null);
+  if (
+    quadroNovo &&
+    (!ultimo ||
+      ultimo.abr !== quadroNovo.abr ||
+      ultimo.dados !== quadroNovo.dados ||
+      ultimo.r1 !== quadroNovo.r1 ||
+      ultimo.r2 !== quadroNovo.r2 ||
+      ultimo.turno !== quadroNovo.turno)
+  ) {
+    setUltimo(quadroNovo);
+  }
+  const quadro = quadroNovo ?? ultimo;
+  const trocando = !quadroNovo && !!ultimo && !atual.erro;
+  const abr = quadro?.abr ?? alvo;
+  const abrMapa = nivelMapa(abr);
+  const exterior = abr.nivel === "EXTERIOR" || abr.nivel === "PAIS" || abr.nivel === "CIDADE";
+  const dados = quadro?.dados ?? null;
+  const turno: Turno = quadro?.turno ?? turnoAlvo;
+  const r1dados = quadro?.r1 ?? null;
+  const r2dados = quadro?.r2 ?? null;
   const vista = recorte(dados, abr);
   // Locais de votação: só do turno exibido (no 2º turno nunca se mostram os do 1º).
   const locais = useLocais(turno, abr.nivel === "MUN" ? abr.uf : null, abr.nivel === "MUN" ? abr.municipio : null);
   const info = useMemo(
-    () => (dados?.candidatos_info.length ? dados.candidatos_info : (r1.dados?.candidatos_info ?? [])),
-    [dados, r1.dados],
+    () => (dados?.candidatos_info.length ? dados.candidatos_info : (r1dados?.candidatos_info ?? [])),
+    [dados, r1dados],
   );
 
   // Navegação: seletores, tabela e mapa usam irPara; "Voltar" guarda de onde veio (animação de afastar).
-  const irPara = useCallback((a: Abrangencia, de: Abrangencia | null = null) => {
+  const irPara = useCallback((a: Abrangencia, de: Abrangencia | null = null, historico = true) => {
     setVoltouDe(de);
     setFocoLocal(null);
-    setAbr(a);
+    setAlvo(a);
+    // URL compartilhável sem navegação do Next (sem recarregar nem remontar a página).
+    if (historico) window.history.pushState({ eleicao: chave(a) }, "", urlDe(a));
   }, []);
+
+  // Abre a área da URL (link compartilhado) e trata o botão Voltar/Avançar do navegador.
+  useEffect(() => {
+    const daUrl = () => parseAbrangencia(new URLSearchParams(window.location.search).get("area")?.split("/") ?? []);
+    const inicial = daUrl();
+    if (inicial && inicial.nivel !== "BR") queueMicrotask(() => irPara(inicial, null, false));
+    const aoVoltar = () => irPara(daUrl() ?? { nivel: "BR" }, null, false);
+    window.addEventListener("popstate", aoVoltar);
+    return () => window.removeEventListener("popstate", aoVoltar);
+  }, [irPara]);
   const anterior = pai(abr);
   const voltar = anterior ? { rotulo: rotuloDe(anterior), acao: () => irPara(anterior, abr) } : null;
 
@@ -122,20 +187,29 @@ export function PainelApuracao() {
 
   const rotuloFilho = { BR: "Estado", UF: "Município", EXTERIOR: "País", PAIS: "Cidade" }[abrMapa.nivel as "BR"] ?? "Área";
   const aguardando2 = !iniciou2;
-  const recorte1 = recorte(r1.dados, abr);
-  const recorte2 = !iniciou2 ? null : turno === 2 ? recorte(dados, abr) : recorte(r2.dados, abr);
+  const recorte1 = recorte(r1dados, abr);
+  const recorte2 = !iniciou2 ? null : turno === 2 ? recorte(dados, abr) : recorte(r2dados, abr);
 
   return (
     <div className="min-w-0 space-y-6">
       <Seletores
         turno={turnoEscolhido}
         onTurno={setTurno}
-        abr={abr}
+        abr={alvo}
         onAbr={(a) => irPara(a)}
-        municipios={abrMapa.nivel === "UF" ? (atual.dados?.pendentes ?? filhos) : []}
+        municipios={abrMapaAlvo.nivel === "UF" ? (atual.dados?.pendentes ?? atual.dados?.filhos ?? []) : []}
         paises={listaPaises.dados?.filhos ?? []}
-        cidades={abrMapa.nivel === "PAIS" ? (atual.dados?.pendentes ?? filhos) : []}
+        cidades={abrMapaAlvo.nivel === "PAIS" ? (atual.dados?.pendentes ?? atual.dados?.filhos ?? []) : []}
       />
+
+      <div role="status" aria-live="polite" className="h-0 overflow-visible">
+        {trocando ? (
+          <span className="inline-flex items-center gap-2 rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-800">
+            <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-gray-400 border-t-transparent motion-reduce:animate-none" aria-hidden="true" />
+            Carregando {rotuloDe(alvo)}…
+          </span>
+        ) : null}
+      </div>
 
       <nav aria-label="Abrangência selecionada" className="text-sm">
         <ol className="flex flex-wrap gap-1">
@@ -161,7 +235,7 @@ export function PainelApuracao() {
         </p>
       ) : null}
 
-      {atual.erro && !dados ? (
+      {atual.erro && !quadroNovo ? (
         <p role="alert" className="rounded border border-red-300 bg-red-50 p-3 text-sm text-red-900">{atual.erro}</p>
       ) : null}
       {filhos.some((f) => f.lacuna) || (abr.nivel !== "BR" && "pais" in abr && abr.pais === PAIS_LACUNA) ? (
@@ -262,7 +336,7 @@ export function PainelApuracao() {
             leituraDireta={!!dados.pendentes}
           />
         ) : null}
-        {turno === 2 && r1.dados ? <FonteDados turno={1} fonte={r1.dados.fonte} /> : null}
+        {turno === 2 && r1dados ? <FonteDados turno={1} fonte={r1dados.fonte} /> : null}
       </section>
     </div>
   );

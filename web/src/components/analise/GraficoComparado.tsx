@@ -66,29 +66,28 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
 
       <ul aria-hidden="true" className="mt-3 space-y-3">
         {linhas.map((l) => {
-          const foraL = !cabeDentro(rotulo(l, "lula"), l.pct.lula);
-          const foraF = !cabeDentro(rotulo(l, "flavio"), l.pct.flavio);
+          // Rótulo sempre dentro do segmento; segmentos estreitos usam fonte menor e quebram linha.
+          const estreitoL = !cabeDentro(rotulo(l, "lula"), l.pct.lula);
+          const estreitoF = !cabeDentro(rotulo(l, "flavio"), l.pct.flavio);
           return (
             <li key={l.categoria} className="grid grid-cols-1 gap-1 md:grid-cols-[15rem_1fr] md:items-center md:gap-3">
               <span className="text-xs font-bold text-gray-900 md:text-right">{l.categoria}</span>
-              <div>
-                <div className="flex h-6 w-full overflow-hidden rounded text-xs font-bold">
-                  {l.pct.lula > 0 ? (
-                    <span className="seg seg-lula" style={{ width: `${l.pct.lula}%` }}>
-                      {foraL ? null : rotulo(l, "lula")}
-                    </span>
-                  ) : null}
-                  {l.pct.flavio > 0 ? (
-                    <span className="seg seg-flavio" style={{ width: `${l.pct.flavio}%` }}>
-                      {foraF ? null : rotulo(l, "flavio")}
-                    </span>
-                  ) : null}
-                </div>
-                {foraL || foraF ? (
-                  <div className="mt-0.5 flex justify-between gap-2 text-xs font-bold">
-                    <span className="txt-lula">{foraL ? rotulo(l, "lula") : ""}</span>
-                    <span className="txt-flavio text-right">{foraF ? rotulo(l, "flavio") : ""}</span>
-                  </div>
+              <div className="flex min-h-6 w-full overflow-hidden rounded text-xs font-bold">
+                {l.pct.lula > 0 ? (
+                  <span
+                    className={`seg seg-lula${estreitoL ? " seg-estreito" : ""}`}
+                    style={{ width: `${l.pct.lula}%` }}
+                  >
+                    {rotulo(l, "lula")}
+                  </span>
+                ) : null}
+                {l.pct.flavio > 0 ? (
+                  <span
+                    className={`seg seg-flavio${estreitoF ? " seg-estreito" : ""}`}
+                    style={{ width: `${l.pct.flavio}%` }}
+                  >
+                    {rotulo(l, "flavio")}
+                  </span>
                 ) : null}
               </div>
             </li>

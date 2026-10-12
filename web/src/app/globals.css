@@ -229,6 +229,14 @@ details > summary * {
     white-space: nowrap;
     overflow: hidden;
   }
+  .seg-estreito {
+    white-space: normal;
+    text-align: center;
+    font-size: 0.625rem;
+    line-height: 1.15;
+    padding: 0.125rem 0.25rem;
+    overflow-wrap: anywhere;
+  }
   .seg-lula {
     color: #7f1d1d;
     background: #f4a7a1;
