@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import Link from "next/link";
 import { AvisoFontes, ReabrirAviso } from "@/components/AvisoFontes";
 import { NavPrincipal } from "@/components/NavPrincipal";
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         </footer>
         <AvisoFontes />
+        <Analytics />
       </body>
     </html>
   );
