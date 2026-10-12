@@ -6,9 +6,9 @@
   /* Tokens de candidatos e vieses: ver src/lib/cores.ts */
   --cor-lula: #6d28d9;
   --cor-flavio: #0369a1;
-  --cor-esquerda: #6b4f3a;
+  --cor-esquerda: #a61b1b;
   --cor-centro: #4b5563;
-  --cor-direita: #9d174d;
+  --cor-direita: #146b34;
 }
 
 @theme inline {
@@ -172,9 +172,9 @@ details > summary * {
     font-size: 0.875rem;
   }
   .vt-esquerda {
-    color: #6b4f3a;
-    background: #f6f1ec;
-    border-color: #b89a80;
+    color: #a61b1b;
+    background: #fdecec;
+    border-color: #c94f4f;
   }
   .vt-centro {
     color: #4b5563;
@@ -182,9 +182,9 @@ details > summary * {
     border-color: #9ca3af;
   }
   .vt-direita {
-    color: #9d174d;
-    background: #fdf0f5;
-    border-color: #e889b0;
+    color: #146b34;
+    background: #e8f6ec;
+    border-color: #3f9a5c;
   }
   .bt-lula {
     border-top: 4px solid #6d28d9;
@@ -205,15 +205,18 @@ details > summary * {
     background: #0369a1;
   }
   .bl-esquerda {
-    border-color: #b89a80;
+    background: #fdecec;
+    border-color: #c94f4f;
     border-left-width: 4px;
   }
   .bl-centro {
+    background: #f3f4f6;
     border-color: #9ca3af;
     border-left-width: 4px;
   }
   .bl-direita {
-    border-color: #e889b0;
+    background: #e8f6ec;
+    border-color: #3f9a5c;
     border-left-width: 4px;
   }
   /* Selo neutro (horizonte, confiança) */

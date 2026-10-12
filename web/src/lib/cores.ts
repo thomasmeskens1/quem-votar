@@ -4,7 +4,9 @@ import type { CandidatoId, Vies } from "@/types/comum";
  * Tokens de cor da interface.
  *
  * Candidatos: roxo (13) e azul (22), sem verde, amarelo ou vermelho.
- * Vieses: marrom, cinza e magenta, distintos das cores dos candidatos.
+ * Vieses: vermelho (esquerda), cinza (centro) e verde (direita), com fundos
+ * pastéis e texto/borda escuros do mesmo matiz. Contraste do texto sobre o
+ * fundo pastel: esquerda 6,58:1; centro 6,87:1; direita 5,92:1 (AA).
  * Status: tons de cinza (preenchido, claro, tracejado), sem cores valorativas.
  * Os mesmos valores estão nas classes de src/app/globals.css.
  * Todas as cores de texto têm contraste >= 4,5:1 (AA) sobre branco.
@@ -26,9 +28,9 @@ export const CORES_CANDIDATOS: Record<CandidatoId, TokenCor> = {
 };
 
 export const CORES_VIESES: Record<Vies, TokenCor> = {
-  esquerda: { base: "#6b4f3a", fundo: "#f6f1ec", borda: "#b89a80", nomeCor: "marrom" },
+  esquerda: { base: "#a61b1b", fundo: "#fdecec", borda: "#c94f4f", nomeCor: "vermelho" },
   centro: { base: "#4b5563", fundo: "#f3f4f6", borda: "#9ca3af", nomeCor: "cinza" },
-  direita: { base: "#9d174d", fundo: "#fdf0f5", borda: "#e889b0", nomeCor: "magenta" },
+  direita: { base: "#146b34", fundo: "#e8f6ec", borda: "#3f9a5c", nomeCor: "verde" },
 };
 
 /** Cores dos status (presente/parcial/ausente etc.), independentes de candidato. */

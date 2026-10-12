@@ -34,4 +34,4 @@ O projeto deverá contar também com uma tela para acompanhamento dos resultados
 15. Tecnologia: o site é feito em Next.js e publicado na Vercel, a partir do repositório no GitHub
 
 16. A aplicação Web nunca informa que as análises foram feitas por inteligência artificial: quem produz as análises é chamado de "analista", e textos exibidos não mostram identificadores técnicos (nomes de campos, códigos com "_" ou formatação de código)
-17. Cores dos candidatos em todo o site: Lula em roxo e Flávio Bolsonaro em azul. Verde, amarelo e vermelho não são usados para representar candidatos, para evitar associação com partidos
+17. Cores: candidatos em todo o site — Lula em roxo e Flávio Bolsonaro em azul (verde, amarelo e vermelho não representam candidatos). Vieses — esquerda em vermelho pastel, centro em cinza e direita em verde pastel. O site não usa mapas de ruas: os mapas mostram apenas contornos oficiais (estados, municípios, países) e os pontos dos locais de votação
