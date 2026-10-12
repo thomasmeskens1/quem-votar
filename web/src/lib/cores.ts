@@ -1,20 +1,18 @@
 import type { CandidatoId, Vies } from "@/types/comum";
 
 /**
- * Tokens de cor da interface.
+ * Tokens de cor da interface (os mesmos valores estão em src/app/globals.css).
  *
- * Candidatos: roxo (13) e azul (22), sem verde, amarelo ou vermelho.
- * Vieses: vermelho (esquerda), cinza (centro) e verde (direita), com fundos
- * pastéis e texto/borda escuros do mesmo matiz. Contraste do texto sobre o
- * fundo pastel: esquerda 6,58:1; centro 6,87:1; direita 5,92:1 (AA).
- * Status: tons de cinza (preenchido, claro, tracejado), sem cores valorativas.
- * Os mesmos valores estão nas classes de src/app/globals.css.
- * Todas as cores de texto têm contraste >= 4,5:1 (AA) sobre branco.
+ * Candidatos: Lula (13) em vermelho pastel, Flávio (22) em verde pastel.
+ * Vieses: roxo (esquerda), cinza (centro) e azul (direita), sem relação com
+ * as cores dos candidatos. Status: tons de cinza, sem cores valorativas.
+ *
+ * Contrastes medidos (WCAG 2): ver comentário de cada token.
  */
 export interface TokenCor {
-  /** Cor principal (texto/borda), contraste AA sobre branco. */
+  /** Cor escura do matiz: texto e bordas finas (contraste AA). */
   base: string;
-  /** Fundo suave para chips e cabeçalhos. */
+  /** Fundo pastel (badges, realces, cards). */
   fundo: string;
   /** Borda/realce intermediário. */
   borda: string;
@@ -22,15 +20,52 @@ export interface TokenCor {
   nomeCor: string;
 }
 
-export const CORES_CANDIDATOS: Record<CandidatoId, TokenCor> = {
-  lula: { base: "#6d28d9", fundo: "#f5f3ff", borda: "#a78bfa", nomeCor: "roxo" },
-  flavio: { base: "#0369a1", fundo: "#f0f9ff", borda: "#7dd3fc", nomeCor: "azul" },
+export interface TokenCandidato extends TokenCor {
+  /** Preenchimento pastel mais saturado, para gráficos e mapas. Use `base` como texto sobre ele. */
+  preenchimento: string;
+}
+
+export const CORES_CANDIDATOS: Record<CandidatoId, TokenCandidato> = {
+  // base/fundo 8,65:1 · base/preenchimento 5,20:1 · base/branco 10,02:1 · borda/branco 3,96:1
+  lula: {
+    base: "#7f1d1d",
+    fundo: "#fdeaea",
+    preenchimento: "#f4a7a1",
+    borda: "#d9534f",
+    nomeCor: "vermelho",
+  },
+  // base/fundo 7,99:1 · base/preenchimento 5,25:1 · base/branco 9,11:1 · borda/branco 3,51:1
+  flavio: {
+    base: "#14532d",
+    fundo: "#e4f4e9",
+    preenchimento: "#93d3a6",
+    borda: "#3d9a5d",
+    nomeCor: "verde",
+  },
+};
+
+/**
+ * Escala de intensidade por candidato para mapas (do pastel ao tom mais forte).
+ * Tons equivalentes têm a mesma luminância relativa nos dois candidatos, para
+ * nenhum parecer "mais forte":
+ *   tom 1: L≈0,62 (contraste sobre branco ≈1,57:1; distinto do cinza de "sem dados", #e5e7eb, 1,27:1)
+ *   tom 2: L≈0,45 (≈2,1:1) · tom 3: L≈0,29 (≈3,1:1) · tom 4: L≈0,14 (≈5,5:1)
+ * Texto sobre o mapa: `CORES_CANDIDATOS[c].base` sobre o tom 1 (Lula 6,38:1; Flávio 5,78:1);
+ * branco sobre o tom 4 (Lula 5,54:1; Flávio 5,48:1). Os tons 2 e 3 não garantem 4,5:1
+ * para os dois candidatos: use rótulos fora da área ou em caixa com fundo branco.
+ */
+export const ESCALA_MAPA: Record<CandidatoId, readonly [string, string, string, string]> = {
+  lula: ["#f8c1bf", "#f09e99", "#dd746e", "#c0352d"],
+  flavio: ["#a1dbb5", "#67c587", "#3fa661", "#23783f"],
 };
 
 export const CORES_VIESES: Record<Vies, TokenCor> = {
-  esquerda: { base: "#a61b1b", fundo: "#fdecec", borda: "#c94f4f", nomeCor: "vermelho" },
+  // base/fundo 6,25:1 · borda/fundo 3,72:1
+  esquerda: { base: "#6d28d9", fundo: "#f3eefe", borda: "#8b5cf6", nomeCor: "roxo" },
+  // base/fundo 6,87:1
   centro: { base: "#4b5563", fundo: "#f3f4f6", borda: "#9ca3af", nomeCor: "cinza" },
-  direita: { base: "#146b34", fundo: "#e8f6ec", borda: "#3f9a5c", nomeCor: "verde" },
+  // base/fundo 5,25:1 · borda/fundo 3,19:1
+  direita: { base: "#0369a1", fundo: "#e6f3fb", borda: "#2b8fc4", nomeCor: "azul" },
 };
 
 /** Cores dos status (presente/parcial/ausente etc.), independentes de candidato. */

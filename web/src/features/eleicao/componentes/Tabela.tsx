@@ -3,7 +3,7 @@
 /** Tabela alternativa ao mapa: uma linha por UF/município/país/cidade. */
 import { useMemo, useState } from "react";
 import { formatarNumero, formatarPct, lider, pctCandidato } from "../calculos";
-import { corCandidato } from "../cores-eleicao";
+import { bordaCandidato } from "../cores-eleicao";
 import type { CandidatoInfo, ResultadoFilho } from "../tipos";
 
 export interface TabelaProps {
@@ -115,7 +115,7 @@ export function Tabela({ titulo, rotuloUnidade, filhos, colunas, candidatos, sel
                       <span className="inline-flex items-start gap-1 text-gray-900">
                         <span
                           className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full"
-                          style={{ backgroundColor: corCandidato(l.numero) }}
+                          style={{ backgroundColor: bordaCandidato(l.numero) }}
                           aria-hidden="true"
                         />
                         {nome(l.numero)}

@@ -8,8 +8,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { FonteLink } from "@/components/FonteLink";
 import type { Abrangencia } from "../abrangencia";
-import { FAIXAS_MARGEM, intensidade } from "../calculos";
-import { COR_OUTROS, COR_SEM_DADOS, corCandidato, misturar, NUMERO_FLAVIO, NUMERO_LULA } from "../cores-eleicao";
+import { COR_OUTROS, COR_SEM_DADOS, corCandidato, FAIXAS_MAPA, NUMERO_FLAVIO, NUMERO_LULA, tomEscala } from "../cores-eleicao";
 import type { EstadoLocais, FocoLocal } from "../locais";
 import { carregarPaisesTse, MALHA } from "../malhas";
 import { NOME_UF } from "../tse/config";
@@ -21,20 +20,18 @@ function Legenda({ numeros, nome }: { numeros: number[]; nome: (n: number) => st
   // 13 e 22 têm cor própria; os demais candidatos compartilham um cinza escuro.
   const itens = [NUMERO_LULA, NUMERO_FLAVIO]
     .filter((n) => numeros.includes(n))
-    .map((n) => ({ chave: String(n), rotulo: nome(n), cor: corCandidato(n) }));
-  if (numeros.some((n) => n !== NUMERO_LULA && n !== NUMERO_FLAVIO)) {
-    itens.push({ chave: "outros", rotulo: "Outros candidatos", cor: COR_OUTROS });
-  }
+    .map((n) => ({ chave: String(n), numero: n, rotulo: nome(n), cor: corCandidato(n) }));
+  const haOutros = numeros.some((n) => n !== NUMERO_LULA && n !== NUMERO_FLAVIO);
   return (
     <div className="mt-2 space-y-1 text-xs text-gray-800" aria-label="Legenda do mapa">
       {itens.map((it) => (
         <div key={it.chave} className="flex flex-wrap items-center gap-1">
           <span className="w-full font-semibold sm:w-32" style={{ color: it.cor }}>{it.rotulo}</span>
-          {FAIXAS_MARGEM.map((f) => (
+          {FAIXAS_MAPA.map((f, i) => (
             <span key={f.rotulo} className="flex items-center gap-1">
               <span
                 className="inline-block h-3 w-5 rounded-sm border border-gray-300"
-                style={{ backgroundColor: misturar(it.cor, intensidade(f.margem)) }}
+                style={{ backgroundColor: tomEscala(it.numero, i) }}
                 aria-hidden="true"
               />
               <span className="mr-2">{f.rotulo}</span>
@@ -42,6 +39,12 @@ function Legenda({ numeros, nome }: { numeros: number[]; nome: (n: number) => st
           ))}
         </div>
       ))}
+      {haOutros ? (
+        <p className="flex items-center gap-1">
+          <span className="inline-block h-3 w-5 rounded-sm border border-gray-300" style={{ backgroundColor: COR_OUTROS }} aria-hidden="true" />
+          Outros candidatos (qualquer margem)
+        </p>
+      ) : null}
       <p className="flex items-center gap-1">
         <span className="inline-block h-3 w-5 rounded-sm border border-gray-300" style={{ backgroundColor: COR_SEM_DADOS }} aria-hidden="true" />
         Sem dados (ou sem eleitores) — não interativo.

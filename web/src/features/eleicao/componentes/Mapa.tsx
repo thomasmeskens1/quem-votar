@@ -11,8 +11,8 @@
 import { geoArea, geoMercator, geoNaturalEarth1, geoPath } from "d3-geo";
 import type { Feature, Geometry, MultiPolygon } from "geojson";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { formatarPct, intensidade, lider, pctCandidato } from "../calculos";
-import { COR_SEM_DADOS, corCandidato, misturar } from "../cores-eleicao";
+import { formatarPct, lider, pctCandidato } from "../calculos";
+import { COR_DESTAQUE, COR_SEM_DADOS, COR_TRACO_CLARO, corCandidato, corMapa } from "../cores-eleicao";
 import { carregarMalha, chaveFeicao, nomeFeicao, type ColecaoMalha, type TipoMalha } from "../malhas";
 import type { CandidatoInfo, ResultadoFilho } from "../tipos";
 
@@ -115,7 +115,7 @@ export function Mapa(props: MapaProps) {
   function cor(chave: string) {
     const f = dados.get(chave);
     const l = f ? lider(f.candidatos, f.totais) : null;
-    return l ? misturar(corCandidato(l.numero), intensidade(l.margem)) : COR_SEM_DADOS;
+    return l ? corMapa(l.numero, l.margem) : COR_SEM_DADOS;
   }
 
   function descricao(nome: string, f: ResultadoFilho) {
@@ -166,10 +166,10 @@ export function Mapa(props: MapaProps) {
             const f = dados.get(c.chave);
             const sel = c.chave === selecionado;
             const apagado = alvo && c.chave !== alvo;
-            const traco = sel ? "#111827" : "#ffffff";
+            const traco = sel ? COR_DESTAQUE : COR_TRACO_CLARO;
             if (!f) {
               return (
-                <path key={c.chave || c.nome} d={c.d} fill={COR_SEM_DADOS} stroke="#ffffff" strokeWidth={0.5}
+                <path key={c.chave || c.nome} d={c.d} fill={COR_SEM_DADOS} stroke={COR_TRACO_CLARO} strokeWidth={0.5}
                   vectorEffect="non-scaling-stroke" aria-hidden="true" style={{ pointerEvents: "none" }} />
               );
             }

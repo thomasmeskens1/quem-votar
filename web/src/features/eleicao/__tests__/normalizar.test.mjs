@@ -14,7 +14,7 @@ import {
   somar,
   titulo,
 } from "../tse/normalizar.ts";
-import { comparar, formatarDelta, intensidade, lider, percentuais } from "../calculos.ts";
+import { comparar, formatarDelta, lider, percentuais } from "../calculos.ts";
 import { parseAbrangencia, parseTurno, segmentos } from "../abrangencia.ts";
 
 const fixture = (nome) => JSON.parse(readFileSync(new URL(`./fixtures/${nome}`, import.meta.url), "utf8"));
@@ -99,7 +99,6 @@ test("percentuais e comparativo seguem o esquema", () => {
   assert.ok(Math.abs(c.candidatos[1].pct.delta - 10) < 1e-9);
   assert.equal(c.abstencoes.votos.delta, 50);
   assert.equal(formatarDelta(-20, "votos"), "−20");
-  assert.ok(intensidade(0) >= 0.25 && intensidade(100) === 1);
 });
 
 test("rota: turno e abrangência validados", () => {

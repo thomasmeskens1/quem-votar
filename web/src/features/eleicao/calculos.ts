@@ -58,20 +58,6 @@ export function lider(candidatos: CandidatoVotos[], t: Totais): Lideranca | null
   return { numero: p.numero, votos: p.votos, pct: pp, margem: pp - ps };
 }
 
-/** Intensidade da cor (0.25–1) conforme a margem em pontos percentuais. */
-export function intensidade(margem: number): number {
-  const m = Math.max(0, Math.min(margem, 40));
-  return 0.25 + (m / 40) * 0.75;
-}
-
-/** Faixas usadas na legenda do mapa. */
-export const FAIXAS_MARGEM = [
-  { rotulo: "até 5 p.p.", margem: 2.5 },
-  { rotulo: "5–15 p.p.", margem: 10 },
-  { rotulo: "15–30 p.p.", margem: 22 },
-  { rotulo: "mais de 30 p.p.", margem: 40 },
-];
-
 export interface Variacao {
   antes: number;
   depois: number;

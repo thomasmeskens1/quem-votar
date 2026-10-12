@@ -11,7 +11,7 @@ import { geoMercator, geoPath } from "d3-geo";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { formatarPct, lider, pctCandidato } from "../calculos";
-import { corCandidato, NUMERO_FLAVIO, NUMERO_LULA } from "../cores-eleicao";
+import { COR_CONTORNO, COR_DESTAQUE, COR_SEM_DADOS, COR_TRACO_CLARO, NUMERO_FLAVIO, NUMERO_LULA, tomEscala } from "../cores-eleicao";
 import { idLocal, temCoordenadas, type EstadoLocais, type FocoLocal, type LocalVotacao } from "../locais";
 import { carregarMalha, chaveFeicao, MALHA, type ColecaoMalha } from "../malhas";
 import type { CandidatoInfo, Turno } from "../tipos";
@@ -135,7 +135,7 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
             aria-label={`Mapa de ${nomeMunicipio} com ${pins.length} locais de votação. Use Tab para percorrer os locais; a lista completa está abaixo.`}
             onMouseLeave={() => tooltipAberto && onFoco(null)}
           >
-            <path d={desenho.d} fill="#ffffff" stroke="#6b7280" strokeWidth={1.2} aria-hidden="true" />
+            <path d={desenho.d} fill={COR_TRACO_CLARO} stroke={COR_CONTORNO} strokeWidth={1.2} aria-hidden="true" />
             {pins.map(({ l, x, y, r }) => {
               const ld = lider(l.candidatos, l.totais);
               const id = idLocal(l);
@@ -147,9 +147,9 @@ export function MapaLocais({ turno, uf, codIbge, nomeMunicipio, candidatos, loca
                   cx={x}
                   cy={y}
                   r={r}
-                  fill={ld ? corCandidato(ld.numero) : "#9ca3af"}
+                  fill={ld ? tomEscala(ld.numero, 2) : COR_SEM_DADOS}
                   fillOpacity={0.85}
-                  stroke={destacado ? "#111827" : "#ffffff"}
+                  stroke={destacado ? COR_DESTAQUE : COR_TRACO_CLARO}
                   strokeWidth={destacado ? 2.5 : 1}
                   tabIndex={0}
                   role="img"

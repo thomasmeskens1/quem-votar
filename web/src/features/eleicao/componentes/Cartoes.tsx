@@ -1,6 +1,6 @@
 /** Cartões de resultado: candidatos, brancos, nulos, abstenção, comparecimento e % apurado. */
 import { formatarNumero, formatarPct, pctCandidato, percentuais } from "../calculos";
-import { corCandidato, fundoCandidato } from "../cores-eleicao";
+import { bordaCandidato, COR_FUNDO_NEUTRO, corCandidato, corPreenchimento, fundoCandidato } from "../cores-eleicao";
 import type { Apuracao, CandidatoInfo, CandidatoVotos, Totais } from "../tipos";
 
 export interface CartoesProps {
@@ -73,7 +73,10 @@ export function Cartoes({ totais, candidatos, info }: CartoesProps) {
             <li
               key={c.numero}
               className="min-w-0 rounded-lg border border-gray-300 p-3"
-              style={{ borderLeft: `6px solid ${cor}`, backgroundColor: i < 2 ? fundoCandidato(c.numero) : "#fff" }}
+              style={{
+                borderLeft: `6px solid ${bordaCandidato(c.numero)}`,
+                backgroundColor: i < 2 ? fundoCandidato(c.numero) : COR_FUNDO_NEUTRO,
+              }}
             >
               <p className="break-words text-sm font-semibold" style={{ color: cor }}>
                 {ci?.nome_urna ?? `Nº ${c.numero}`}{" "}
@@ -84,7 +87,7 @@ export function Cartoes({ totais, candidatos, info }: CartoesProps) {
               <p className="mt-1 text-2xl font-bold tabular-nums text-gray-900">{formatarPct(pc)}</p>
               <p className="text-sm tabular-nums text-gray-700">{formatarNumero(c.votos)} votos</p>
               {ci?.situacao_turno ? <p className="text-xs text-gray-600">Situação TSE: {ci.situacao_turno}</p> : null}
-              <Barra pct={pc} cor={cor} />
+              <Barra pct={pc} cor={corPreenchimento(c.numero)} />
             </li>
           );
         })}
