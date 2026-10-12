@@ -96,16 +96,18 @@ export function AvisoFontes() {
       </h2>
       <div id="aviso-texto" className="mt-3 space-y-3 text-sm leading-relaxed text-gray-800">
         <p>
-          Todas as informações deste site foram extraídas de fontes oficiais: os planos de governo
-          registrados no Tribunal Superior Eleitoral, dados públicos da Justiça Eleitoral, de
-          tribunais, de órgãos de controle e do Congresso Nacional. Cada dado apresentado indica a
-          sua origem.
+          Todas as informações deste site foram extraídas de <strong>fontes oficiais</strong>: os
+          planos de governo registrados no <strong>Tribunal Superior Eleitoral</strong>, dados
+          públicos da <strong>Justiça Eleitoral</strong>, de tribunais, de órgãos de controle e do{" "}
+          <strong>Congresso Nacional</strong>. Cada dado apresentado indica a sua origem.
         </p>
         <p>
           Quando uma informação não tiver comprovação em fonte oficial — como matérias da imprensa
           —, isso é sinalizado de forma expressa, e ela não é apresentada como fato comprovado.
         </p>
-        <p>Este site não recomenda voto em nenhum candidato.</p>
+        <p>
+          <strong>Este site não recomenda voto em nenhum candidato.</strong>
+        </p>
       </div>
       <div className="mt-5 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/metodologia" className="lk text-center text-sm" onClick={() => ref.current?.close()}>
