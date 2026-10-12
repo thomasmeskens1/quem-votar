@@ -105,7 +105,9 @@ export function Tabela(props: TabelaProps) {
               return (
                 <tr
                   key={f.codigo}
-                  className={`border-t border-gray-200 hover:bg-gray-50 ${sel ? "bg-gray-100 font-semibold" : ""}`}
+                  className={`border-t border-gray-200 hover:bg-gray-50 ${onSelecionar ? "cursor-pointer" : ""} ${sel ? "bg-gray-100 font-semibold" : ""}`}
+                  // A linha inteira abre o item; o botão do nome continua sendo o alvo de teclado.
+                  onClick={onSelecionar ? () => onSelecionar(f) : undefined}
                   onMouseEnter={() => onDestaque?.(f.codigo)}
                   onMouseLeave={() => onDestaque?.(null)}
                   onFocus={() => onDestaque?.(f.codigo)}
@@ -115,7 +117,10 @@ export function Tabela(props: TabelaProps) {
                     {onSelecionar ? (
                       <button
                         type="button"
-                        onClick={() => onSelecionar(f)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelecionar(f);
+                        }}
                         aria-current={sel ? "true" : undefined}
                         className="w-full cursor-pointer rounded text-left text-gray-900 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900"
                       >
