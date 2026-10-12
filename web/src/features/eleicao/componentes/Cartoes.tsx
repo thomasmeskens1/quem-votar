@@ -1,4 +1,7 @@
+"use client";
+
 /** Cartões de resultado: candidatos, brancos, nulos, abstenção, comparecimento e % apurado. */
+import { useId, useState } from "react";
 import { formatarNumero, formatarPct, pctCandidato, percentuais } from "../calculos";
 import { bordaCandidato, COR_FUNDO_NEUTRO, corCandidato, corPreenchimento, fundoCandidato } from "../cores-eleicao";
 import type { Apuracao, CandidatoInfo, CandidatoVotos, Totais } from "../tipos";
@@ -51,10 +54,17 @@ export function Apurado({ apuracao }: { apuracao?: Apuracao }) {
   );
 }
 
+/** Cartões de candidato exibidos antes do botão "Ver mais" (duas linhas de três). */
+const LIMITE_CARTOES = 6;
+
 export function Cartoes({ totais, candidatos, info }: CartoesProps) {
+  const [verTodos, setVerTodos] = useState(false);
+  const idLista = useId();
   const p = percentuais(totais);
   const nome = (n: number) => info.find((c) => c.numero === n);
   const ordenados = [...candidatos].sort((a, b) => b.votos - a.votos);
+  const ocultos = Math.max(0, ordenados.length - LIMITE_CARTOES);
+  const visiveis = verTodos ? ordenados : ordenados.slice(0, LIMITE_CARTOES);
   const outros = [
     { rotulo: "Brancos", votos: totais.brancos, pct: p.brancos, base: "do comparecimento" },
     { rotulo: "Nulos", votos: totais.nulos, pct: p.nulos, base: "do comparecimento" },
@@ -64,8 +74,8 @@ export function Cartoes({ totais, candidatos, info }: CartoesProps) {
 
   return (
     <div className="min-w-0 space-y-4">
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Votos por candidato">
-        {ordenados.map((c, i) => {
+      <ul id={idLista} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Votos por candidato">
+        {visiveis.map((c, i) => {
           const ci = nome(c.numero);
           const pc = pctCandidato(c.votos, totais);
           const cor = corCandidato(c.numero);
@@ -92,6 +102,19 @@ export function Cartoes({ totais, candidatos, info }: CartoesProps) {
           );
         })}
       </ul>
+      {ocultos > 0 ? (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            aria-expanded={verTodos}
+            aria-controls={idLista}
+            onClick={() => setVerTodos((v) => !v)}
+            className="rounded-md border border-gray-400 bg-white px-3 py-1 text-sm font-semibold text-gray-900 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+          >
+            {verTodos ? "Ver menos" : `Ver mais (${ocultos} candidatos)`}
+          </button>
+        </div>
+      ) : null}
       <p className="text-xs text-gray-700">
         Percentual dos candidatos sobre os votos válidos ({formatarNumero(totais.votos_validos)}).
       </p>

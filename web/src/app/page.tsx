@@ -25,7 +25,7 @@ const ATALHOS = [
   },
   {
     href: "/eleicao",
-    titulo: "Eleição 2026",
+    titulo: "Apuração",
     texto: "Resultados oficiais do TSE por Brasil, estado, município e exterior.",
   },
   {

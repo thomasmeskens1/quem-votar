@@ -14,7 +14,7 @@ export const ITENS_NAV: ItemNav[] = [
   { href: "/comparativo", rotulo: "Comparativo" },
   { href: "/candidatos", rotulo: "Candidatos" },
   { href: "/internacional", rotulo: "Internacional" },
-  { href: "/eleicao", rotulo: "Eleição 2026" },
+  { href: "/eleicao", rotulo: "Apuração" },
   { href: "/metodologia", rotulo: "Metodologia" },
 ];
 
