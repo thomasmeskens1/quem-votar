@@ -1,0 +1,63 @@
+{
+  "descricao": "Malhas geográficas (TopoJSON) de UFs e municípios do Brasil para o mapa de apuração do voto-em-quem.",
+  "data_acesso": "2026-10-12",
+  "orgao": "IBGE - Instituto Brasileiro de Geografia e Estatística",
+  "fontes": {
+    "malha_municipal_api": {
+      "descricao": "API de Malhas v3 do IBGE - malha municipal por UF (26 UFs, exceto MT)",
+      "documentacao": "https://servicodados.ibge.gov.br/api/docs/malhas?versao=3",
+      "url_modelo": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/{UF}?formato=application/vnd.geo+json&intrarregiao=municipio&qualidade=maxima&periodo=2022",
+      "versao_malha": "2022 (período mais recente disponível na API; periodo=2023/2024 retornam erro 500)",
+      "qualidade": "maxima"
+    },
+    "malha_municipal_mt": {
+      "descricao": "Malha Municipal Digital 2025 do IBGE (geoftp) para Mato Grosso, usada porque a malha 2022 da API não contém o município Boa Esperança do Norte (5101837), presente na API de localidades. Sistema SIRGAS 2000 (compatível com WGS84 na escala do mapa).",
+      "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/MT/MT_Municipios_2025.zip",
+      "versao_malha": "2025",
+      "campo_codigo": "CD_MUN"
+    },
+    "malha_uf_api_referencia": {
+      "descricao": "Malha de UFs da API (baixada para conferência). As UFs publicadas foram geradas por dissolução da malha municipal, para coincidir exatamente com as divisas municipais.",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/vnd.geo+json&intrarregiao=UF&qualidade=maxima&periodo=2022"
+    },
+    "nomes_codigos": {
+      "municipios": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios",
+      "estados": "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+    }
+  },
+  "sistema_coordenadas": "Longitude/latitude em graus decimais (WGS84 / SIRGAS 2000)",
+  "ferramenta": "mapshaper 0.6.121 (npx, fora do projeto)",
+  "processamento": [
+    "Junção das 27 UFs; propriedades de nome/UF vindas da API de localidades (cod_ibge = codarea / CD_MUN, texto de 7 dígitos)",
+    "mapshaper -i all.geojson snap -clean (remove lascas/sobreposições; 5.571 de 5.571 feições mantidas)",
+    "Simplificação Visvalingam ponderada (padrão do mapshaper) preservando topologia, com keep-shapes (nenhum município removido)"
+  ],
+  "arquivos": {
+    "br-uf.topo.json": {
+      "objeto": "ufs",
+      "propriedades": ["uf", "cod_ibge", "nome"],
+      "feicoes": 27,
+      "comando": "mapshaper -i clean.json name=ufs -dissolve uf copy-fields=cod_uf,uf_nome -rename-fields cod_ibge=cod_uf,nome=uf_nome -simplify interval=800 keep-shapes -filter-fields uf,cod_ibge,nome -o br-uf.topo.json format=topojson quantization=100000",
+      "simplificacao": "interval=800 m; quantization=1e5"
+    },
+    "municipios/{UF}.topo.json": {
+      "objeto": "municipios",
+      "propriedades": ["cod_ibge", "nome", "uf"],
+      "feicoes": 5571,
+      "comando": "mapshaper -i clean.json name=municipios -simplify interval=120 keep-shapes -filter-fields cod_ibge,nome,uf -o uf120.json format=topojson no-quantization; para cada UF: mapshaper -i uf120.json -filter \"uf === '{UF}'\" -o municipios/{UF}.topo.json format=topojson quantization=100000",
+      "simplificacao": "interval=120 m; quantization=1e5"
+    },
+    "br-municipios.topo.json": {
+      "objeto": "municipios",
+      "propriedades": ["cod_ibge", "nome", "uf"],
+      "feicoes": 5571,
+      "comando": "mapshaper -i clean.json name=municipios -simplify interval=600 keep-shapes -filter-fields cod_ibge,nome,uf -o br-municipios.topo.json format=topojson quantization=50000",
+      "simplificacao": "interval=600 m; quantization=5e4"
+    }
+  },
+  "validacao": "27 UFs; 5.571 municípios (igual à API de localidades); nenhum cod_ibge duplicado; propriedades preenchidas; todos os arquivos abertos com topojson-client 3.1.0",
+  "observacoes": [
+    "Divisas entre MT (malha 2025) e UFs vizinhas (malha 2022) podem diferir levemente; lascas foram removidas pelo -clean.",
+    "Geometria simplificada para visualização; não usar para cálculo de área ou fins cartográficos oficiais."
+  ]
+}

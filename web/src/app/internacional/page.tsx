@@ -1,0 +1,66 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { CandidatoBadge } from "@/components/CandidatoBadge";
+import { Legendas } from "@/components/Legenda";
+import { StatusChip } from "@/components/StatusChip";
+import { ORDEM_CANDIDATOS } from "@/lib/candidatos";
+import { getSinteseRi } from "@/lib/data/ri";
+import { slugify } from "@/lib/slug";
+
+export const metadata: Metadata = {
+  title: "Internacional",
+  description:
+    "Propostas com impacto internacional, leituras de três vieses e cenários ligados a fatos oficiais.",
+};
+
+export default function InternacionalIndex() {
+  const s = getSinteseRi();
+  return (
+    <div className="space-y-6">
+      <header>
+        <h1 className="text-2xl font-bold text-gray-900">Relações internacionais</h1>
+        <p className="mt-2 max-w-3xl text-gray-800">
+          As propostas com impacto internacional foram agrupadas em {s.categorias.length} temas
+          comuns aos dois candidatos. Cada tema traz as leituras dos três vieses e cenários de
+          possíveis consequências, sempre na cadeia proposta citada → fato oficial (com link da
+          fonte) → consequência, com horizonte e nível de confiança.
+        </p>
+      </header>
+      <Legendas />
+      <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        {s.categorias.map((t) => (
+          <li key={t.categoria}>
+            <Link
+              href={`/internacional/${slugify(t.categoria)}`}
+              className="block h-full rounded-lg border border-gray-300 bg-white p-4 hover:border-gray-500 hover:bg-gray-50"
+            >
+              <span className="block text-lg font-semibold text-gray-900">{t.categoria}</span>
+              <span className="mt-1 block text-xs text-gray-700">{t.escopo}</span>
+              <span className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {ORDEM_CANDIDATOS.map((c) => (
+                  <span key={c} className="flex flex-col items-start gap-1">
+                    <CandidatoBadge candidato={c} tamanho="sm" />
+                    <StatusChip dominio="categoria" status={t.por_candidato[c].status} />
+                    <span className="text-xs text-gray-700">
+                      {t.cenarios.filter((x) => x.candidato === c).length} cenário(s)
+                    </span>
+                  </span>
+                ))}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <section aria-labelledby="notas-ri" className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <h2 id="notas-ri" className="font-semibold text-gray-900">
+          Notas metodológicas da síntese
+        </h2>
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-800">
+          {s.notas_metodologicas.map((n, i) => (
+            <li key={i}>{n}</li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+}
