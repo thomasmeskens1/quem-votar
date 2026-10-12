@@ -1,5 +1,7 @@
+import Link from "next/link";
 import type { CandidatoId } from "@/types";
 import { CANDIDATOS } from "@/lib/candidatos";
+import { slugify } from "@/lib/slug";
 import type { ContagemCategoria } from "@/lib/data/contagem";
 import { CandidatoBadge } from "../CandidatoBadge";
 
@@ -64,8 +66,13 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
         </div>
       </div>
 
-      <ul aria-hidden="true" className="mt-3 space-y-3">
+      <ul className="mt-3 space-y-3">
         {linhas.map((l) => {
+          const destino = `/comparativo/${slugify(l.categoria)}#propostas`;
+          const descricao = (c: CandidatoId) =>
+            `${l.categoria}: ${CANDIDATOS[c].nome}, ${l.n[c]} ${l.n[c] === 1 ? "proposta" : "propostas"}${
+              l.secundaria[c] ? ", apenas como tema secundário" : ""
+            }. Ver o comparativo da categoria.`;
           // Rótulo sempre dentro do segmento; segmentos estreitos usam fonte menor e quebram linha.
           const estreitoL = !cabeDentro(rotulo(l, "lula"), l.pct.lula);
           const estreitoF = !cabeDentro(rotulo(l, "flavio"), l.pct.flavio);
@@ -74,20 +81,26 @@ export function GraficoComparado({ lula, flavio }: GraficoComparadoProps) {
               <span className="text-xs font-bold text-gray-900 md:text-right">{l.categoria}</span>
               <div className="flex min-h-6 w-full overflow-hidden rounded text-xs font-bold">
                 {l.pct.lula > 0 ? (
-                  <span
-                    className={`seg seg-lula${estreitoL ? " seg-estreito" : ""}`}
+                  <Link
+                    href={destino}
+                    aria-label={descricao("lula")}
+                    title={descricao("lula")}
+                    className={`seg seg-link seg-lula${estreitoL ? " seg-estreito" : ""}`}
                     style={{ width: `${l.pct.lula}%` }}
                   >
                     {rotulo(l, "lula")}
-                  </span>
+                  </Link>
                 ) : null}
                 {l.pct.flavio > 0 ? (
-                  <span
-                    className={`seg seg-flavio${estreitoF ? " seg-estreito" : ""}`}
+                  <Link
+                    href={destino}
+                    aria-label={descricao("flavio")}
+                    title={descricao("flavio")}
+                    className={`seg seg-link seg-flavio${estreitoF ? " seg-estreito" : ""}`}
                     style={{ width: `${l.pct.flavio}%` }}
                   >
                     {rotulo(l, "flavio")}
-                  </span>
+                  </Link>
                 ) : null}
               </div>
             </li>
