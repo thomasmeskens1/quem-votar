@@ -35,17 +35,14 @@ export function QuizInicio({ total, exemplo, onComecar }: QuizInicioProps) {
           não são armazenadas nem enviadas a ninguém. Ao recarregar a página, o quiz recomeça.
         </li>
         <li>
-          Você pode responder, pular, marcar uma pergunta como &quot;Importante para mim&quot; (vale o
+          Você pode responder, marcar uma pergunta como &quot;Importante para mim&quot; (vale o
           dobro) e voltar à pergunta anterior.
         </li>
       </ul>
 
       <p className="mt-4 text-sm text-gray-700">
+        {/* O link da Política de Privacidade volta quando a página for publicada. */}
         Saiba mais na{" "}
-        <Link href="/privacidade" className="lk">
-          Política de Privacidade
-        </Link>{" "}
-        e na{" "}
         <Link href="/metodologia" className="lk">
           Metodologia
         </Link>

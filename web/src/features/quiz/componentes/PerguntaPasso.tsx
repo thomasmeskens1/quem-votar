@@ -11,7 +11,6 @@ export const OPCOES: readonly Opcao[] = [
   { chave: "0", valor: 0, rotulo: "Neutro" },
   { chave: "-1", valor: -1, rotulo: "Discordo" },
   { chave: "-2", valor: -2, rotulo: "Discordo totalmente" },
-  { chave: "pular", valor: null, rotulo: "Pular esta pergunta" },
 ];
 
 export function rotuloResposta(v: ValorResposta | null): string {
@@ -46,7 +45,6 @@ export function PerguntaPasso({
   const nome = `${idBase}-resposta`;
   const ultima = numero === total;
   const escolhida = resposta ? OPCOES.find((o) => o.valor === resposta.valor)?.chave : undefined;
-  const pulou = resposta?.valor === null;
 
   useEffect(() => {
     titulo.current?.focus();
@@ -103,7 +101,7 @@ export function PerguntaPasso({
                   htmlFor={id}
                   className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-md border px-3 py-2 text-base has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gray-900 ${
                     marcada ? "border-gray-900 bg-gray-100 font-semibold" : "border-gray-300 bg-white hover:bg-gray-50"
-                  } ${o.valor === null ? "mt-2 border-dashed" : ""}`}
+                  }`}
                 >
                   <input
                     id={id}
@@ -112,7 +110,7 @@ export function PerguntaPasso({
                     value={o.chave}
                     checked={marcada}
                     onChange={() =>
-                      onResponder({ valor: o.valor, importante: o.valor === null ? false : !!resposta?.importante })
+                      onResponder({ valor: o.valor, importante: !!resposta?.importante })
                     }
                     className="h-4 w-4 accent-gray-800"
                   />
@@ -126,7 +124,7 @@ export function PerguntaPasso({
             <input
               type="checkbox"
               checked={!!resposta?.importante}
-              disabled={!resposta || pulou}
+              disabled={!resposta}
               onChange={(e) => resposta && onResponder({ ...resposta, importante: e.target.checked })}
               className="h-4 w-4 accent-gray-800"
               aria-describedby={`${idBase}-peso`}
@@ -154,9 +152,6 @@ export function PerguntaPasso({
             {ultima ? "Ver resultado" : "Próxima"}
           </button>
         </div>
-        {!resposta ? (
-          <p className="mt-2 text-right text-sm text-gray-600">Escolha uma resposta ou pule a pergunta.</p>
-        ) : null}
       </form>
     </section>
   );

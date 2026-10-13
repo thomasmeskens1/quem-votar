@@ -1,7 +1,7 @@
 {
   "versao": 1,
   "gerado_em": "2026-10-13T11:26:39+00:00",
-  "criterios_de_selecao": "Seleção de 25 afirmações a partir das 40 candidatas (L01-L20, F01-F20) e dos pareceres dos três vieses. Composição: 10 temas próprios de cada plano (o outro candidato sem proposta registrada), 4 temas de consenso (ambos a favor: tempo integral, desmatamento, habitação, contratação da rede privada pelo SUS) e 1 tema de divergência explícita (regra fiscal). Resultado: 15 perguntas com posição para cada candidato e 5 com posição dos dois. Máximo de 3 por categoria; 13 das 16 categorias cobertas (não havia afirmações candidatas em LGBTQIAP+, Inclusão e Cultura e Esporte). Duplicatas: SUS e rede privada pela redação de L13; tempo integral pela de F06; regra fiscal com redação nova, sem efeito desejável embutido. Ajustes de redação: salário mínimo sem finalidade e sem 'permanente'; regulação das redes sem objetivo embutido; habitação em redação genérica; acordo direto fiel ao plano ('dentro da lei'); reforma agrária com 'famílias acampadas'. Trabalho por aplicativos: a reescrita para 'proteção previdenciária assegurada' com o outro plano a favor não foi aceita, porque o trecho flavio-195 afirma um princípio ('Nada pode estar à frente...') sem propor medida equivalente à de lula-564 (inserir o financiamento da previdência na regulação); a versão original fica válida com sem proposta, mas não entrou na seleção por equilíbrio de temas. Estruturas estatais sobre o que as pessoas dizem (flavio-331): não incluída, pois o plano define o alvo apenas pela função negativa ('vigiar, rotular ou punir o que as pessoas dizem'), o que embute enquadramento que induz concordância, e qualquer referente concreto seria dedução. Explicações: removidas as que traziam fatos externos aos planos (jornada constitucional, definições de OCDE, BRICS, terrorismo, modelo cívico-militar, fracking, data centers); mantidas só notas extraídas dos planos. Todas as posições a favor ou contra têm citação literal de item do tipo proposta; nenhuma posição contra foi deduzida de silêncio.",
+  "criterios_de_selecao": "Seleção de 25 afirmações a partir das 40 candidatas (L01-L20, F01-F20) e dos pareceres dos três vieses. Composição: 10 temas próprios de cada plano (o outro candidato sem proposta registrada), 4 temas de consenso (ambos a favor: tempo integral, desmatamento, habitação, contratação da rede privada pelo SUS) e 1 tema de divergência explícita (regra fiscal). Resultado: 15 perguntas com posição para cada candidato e 5 com posição dos dois. Máximo de 3 por categoria; 13 das 16 categorias cobertas (não havia afirmações candidatas em LGBTQIAP+, Inclusão e Cultura e Esporte). Duplicatas: SUS e rede privada pela redação de L13; tempo integral pela de F06; regra fiscal com redação nova, sem efeito desejável embutido. Ajustes de redação: salário mínimo sem finalidade e sem 'permanente'; regulação das redes sem objetivo embutido; habitação em redação genérica; acordo direto fiel ao plano ('dentro da lei'); reforma agrária com 'famílias acampadas'. Trabalho por aplicativos: a reescrita para 'proteção previdenciária assegurada' com o outro plano a favor não foi aceita, porque o trecho flavio-195 afirma um princípio ('Nada pode estar à frente...') sem propor medida equivalente à de lula-564 (inserir o financiamento da previdência na regulação); a versão original fica válida com sem proposta, mas não entrou na seleção por equilíbrio de temas. Estruturas estatais sobre o que as pessoas dizem (flavio-331): não incluída, pois o plano define o alvo apenas pela função negativa ('vigiar, rotular ou punir o que as pessoas dizem'), o que embute enquadramento que induz concordância, e qualquer referente concreto seria dedução. Explicações: removidas as que traziam fatos externos aos planos (jornada constitucional, definições de OCDE, BRICS, terrorismo, modelo cívico-militar, fracking, data centers); mantidas só notas extraídas dos planos. Todas as posições a favor ou contra têm citação literal de item do tipo proposta; nenhuma posição contra foi deduzida de silêncio. Revisão do responsável: siglas aparecem com o nome completo na afirmação; termos técnicos ganham explicação breve e neutra (definição geral, sem informação sobre os candidatos).",
   "balanco": {
     "por_categoria": {
       "Economia": 3,
@@ -70,7 +70,8 @@
           ],
           "justificativa": "O plano propõe reformular as regras fiscais atuais, o oposto de mantê-las."
         }
-      }
+      },
+      "explicacao": "Regras fiscais são normas que limitam os gastos e o endividamento do governo federal."
     },
     {
       "id": "q02",
@@ -97,7 +98,8 @@
           "citacoes": [],
           "justificativa": "O plano não traz proposta sobre o salário mínimo."
         }
-      }
+      },
+      "explicacao": "Política de valorização é uma regra que reajusta o salário mínimo acima da inflação."
     },
     {
       "id": "q03",
@@ -124,7 +126,8 @@
           ],
           "justificativa": "O plano propõe retomar o programa de desestatização, avaliando caso a caso."
         }
-      }
+      },
+      "explicacao": "Privatização é a venda, total ou parcial, de uma empresa estatal ao setor privado."
     },
     {
       "id": "q04",
@@ -157,7 +160,7 @@
       "id": "q05",
       "categoria": "Trabalho e Proteção Social",
       "afirmacao": "Empresa e trabalhador devem poder combinar diretamente as condições de trabalho, dentro da lei, em vez de seguir uma regra única.",
-      "explicacao": "Essa ideia é chamada de \"negociado sobre o legislado\".",
+      "explicacao": "Essa ideia é chamada de \"negociado sobre o legislado\": o acordo entre empresa e trabalhador prevalece sobre regras gerais, desde que respeite a lei.",
       "origem": "flavio",
       "posicoes": {
         "lula": {
@@ -237,7 +240,8 @@
           ],
           "justificativa": "O plano propõe apoiar e sancionar a redução da maioridade penal para 16 anos."
         }
-      }
+      },
+      "explicacao": "Maioridade penal é a idade a partir da qual a pessoa responde por crimes como adulto."
     },
     {
       "id": "q08",
@@ -264,7 +268,8 @@
           "citacoes": [],
           "justificativa": "O plano propõe extinguir estruturas estatais que rotulem ou punam o que as pessoas dizem, mas não trata explicitamente da regulação das plataformas."
         }
-      }
+      },
+      "explicacao": "Plataformas digitais são serviços on-line como redes sociais, aplicativos de mensagens e sites de busca. Regulação são as regras definidas em lei para o funcionamento delas."
     },
     {
       "id": "q09",
@@ -325,7 +330,8 @@
           ],
           "justificativa": "O plano declara apoio à escola em tempo integral."
         }
-      }
+      },
+      "explicacao": "Escola em tempo integral é aquela em que o aluno permanece pelo menos sete horas por dia."
     },
     {
       "id": "q11",
@@ -352,13 +358,14 @@
           ],
           "justificativa": "O plano propõe ampliar as escolas cívico-militares."
         }
-      }
+      },
+      "explicacao": "No modelo cívico-militar, militares atuam na gestão disciplinar e administrativa da escola pública, e os professores civis continuam responsáveis pelas aulas."
     },
     {
       "id": "q12",
       "categoria": "Meio Ambiente",
       "afirmacao": "O governo federal deve adotar uma meta com prazo definido para zerar o desmatamento.",
-      "explicacao": "As metas diferem: um plano fala em \"desmatamento líquido zero até 2030\"; o outro, em \"zerar o desmatamento ilegal até 2029\".",
+      "explicacao": "As metas diferem: um plano fala em \"desmatamento líquido zero até 2030\" (desmatamento descontada a vegetação recuperada); o outro, em \"zerar o desmatamento ilegal até 2029\" (feito sem autorização).",
       "origem": "ambos",
       "posicoes": {
         "lula": {
@@ -393,7 +400,7 @@
       "id": "q13",
       "categoria": "Meio Ambiente",
       "afirmacao": "Se o órgão ambiental não decidir dentro do prazo legal, a licença ambiental deve ser considerada concedida.",
-      "explicacao": "A regra valeria quando o empreendedor apresenta tudo o que a norma exige.",
+      "explicacao": "Licença ambiental é a autorização do órgão ambiental para obras e atividades que podem afetar o meio ambiente. A regra valeria quando o empreendedor apresenta tudo o que a norma exige.",
       "origem": "flavio",
       "posicoes": {
         "lula": {
@@ -442,7 +449,8 @@
           "citacoes": [],
           "justificativa": "O plano trata de desestatização em geral, mas não da atuação da Petrobras na distribuição de combustíveis."
         }
-      }
+      },
+      "explicacao": "Distribuição é a etapa que leva os combustíveis das refinarias e importadores até os postos."
     },
     {
       "id": "q15",
@@ -469,7 +477,8 @@
           ],
           "justificativa": "O plano propõe permitir a exploração de gás por fracking."
         }
-      }
+      },
+      "explicacao": "Fracking é a técnica que injeta água, areia e produtos químicos sob alta pressão no subsolo para quebrar rochas e liberar o gás retido nelas."
     },
     {
       "id": "q16",
@@ -562,7 +571,7 @@
     {
       "id": "q19",
       "categoria": "Geopolítica",
-      "afirmacao": "O Brasil deve aprofundar sua aproximação política com os países do BRICS.",
+      "afirmacao": "O Brasil deve aprofundar sua aproximação política com os países do BRICS (grupo formado originalmente por Brasil, Rússia, Índia, China e África do Sul).",
       "origem": "lula",
       "posicoes": {
         "lula": {
@@ -589,7 +598,7 @@
     {
       "id": "q20",
       "categoria": "Geopolítica",
-      "afirmacao": "O Brasil deve retomar o processo de adesão à OCDE.",
+      "afirmacao": "O Brasil deve retomar o processo de adesão à OCDE (Organização para a Cooperação e Desenvolvimento Econômico).",
       "explicacao": "Segundo o plano que trata do tema, a adesão exige convergência das normas nacionais aos padrões internacionais.",
       "origem": "flavio",
       "posicoes": {
@@ -617,7 +626,7 @@
     {
       "id": "q21",
       "categoria": "Saúde",
-      "afirmacao": "O SUS deve contratar hospitais e clínicas privadas para oferecer exames e outros atendimentos à população.",
+      "afirmacao": "O SUS (Sistema Único de Saúde) deve contratar hospitais e clínicas privadas para oferecer exames e outros atendimentos à população.",
       "origem": "ambos",
       "posicoes": {
         "lula": {
@@ -673,7 +682,8 @@
           "citacoes": [],
           "justificativa": "O plano trata de titulação e de direito de propriedade, mas não de reforma agrária."
         }
-      }
+      },
+      "explicacao": "Reforma agrária é a redistribuição de terras a trabalhadores rurais sem terra. Famílias acampadas são as que aguardam, em acampamentos, para serem assentadas."
     },
     {
       "id": "q23",
@@ -700,13 +710,14 @@
           "citacoes": [],
           "justificativa": "O plano trata da autonomia produtiva nas terras indígenas, mas não de demarcação."
         }
-      }
+      },
+      "explicacao": "Demarcação é o processo oficial que reconhece e delimita os limites de uma terra indígena."
     },
     {
       "id": "q24",
       "categoria": "Igualdade Racial e Povos Tradicionais",
       "afirmacao": "Povos indígenas e quilombolas devem ter autonomia para decidir sobre atividades produtivas em suas terras.",
-      "explicacao": "Segundo o plano que trata do tema, a autonomia respeitaria o desenvolvimento sustentável e as regras ambientais.",
+      "explicacao": "Quilombolas são comunidades formadas por descendentes de pessoas escravizadas. Segundo o plano que trata do tema, a autonomia respeitaria o desenvolvimento sustentável e as regras ambientais.",
       "origem": "flavio",
       "posicoes": {
         "lula": {
@@ -755,7 +766,8 @@
           "citacoes": [],
           "justificativa": "O plano propõe atrair data centers, mas não trata de exigência de contrapartidas."
         }
-      }
+      },
+      "explicacao": "Data centers são instalações com computadores que armazenam e processam dados. Conteúdo local é a exigência de usar bens e serviços produzidos no país."
     }
   ]
 }
