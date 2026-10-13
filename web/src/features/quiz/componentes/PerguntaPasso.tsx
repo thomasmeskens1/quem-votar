@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { Escolha, PerguntaView, Resposta } from "../tipos";
 
 /** Opção C, fixada pelo site (não vem nos dados) e sempre a última. */
@@ -40,6 +40,9 @@ export function PerguntaPasso({
   const idBase = useId();
   const nome = `${idBase}-resposta`;
   const ultima = numero === total;
+  // "Importante" pode ser marcado antes da resposta; vale só para a pergunta em que foi marcado.
+  const [pendente, setPendente] = useState<{ id: string; valor: boolean } | null>(null);
+  const importante = resposta ? resposta.importante : pendente?.id === pergunta.id && pendente.valor;
 
   useEffect(() => {
     titulo.current?.focus();
@@ -90,11 +93,28 @@ export function PerguntaPasso({
             {pergunta.pergunta}
           </h2>
 
+          <label className="mt-3 inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm text-gray-800">
+            <input
+              type="checkbox"
+              checked={importante}
+              onChange={(e) =>
+                resposta
+                  ? onResponder({ ...resposta, importante: e.target.checked })
+                  : setPendente({ id: pergunta.id, valor: e.target.checked })
+              }
+              className="h-4 w-4 shrink-0 accent-gray-800"
+            />
+            <span>
+              <span className="font-semibold text-gray-900">Importante para mim</span>{" "}
+              <span className="text-gray-600">(vale o dobro)</span>
+            </span>
+          </label>
+
           <div
             role="radiogroup"
             aria-labelledby={`${idBase}-titulo`}
             aria-describedby={`${idBase}-situacao`}
-            className="mt-4 grid gap-2"
+            className="mt-2 grid gap-2"
           >
             {ESCOLHAS.map((e) => {
               const id = `${idBase}-${e}`;
@@ -113,7 +133,7 @@ export function PerguntaPasso({
                     name={nome}
                     value={e}
                     checked={marcada}
-                    onChange={() => onResponder({ escolha: e, importante: !!resposta?.importante })}
+                    onChange={() => onResponder({ escolha: e, importante })}
                     className="mt-1 h-4 w-4 shrink-0 accent-gray-800"
                   />
                   <span className={marcada ? "font-semibold" : undefined}>
@@ -141,20 +161,6 @@ export function PerguntaPasso({
             </div>
           ) : null}
 
-          <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-3 text-base">
-            <input
-              type="checkbox"
-              checked={!!resposta?.importante}
-              disabled={!resposta}
-              onChange={(e) => resposta && onResponder({ ...resposta, importante: e.target.checked })}
-              className="h-4 w-4 accent-gray-800"
-              aria-describedby={`${idBase}-peso`}
-            />
-            Importante para mim
-          </label>
-          <p id={`${idBase}-peso`} className="ml-7 text-sm text-gray-600">
-            Esta pergunta passa a valer o dobro no cálculo. Escolha uma resposta para marcar.
-          </p>
         </div>
 
         <div className="mt-4 flex items-center justify-between gap-3">
