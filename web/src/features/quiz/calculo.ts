@@ -1,20 +1,18 @@
 import type { CandidatoId } from "@/types/comum";
 import { CANDIDATOS_ORDEM } from "@/types/comum";
-import type { PerguntaView, Respostas, ValorResposta } from "./tipos";
+import type { Caminho, PerguntaView, Respostas } from "./tipos";
 
 /**
  * Cálculo de afinidade (dados/quiz/esquema.json, calculo_no_site). Roda só no navegador.
  *
- * - resposta: +2, +1, 0, -1, -2; "pular" fica fora do cálculo;
- * - posição do candidato: a_favor = +2, contra = -2, sem_proposta = fora do cálculo dele;
- * - concordância por pergunta = 1 - |resposta - posição| / 4 (0 a 1);
+ * - resposta: A, B ou C ("Não tenho uma opinião formada sobre o tema"); C fica fora do cálculo;
+ * - para cada candidato com posição na pergunta: concordância = 1 se a pessoa escolheu o
+ *   caminho dele, 0 se escolheu o outro; sem posição = fora do cálculo daquele candidato;
  * - peso: 2 se "importante para mim", senão 1;
  * - afinidade = média ponderada das concordâncias (em %), com o número de perguntas usadas.
  */
-export const VALOR_POSICAO = { a_favor: 2, contra: -2 } as const;
-
-export function concordancia(resposta: ValorResposta, posicao: number): number {
-  return 1 - Math.abs(resposta - posicao) / 4;
+export function concordancia(escolha: Caminho, caminhoDoPlano: Caminho): 0 | 1 {
+  return escolha === caminhoDoPlano ? 1 : 0;
 }
 
 export interface Afinidade {
@@ -24,28 +22,31 @@ export interface Afinidade {
   base: number;
 }
 
-export type Sentido = "concordou" | "discordou" | "neutro";
-
 export interface ItemResultado {
   pergunta: PerguntaView;
-  valor: ValorResposta;
+  /** Caminho escolhido pela pessoa. */
+  escolha: Caminho;
+  /** Caminho que corresponde à proposta do candidato. */
+  caminhoDoPlano: Caminho;
   importante: boolean;
-  sentido: Sentido;
 }
 
 export interface ResultadoCandidato {
   geral: Afinidade;
   porCategoria: Record<string, Afinidade>;
-  concordou: ItemResultado[];
-  discordou: ItemResultado[];
-  neutro: ItemResultado[];
-  /** Perguntas respondidas em que o candidato não tem proposta registrada. */
+  /** Situações em que a pessoa escolheu o caminho do plano. */
+  mesmoCaminho: ItemResultado[];
+  /** Situações em que a pessoa escolheu o outro caminho. */
+  outroCaminho: ItemResultado[];
+  /** Perguntas respondidas com A ou B em que o candidato não tem proposta registrada. */
   semProposta: PerguntaView[];
 }
 
 export interface ResultadoQuiz {
+  /** Perguntas respondidas com A ou B. */
   respondidas: number;
-  puladas: number;
+  /** Perguntas respondidas com C (fora do cálculo). */
+  semOpiniao: PerguntaView[];
   categorias: string[];
   porCandidato: Record<CandidatoId, ResultadoCandidato>;
 }
@@ -64,23 +65,21 @@ function calcularCandidato(
   const r: ResultadoCandidato = {
     geral: { percentual: null, base: 0 },
     porCategoria: {},
-    concordou: [],
-    discordou: [],
-    neutro: [],
+    mesmoCaminho: [],
+    outroCaminho: [],
     semProposta: [],
   };
 
   for (const p of perguntas) {
     const resp = respostas[p.id];
-    if (!resp || resp.valor === null) continue;
-    const pos = p.posicoes[c].posicao;
-    if (pos === "sem_proposta") {
+    if (!resp || resp.escolha === "C") continue;
+    const caminhoDoPlano = p.posicoes[c].opcao;
+    if (caminhoDoPlano === null) {
       r.semProposta.push(p);
       continue;
     }
-    const valorPos = VALOR_POSICAO[pos];
     const peso = resp.importante ? 2 : 1;
-    const conc = concordancia(resp.valor, valorPos);
+    const conc = concordancia(resp.escolha, caminhoDoPlano);
     const cat = acc.get(p.categoria) ?? { soma: 0, pesos: 0, base: 0 };
     for (const a of [total, cat]) {
       a.soma += conc * peso;
@@ -89,9 +88,13 @@ function calcularCandidato(
     }
     acc.set(p.categoria, cat);
 
-    const sentido: Sentido =
-      resp.valor === 0 ? "neutro" : Math.sign(resp.valor) === Math.sign(valorPos) ? "concordou" : "discordou";
-    r[sentido].push({ pergunta: p, valor: resp.valor, importante: resp.importante, sentido });
+    const item: ItemResultado = {
+      pergunta: p,
+      escolha: resp.escolha,
+      caminhoDoPlano,
+      importante: resp.importante,
+    };
+    (conc === 1 ? r.mesmoCaminho : r.outroCaminho).push(item);
   }
 
   r.geral = afinidade(total.soma, total.pesos, total.base);
@@ -101,13 +104,13 @@ function calcularCandidato(
 
 export function calcularResultado(perguntas: PerguntaView[], respostas: Respostas): ResultadoQuiz {
   let respondidas = 0;
-  let puladas = 0;
+  const semOpiniao: PerguntaView[] = [];
   const categorias: string[] = [];
   for (const p of perguntas) {
     const resp = respostas[p.id];
     if (!resp) continue;
-    if (resp.valor === null) {
-      puladas += 1;
+    if (resp.escolha === "C") {
+      semOpiniao.push(p);
       continue;
     }
     respondidas += 1;
@@ -117,7 +120,7 @@ export function calcularResultado(perguntas: PerguntaView[], respostas: Resposta
   const porCandidato = Object.fromEntries(
     CANDIDATOS_ORDEM.map((c) => [c, calcularCandidato(c, perguntas, respostas)]),
   ) as Record<CandidatoId, ResultadoCandidato>;
-  return { respondidas, puladas, categorias, porCandidato };
+  return { respondidas, semOpiniao, categorias, porCandidato };
 }
 
 /** Embaralhamento Fisher–Yates (nova ordem a cada sessão). */
