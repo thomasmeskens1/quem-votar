@@ -6,6 +6,7 @@ import { pdfPlano } from "@/lib/candidatos";
 import { getRegistro } from "@/lib/data/propostas";
 import { GraficoComparado } from "@/components/analise/GraficoComparado";
 import { contagemPorCategoria } from "@/lib/data/contagem";
+import { getQuizDados } from "@/features/quiz/dados";
 
 const ATALHOS = [
   {
@@ -38,6 +39,7 @@ const ATALHOS = [
 export default function Home() {
   return (
     <div className="space-y-8">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
       <section aria-labelledby="titulo-home">
         <h1 id="titulo-home" className="text-2xl font-bold text-gray-900 md:text-3xl">
           Propostas do 2º turno da eleição presidencial de 2026
@@ -54,6 +56,8 @@ export default function Home() {
           atribui nota aos candidatos.
         </p>
       </section>
+      <ChamadaQuiz total={getQuizDados().perguntas.length} />
+      </div>
 
       <section aria-labelledby="titulo-candidatos">
         <h2 id="titulo-candidatos" className="text-xl font-bold text-gray-900">
@@ -135,5 +139,48 @@ export default function Home() {
         </ul>
       </section>
     </div>
+  );
+}
+
+/** Chamada para o quiz (coluna direita da primeira seção). */
+function ChamadaQuiz({ total }: { total: number }) {
+  return (
+    <aside
+      aria-labelledby="titulo-chamada-quiz"
+      className="rounded-xl border-2 border-destaque bg-destaque-fundo p-5 shadow-sm"
+    >
+      <p className="inline-block rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-destaque ring-1 ring-destaque">
+        Quiz apartidário
+      </p>
+      <h2 id="titulo-chamada-quiz" className="mt-3 text-xl font-bold leading-snug text-gray-900">
+        Com quais propostas você mais se identifica?
+      </h2>
+      <p className="mt-2 text-sm text-gray-800">
+        Diga se concorda ou discorda de {total} afirmações sobre economia, segurança, educação,
+        meio ambiente e outros temas. No fim, veja sua afinidade com as propostas escritas em cada
+        plano de governo, com o trecho e a página de cada uma.
+      </p>
+      <Link
+        href="/quiz"
+        className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-destaque px-5 py-2 text-base font-semibold text-white shadow-sm hover:bg-destaque-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-destaque"
+      >
+        Fazer o Quiz Eleitoral
+      </Link>
+      <ul className="mt-4 space-y-1.5 text-xs text-gray-700">
+        <li>
+          <strong className="text-gray-900">Apartidário:</strong> afirmações neutras, revisadas por
+          leituras de esquerda, de centro e de direita; a posição de cada candidato vem de trecho
+          literal do plano.
+        </li>
+        <li>
+          <strong className="text-gray-900">Não é recomendação de voto:</strong> o resultado mede
+          afinidade com propostas, não com pessoas ou partidos.
+        </li>
+        <li>
+          <strong className="text-gray-900">Privado:</strong> suas respostas ficam só no seu
+          navegador e não são armazenadas nem enviadas.
+        </li>
+      </ul>
+    </aside>
   );
 }

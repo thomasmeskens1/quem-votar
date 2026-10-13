@@ -24,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Pular para o conteúdo
         </a>
-        <header className="border-b border-gray-300 bg-gray-50">
+        <header className="sticky top-0 z-40 border-b border-gray-300 bg-gray-50/95 backdrop-blur supports-[backdrop-filter]:bg-gray-50/85">
           <div className="relative mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 md:flex-row md:items-center md:justify-between">
             <Link href="/" className="py-1 text-lg font-bold text-gray-900">
               Voto em Quem

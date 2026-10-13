@@ -16,17 +16,26 @@
   --cor-esquerda: #1e4e8c;
   --cor-centro: #173f72;
   --cor-direita: #0f2a50;
+  /* Destaque do quiz: violeta, fora das cores de candidatos e vieses (branco/destaque 9,6:1) */
+  --cor-destaque: #5b21b6;
+  --cor-destaque-hover: #4c1d95;
+  --cor-destaque-fundo: #f3effd;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-destaque: var(--cor-destaque);
+  --color-destaque-hover: var(--cor-destaque-hover);
+  --color-destaque-fundo: var(--cor-destaque-fundo);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     sans-serif;
 }
 
 html {
   color-scheme: light;
+  /* Âncoras não ficam escondidas sob o cabeçalho fixo */
+  scroll-padding-top: 5rem;
 }
 
 body {
