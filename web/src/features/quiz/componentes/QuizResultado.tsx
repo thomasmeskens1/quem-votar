@@ -8,6 +8,7 @@ import { CANDIDATOS } from "@/lib/candidatos";
 import { CORES_CANDIDATOS } from "@/lib/cores";
 import type { Afinidade, ResultadoQuiz } from "../calculo";
 import { ListaPropostas } from "./ListaPropostas";
+import { ListaSemOpiniao } from "./ListaSemOpiniao";
 
 function textoBase(n: number): string {
   return n === 1 ? "baseado em 1 pergunta" : `baseado em ${n} perguntas`;
@@ -20,8 +21,8 @@ function CartaoAfinidade({ c, a }: { c: CandidatoId; a: Afinidade }) {
       <CandidatoBadge candidato={c} tamanho="lg" />
       {a.percentual === null ? (
         <p className="mt-3 text-base text-gray-800">
-          Sem base de cálculo: nenhuma das perguntas respondidas trata de proposta registrada no plano
-          deste candidato.
+          Sem base de cálculo: nenhuma das situações em que você escolheu um caminho trata de proposta
+          registrada no plano deste candidato.
         </p>
       ) : (
         <>
@@ -66,7 +67,8 @@ export function QuizResultado({ resultado, onRefazer, onRever }: QuizResultadoPr
   useEffect(() => {
     titulo.current?.focus();
   }, []);
-  const { respondidas, puladas, categorias, porCandidato } = resultado;
+  const { respondidas, semOpiniao, categorias, porCandidato } = resultado;
+  const nSemOpiniao = semOpiniao.length;
 
   return (
     <section aria-labelledby="quiz-resultado" className="mx-auto max-w-5xl">
@@ -74,10 +76,13 @@ export function QuizResultado({ resultado, onRefazer, onRever }: QuizResultadoPr
         Sua afinidade com as propostas dos planos
       </h1>
       <p className="mt-2 text-base text-gray-800">
-        Você respondeu {respondidas} {respondidas === 1 ? "pergunta" : "perguntas"}
-        {puladas > 0 ? ` e pulou ${puladas}` : ""}. A afinidade é a média de quanto cada resposta se aproxima
-        da posição escrita no plano (perguntas marcadas como importantes valem o dobro). Perguntas em que o
-        plano não tem proposta registrada ficam fora do cálculo daquele candidato.
+        Você escolheu um caminho em {respondidas} {respondidas === 1 ? "situação" : "situações"}
+        {nSemOpiniao > 0
+          ? ` e respondeu que não tem opinião formada em ${nSemOpiniao} (fora do cálculo)`
+          : ""}
+        . Para cada candidato, a afinidade é a parcela das situações em que você escolheu o mesmo
+        caminho do plano (perguntas marcadas como importantes valem o dobro). Situações em que o plano
+        não tem proposta registrada ficam fora do cálculo daquele candidato.
       </p>
 
       <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -120,10 +125,11 @@ export function QuizResultado({ resultado, onRefazer, onRever }: QuizResultadoPr
       ) : null}
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold text-gray-900">Propostas correspondentes às suas respostas</h2>
+        <h2 className="text-xl font-semibold text-gray-900">Caminhos de cada plano nas suas respostas</h2>
         <p className="mt-1 text-sm text-gray-700">
-          Cada item traz o trecho citado do plano de governo, o link para a página do documento oficial e a
-          página do comparativo da categoria.
+          Cada item traz a situação, o caminho que corresponde ao plano, a sua resposta, o trecho citado do
+          plano de governo com o link para a página do documento oficial e a página do comparativo da
+          categoria.
         </p>
         <div className="mt-4 grid items-start gap-4 md:grid-cols-2">
           {CANDIDATOS_ORDEM.map((c) => (
@@ -131,6 +137,8 @@ export function QuizResultado({ resultado, onRefazer, onRever }: QuizResultadoPr
           ))}
         </div>
       </div>
+
+      <ListaSemOpiniao perguntas={semOpiniao} />
 
       <p className="mt-8 rounded-md border border-gray-400 bg-gray-50 px-4 py-3 text-base font-medium text-gray-900">
         Este resultado mede afinidade com propostas escritas nos planos; não substitui a leitura dos planos

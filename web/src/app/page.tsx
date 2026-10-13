@@ -156,9 +156,9 @@ function ChamadaQuiz({ total }: { total: number }) {
         Com quais propostas você mais se identifica?
       </h2>
       <p className="mt-2 text-sm text-gray-800">
-        Diga se concorda ou discorda de {total} afirmações sobre economia, segurança, educação,
-        meio ambiente e outros temas. No fim, veja sua afinidade com as propostas escritas em cada
-        plano de governo, com o trecho e a página de cada uma.
+        Escolha entre caminhos para {total} situações do dia a dia, sobre economia, segurança,
+        educação, meio ambiente e outros temas. No fim, veja sua afinidade com as propostas escritas
+        em cada plano de governo, com o trecho e a página de cada uma.
       </p>
       <Link
         href="/quiz"
@@ -168,7 +168,7 @@ function ChamadaQuiz({ total }: { total: number }) {
       </Link>
       <ul className="mt-4 space-y-1.5 text-xs text-gray-700">
         <li>
-          <strong className="text-gray-900">Apartidário:</strong> afirmações neutras, revisadas por
+          <strong className="text-gray-900">Apartidário:</strong> situações neutras, revisadas por
           leituras de esquerda, de centro e de direita; a posição de cada candidato vem de trecho
           literal do plano.
         </li>

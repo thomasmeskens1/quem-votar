@@ -14,10 +14,12 @@ export function QuizInicio({ total, exemplo, onComecar }: QuizInicioProps) {
         Quiz de afinidade com as propostas
       </h1>
       <p className="mt-3 text-base text-gray-800">
-        Você verá {total} afirmações sobre políticas públicas, uma por vez, em ordem aleatória. Cada
-        afirmação foi escrita a partir das <strong>propostas dos planos de governo registrados no TSE</strong>.
-        Ao final, o quiz mostra o quanto as suas respostas se aproximam das propostas escritas em cada plano
-        e lista os trechos correspondentes, com a página do documento oficial.
+        Você verá {total} situações do dia a dia, uma por vez, em ordem aleatória. Em cada uma, escolha
+        entre dois caminhos ou responda que não tem uma opinião formada sobre o tema. Os caminhos foram
+        escritos a partir das <strong>propostas dos planos de governo registrados no TSE</strong>, sem
+        indicar de qual plano vem cada um. Ao final, o quiz mostra o quanto as suas escolhas se aproximam
+        das propostas escritas em cada plano e lista os trechos correspondentes, com a página do documento
+        oficial.
       </p>
 
       <ul className="mt-4 list-disc space-y-2 pl-5 text-base text-gray-800">
@@ -26,17 +28,18 @@ export function QuizInicio({ total, exemplo, onComecar }: QuizInicioProps) {
           afinidade com propostas escritas nos planos.
         </li>
         <li>
-          Os nomes dos candidatos só aparecem no resultado. Quando um plano não trata do tema de uma
-          afirmação, ela aparece como &quot;sem proposta registrada&quot; e não entra no cálculo daquele
-          candidato.
+          Os nomes dos candidatos só aparecem no resultado, junto com o caminho que corresponde a cada
+          plano. Quando um plano não trata do tema de uma situação, ela aparece como &quot;sem proposta
+          registrada&quot; e não entra no cálculo daquele candidato.
         </li>
         <li>
           <strong>Suas respostas ficam só neste navegador</strong>, enquanto a página estiver aberta. Elas
           não são armazenadas nem enviadas a ninguém. Ao recarregar a página, o quiz recomeça.
         </li>
         <li>
-          Você pode responder, marcar uma pergunta como &quot;Importante para mim&quot; (vale o
-          dobro) e voltar à pergunta anterior.
+          Todas as perguntas pedem uma resposta. Se você escolher &quot;Não tenho uma opinião formada
+          sobre o tema&quot;, a pergunta fica fora do cálculo. Você pode marcar uma pergunta como
+          &quot;Importante para mim&quot; (vale o dobro) e voltar à pergunta anterior.
         </li>
       </ul>
 

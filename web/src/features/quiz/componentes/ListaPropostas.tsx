@@ -5,15 +5,9 @@ import { PdfPaginaLink } from "@/components/PdfPaginaLink";
 import { CANDIDATOS } from "@/lib/candidatos";
 import { CORES_CANDIDATOS } from "@/lib/cores";
 import type { ItemResultado, ResultadoCandidato } from "../calculo";
-import type { PerguntaView } from "../tipos";
-import { rotuloResposta } from "./PerguntaPasso";
+import type { CitacaoView, PerguntaView } from "../tipos";
 
-const POSICAO_TEXTO = {
-  a_favor: "o plano propõe a medida da afirmação",
-  contra: "o plano propõe o oposto da afirmação",
-} as const;
-
-function LinkComparativo({ p }: { p: PerguntaView }) {
+export function LinkComparativo({ p }: { p: PerguntaView }) {
   return (
     <Link href={`/comparativo/${p.categoriaSlug}`} prefetch={false} className="lk text-sm">
       Comparativo de {p.categoria}
@@ -21,21 +15,11 @@ function LinkComparativo({ p }: { p: PerguntaView }) {
   );
 }
 
-function ItemProposta({ c, item }: { c: CandidatoId; item: ItemResultado }) {
-  const { pergunta: p } = item;
-  const pos = p.posicoes[c];
+/** Trechos citados do plano, com link para a página do documento oficial. */
+export function Citacoes({ c, citacoes }: { c: CandidatoId; citacoes: CitacaoView[] }) {
   return (
-    <li className="rounded-md border border-gray-200 bg-white p-3">
-      <p className="text-xs font-semibold uppercase tracking-wide text-gray-600">{p.categoria}</p>
-      <p className="mt-1 font-medium text-gray-900">{p.afirmacao}</p>
-      <p className="mt-1 text-sm text-gray-700">
-        Sua resposta: {rotuloResposta(item.valor)}
-        {item.importante ? " · Importante para mim" : ""}
-      </p>
-      {pos.posicao !== "sem_proposta" ? (
-        <p className="text-sm text-gray-700">Posição no plano: {POSICAO_TEXTO[pos.posicao]}.</p>
-      ) : null}
-      {pos.citacoes.map((cit) => (
+    <>
+      {citacoes.map((cit) => (
         <figure key={`${cit.propostaId}-${cit.texto.slice(0, 20)}`} className="mt-2">
           <blockquote
             className="border-l-4 pl-3 text-sm italic text-gray-800"
@@ -50,6 +34,31 @@ function ItemProposta({ c, item }: { c: CandidatoId; item: ItemResultado }) {
           ) : null}
         </figure>
       ))}
+    </>
+  );
+}
+
+function ItemSituacao({ c, item }: { c: CandidatoId; item: ItemResultado }) {
+  const { pergunta: p } = item;
+  const mesmo = item.escolha === item.caminhoDoPlano;
+  return (
+    <li className="rounded-md border border-gray-200 bg-white p-3">
+      <p className="text-xs font-semibold uppercase tracking-wide text-gray-600">{p.categoria}</p>
+      <p className="mt-1 font-medium text-gray-900">{p.situacao}</p>
+      <dl className="mt-2 space-y-1 text-sm text-gray-800">
+        <div>
+          <dt className="inline font-semibold">Caminho do plano:</dt>{" "}
+          <dd className="inline">{p.opcoes[item.caminhoDoPlano]}</dd>
+        </div>
+        <div>
+          <dt className="inline font-semibold">Sua resposta:</dt>{" "}
+          <dd className="inline">
+            {mesmo ? "o mesmo caminho" : p.opcoes[item.escolha]}
+            {item.importante ? " · Importante para mim" : ""}
+          </dd>
+        </div>
+      </dl>
+      <Citacoes c={c} citacoes={p.posicoes[c].citacoes} />
       <p className="mt-2">
         <LinkComparativo p={p} />
       </p>
@@ -78,7 +87,7 @@ function Grupo({
       ) : (
         <ul className="mt-2 space-y-3">
           {itens.map((i) => (
-            <ItemProposta key={i.pergunta.id} c={c} item={i} />
+            <ItemSituacao key={i.pergunta.id} c={c} item={i} />
           ))}
         </ul>
       )}
@@ -86,7 +95,7 @@ function Grupo({
   );
 }
 
-/** Propostas com que a pessoa concordou e de que discordou, para um candidato. */
+/** Situações em que a pessoa escolheu o caminho do plano ou o outro caminho, para um candidato. */
 export function ListaPropostas({ c, r }: { c: CandidatoId; r: ResultadoCandidato }) {
   const cor = CORES_CANDIDATOS[c];
   return (
@@ -99,35 +108,31 @@ export function ListaPropostas({ c, r }: { c: CandidatoId; r: ResultadoCandidato
         <CandidatoBadge candidato={c} tamanho="lg" />
       </h3>
       <Grupo
-        titulo="Propostas com que você concordou"
+        titulo="Situações em que você escolheu o caminho do plano"
         c={c}
-        itens={r.concordou}
+        itens={r.mesmoCaminho}
         vazio="Nenhuma entre as perguntas respondidas."
       />
       <Grupo
-        titulo="Propostas de que você discordou"
+        titulo="Situações em que você escolheu o outro caminho"
         c={c}
-        itens={r.discordou}
+        itens={r.outroCaminho}
         vazio="Nenhuma entre as perguntas respondidas."
       />
-      {r.neutro.length > 0 ? (
-        <Grupo titulo="Propostas em que você ficou neutro" c={c} itens={r.neutro} vazio="" />
-      ) : null}
 
       <div className="mt-4">
         <h4 className="text-base font-semibold text-gray-900">
           Sem proposta registrada ({r.semProposta.length})
         </h4>
         <p className="mt-1 text-sm text-gray-700">
-          O plano não trata do tema destas afirmações (ou não permite dizer se é a favor ou contra). Elas
-          ficam fora do cálculo deste candidato.
+          O plano não trata do tema destas situações. Elas ficam fora do cálculo deste candidato.
         </p>
         {r.semProposta.length > 0 ? (
           <ul className="mt-2 space-y-2">
             {r.semProposta.map((p) => (
               <li key={p.id} className="rounded-md border border-dashed border-gray-400 bg-white p-3">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-600">{p.categoria}</p>
-                <p className="mt-1 text-gray-900">{p.afirmacao}</p>
+                <p className="mt-1 text-gray-900">{p.situacao}</p>
                 <p className="mt-1 text-sm font-medium text-gray-700">Sem proposta registrada</p>
                 <p className="mt-1">
                   <LinkComparativo p={p} />
