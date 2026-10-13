@@ -39,18 +39,18 @@ const ATALHOS = [
 export default function Home() {
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
+      <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-10">
       <section aria-labelledby="titulo-home">
         <h1 id="titulo-home" className="text-2xl font-bold text-gray-900 md:text-3xl">
           Propostas do 2º turno da eleição presidencial de 2026
         </h1>
-        <p className="mt-2 max-w-3xl text-gray-800">
+        <p className="mt-3 max-w-3xl text-gray-800 lg:text-lg lg:leading-relaxed">
           Este site reúne e organiza as propostas dos planos de governo registrados no Tribunal
           Superior Eleitoral (TSE) pelos dois candidatos do 2º turno. Toda informação exibida
           indica sua fonte: trechos dos planos levam à página do PDF oficial; dados de histórico e
           de contexto internacional levam ao documento de origem.
         </p>
-        <p className="mt-2 max-w-3xl text-gray-800">
+        <p className="mt-3 max-w-3xl text-gray-800 lg:text-lg lg:leading-relaxed">
           As análises interpretativas aparecem sempre em três leituras identificadas — de
           esquerda, de centro e de direita — exibidas lado a lado. O site não indica voto nem
           atribui nota aos candidatos.
