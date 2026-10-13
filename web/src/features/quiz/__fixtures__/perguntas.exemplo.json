@@ -1,0 +1,98 @@
+{
+  "versao": 0,
+  "exemplo": true,
+  "gerado_em": "2026-10-13T00:00:00Z",
+  "criterios_de_selecao": "EXEMPLO DE DESENVOLVIMENTO — não auditado. Usado somente enquanto dados/quiz/perguntas.json não existe.",
+  "perguntas": [
+    {
+      "id": "x01",
+      "categoria": "Segurança",
+      "afirmacao": "O governo federal deve manter tropas das Forças Armadas dedicadas ao controle das fronteiras.",
+      "origem": "ambos",
+      "posicoes": {
+        "lula": {
+          "posicao": "a_favor",
+          "proposta_ids": ["lula-156"],
+          "citacoes": [{ "proposta_id": "lula-156", "texto": "Manteremos as Forças Armadas presentes nas fronteiras amazônicas e na Pan-Amazônia, com patrulhamento fluvial e aéreo" }],
+          "justificativa": "Exemplo."
+        },
+        "flavio": {
+          "posicao": "a_favor",
+          "proposta_ids": ["flavio-028"],
+          "citacoes": [{ "proposta_id": "flavio-028", "texto": "Vamos criar o Sistema Nacional de Fronteira, uma tropa de elite do Exército, da Marinha e da Força Aérea Brasileira" }],
+          "justificativa": "Exemplo."
+        }
+      }
+    },
+    {
+      "id": "x02",
+      "categoria": "Educação",
+      "afirmacao": "A educação em tempo integral deve ser ampliada nas escolas públicas.",
+      "origem": "ambos",
+      "posicoes": {
+        "lula": {
+          "posicao": "a_favor",
+          "proposta_ids": ["lula-179"],
+          "citacoes": [{ "proposta_id": "lula-179", "texto": "O fomento à expansão da educação em tempo integral terá absoluta prioridade no novo mandato." }],
+          "justificativa": "Exemplo."
+        },
+        "flavio": {
+          "posicao": "a_favor",
+          "proposta_ids": ["flavio-137"],
+          "citacoes": [{ "proposta_id": "flavio-137", "texto": "Apoiamos a escola em tempo integral, para que a criança tenha mais tempo de aprendizado" }],
+          "justificativa": "Exemplo."
+        }
+      }
+    },
+    {
+      "id": "x03",
+      "categoria": "Meio Ambiente",
+      "afirmacao": "O monitoramento por satélite do desmatamento deve ser reforçado.",
+      "origem": "ambos",
+      "posicoes": {
+        "lula": {
+          "posicao": "a_favor",
+          "proposta_ids": ["lula-157"],
+          "citacoes": [{ "proposta_id": "lula-157", "texto": "Daremos continuidade aos investimentos em radares, drones, sensores, imagens de satélite e centros integrados de comando e controle para fortalecer o monitoramento territorial" }],
+          "justificativa": "Exemplo."
+        },
+        "flavio": {
+          "posicao": "a_favor",
+          "proposta_ids": ["flavio-286"],
+          "citacoes": [{ "proposta_id": "flavio-286", "texto": "Vamos fortalecer a fiscalização ambiental, com prioridade para as áreas de maior pressão de desmatamento e queimadas, usando inteligência, satélite" }],
+          "justificativa": "Exemplo."
+        }
+      }
+    },
+    {
+      "id": "x04",
+      "categoria": "Segurança",
+      "afirmacao": "A maioridade penal deve ser reduzida de 18 para 16 anos.",
+      "origem": "flavio",
+      "posicoes": {
+        "lula": { "posicao": "sem_proposta", "proposta_ids": [], "citacoes": [], "justificativa": "Exemplo." },
+        "flavio": {
+          "posicao": "a_favor",
+          "proposta_ids": ["flavio-025"],
+          "citacoes": [{ "proposta_id": "flavio-025", "texto": "O novo governo do Brasil vai apoiar e sancionar a redução da maioridade penal de 18 para 16 anos." }],
+          "justificativa": "Exemplo."
+        }
+      }
+    },
+    {
+      "id": "x05",
+      "categoria": "Segurança",
+      "afirmacao": "O acesso da população a armas de fogo e munições deve seguir regras de controle mais restritivas.",
+      "origem": "lula",
+      "posicoes": {
+        "lula": {
+          "posicao": "a_favor",
+          "proposta_ids": ["lula-150"],
+          "citacoes": [{ "proposta_id": "lula-150", "texto": "manteremos uma política de controle de armas e munições" }],
+          "justificativa": "Exemplo."
+        },
+        "flavio": { "posicao": "sem_proposta", "proposta_ids": [], "citacoes": [], "justificativa": "Exemplo." }
+      }
+    }
+  ]
+}
