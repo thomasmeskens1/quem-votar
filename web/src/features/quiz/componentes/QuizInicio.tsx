@@ -44,8 +44,11 @@ export function QuizInicio({ total, exemplo, onComecar }: QuizInicioProps) {
       </ul>
 
       <p className="mt-4 text-sm text-gray-700">
-        {/* O link da Política de Privacidade volta quando a página for publicada. */}
         Saiba mais na{" "}
+        <Link href="/privacidade" className="lk" prefetch={false}>
+          Política de Privacidade
+        </Link>{" "}
+        e na{" "}
         <Link href="/metodologia" className="lk">
           Metodologia
         </Link>

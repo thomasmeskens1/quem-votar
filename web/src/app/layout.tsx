@@ -45,6 +45,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </Link>
               {" · "}
               <ReabrirAviso />
+              {" · "}
+              <Link href="/privacidade" className="lk">
+                Privacidade
+              </Link>
             </p>
           </div>
         </footer>

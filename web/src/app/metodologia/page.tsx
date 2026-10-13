@@ -277,6 +277,17 @@ export default function MetodologiaPage() {
         </div>
       </Secao>
 
+      <Secao id="privacidade" titulo="Privacidade">
+        <p className="max-w-3xl text-sm text-gray-800">
+          O site não pede cadastro nem dados pessoais, e a audiência é medida de forma anônima e
+          agregada, sem cookies e sem identificar visitantes. Detalhes na{" "}
+          <Link href="/privacidade" className="lk">
+            Política de Privacidade
+          </Link>
+          .
+        </p>
+      </Secao>
+
       <Secao id="atualizacao" titulo="Data de atualização">
         <table className="w-full text-left text-sm">
           <caption className="sr-only">Data de geração de cada conjunto de dados</caption>
