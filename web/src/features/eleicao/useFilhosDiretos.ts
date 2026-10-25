@@ -19,6 +19,12 @@ const ESPERAS_MS = [1000, 3000];
 const INTERVALO_MS = 60_000; // o TSE envia Cache-Control max-age=60
 const LOTE = 25;
 
+/**
+ * Lista vazia estável: devolver um array novo a cada render faria o painel ver
+ * "dados novos" sem parar (loop de renderização enquanto a leitura não termina).
+ */
+const VAZIO: ResultadoFilho[] = [];
+
 /** Última leitura boa por URL (sobrevive a trocas de área e a falhas momentâneas). */
 const ultima = new Map<string, ResultadoFilho>();
 
@@ -141,6 +147,6 @@ export function useFilhosDiretos(dados: ResultadoAbrangencia | null, porPais: bo
   }, [chave]);
 
   if (!chave) return { filhos: null, lidos: 0, total: 0, falhas: 0 };
-  if (estado.chave !== chave) return { filhos: [], lidos: 0, total: pendentes?.length ?? 0, falhas: 0 };
+  if (estado.chave !== chave) return { filhos: VAZIO, lidos: 0, total: pendentes?.length ?? 0, falhas: 0 };
   return estado;
 }
