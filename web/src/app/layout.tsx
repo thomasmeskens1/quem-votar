@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Link from "next/link";
 import { AvisoFontes, ReabrirAviso } from "@/components/AvisoFontes";
 import { NavPrincipal } from "@/components/NavPrincipal";
+import { SO_APURACAO } from "@/lib/modo";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <header className="sticky top-0 z-40 border-b border-gray-300 bg-gray-50/95 backdrop-blur supports-[backdrop-filter]:bg-gray-50/85">
           <div className="relative mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 md:flex-row md:items-center md:justify-between">
-            <Link href="/" className="py-1 text-lg font-bold text-gray-900">
+            <Link href={SO_APURACAO ? "/eleicao" : "/"} className="py-1 text-lg font-bold text-gray-900">
               Voto em Quem
             </Link>
             <NavPrincipal />
@@ -37,22 +38,31 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <footer className="border-t border-gray-300 bg-gray-50">
           <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-gray-700">
-            <p>
-              Fontes: planos de governo registrados no TSE e fontes oficiais citadas em cada
-              informação. Candidatos sempre exibidos na ordem do número de urna (13, 22).{" "}
-              <Link href="/metodologia" className="lk">
-                Metodologia
-              </Link>
-              {" · "}
-              <ReabrirAviso />
-              {" · "}
-              <Link href="/privacidade" className="lk">
-                Privacidade
-              </Link>
-            </p>
+            {SO_APURACAO ? (
+              <p>
+                Fonte: resultados oficiais do Tribunal Superior Eleitoral (TSE).{" "}
+                <Link href="/privacidade" className="lk">
+                  Privacidade
+                </Link>
+              </p>
+            ) : (
+              <p>
+                Fontes: planos de governo registrados no TSE e fontes oficiais citadas em cada
+                informação. Candidatos sempre exibidos na ordem do número de urna (13, 22).{" "}
+                <Link href="/metodologia" className="lk">
+                  Metodologia
+                </Link>
+                {" · "}
+                <ReabrirAviso />
+                {" · "}
+                <Link href="/privacidade" className="lk">
+                  Privacidade
+                </Link>
+              </p>
+            )}
           </div>
         </footer>
-        <AvisoFontes />
+        {SO_APURACAO ? null : <AvisoFontes />}
         <Analytics />
       </body>
     </html>

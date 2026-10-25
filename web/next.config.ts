@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PAGINAS_FORA_DO_AR, SO_APURACAO } from "./src/lib/modo";
 
 /** Cache-Control para arquivos de public/, do mais estável ao mais sujeito a mudança. */
 const cache = (maxAge: number, swr: number) => [
@@ -8,6 +9,11 @@ const HORA = 3600;
 const DIA = 24 * HORA;
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    if (!SO_APURACAO) return [];
+    // Temporário (307): o site completo volta ao desligar SO_APURACAO.
+    return PAGINAS_FORA_DO_AR.map((source) => ({ source, destination: "/eleicao", permanent: false }));
+  },
   async headers() {
     return [
       // Malhas dos mapas (IBGE/Natural Earth) e PDFs oficiais dos planos: não mudam.

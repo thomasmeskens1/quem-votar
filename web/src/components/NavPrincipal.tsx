@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, type KeyboardEvent } from "react";
+import { SO_APURACAO } from "@/lib/modo";
 
 export interface ItemNav {
   href: string;
@@ -39,6 +40,20 @@ export function NavPrincipal() {
   }
 
   const quizAtivo = pathname.startsWith(QUIZ.href);
+
+  if (SO_APURACAO) {
+    return (
+      <nav aria-label="Navegação principal" className="absolute right-4 top-3 md:static">
+        <Link
+          href="/eleicao"
+          aria-current={pathname.startsWith("/eleicao") ? "page" : undefined}
+          className="block rounded bg-gray-900 px-2.5 py-1.5 text-sm font-medium text-white"
+        >
+          Apuração
+        </Link>
+      </nav>
+    );
+  }
 
   return (
     <nav aria-label="Navegação principal" onKeyDown={onKeyDown} className="w-full md:flex md:w-auto md:items-center md:gap-2">
