@@ -21,7 +21,10 @@ export interface TabelaProps {
   preencher?: boolean;
 }
 
-type Ordem = "nome" | "votos" | number;
+type Ordem = "nome" | "votos" | "secoes" | number;
+
+/** % de seções apuradas; sem andamento (resultado consolidado) conta como 100%. */
+const pctSecoes = (f: ResultadoFilho) => f.apuracao?.pct_secoes_totalizadas ?? 100;
 
 export function Tabela(props: TabelaProps) {
   const { titulo, rotuloUnidade, filhos, colunas, candidatos, selecionado, onSelecionar, onDestaque, preencher } = props;
@@ -38,6 +41,7 @@ export function Tabela(props: TabelaProps) {
     return [...base].sort((a, b) => {
       if (ordem === "nome") return a.nome.localeCompare(b.nome, "pt-BR");
       if (ordem === "votos") return b.totais.comparecimento - a.totais.comparecimento;
+      if (ordem === "secoes") return pctSecoes(b) - pctSecoes(a) || a.nome.localeCompare(b.nome, "pt-BR");
       return pctCandidato(votosDe(b, ordem), b.totais) - pctCandidato(votosDe(a, ordem), a.totais);
     });
   }, [filhos, busca, ordem]);
@@ -62,12 +66,13 @@ export function Tabela(props: TabelaProps) {
             value={String(ordem)}
             onChange={(e) => {
               const v = e.target.value;
-              setOrdem(v === "nome" || v === "votos" ? v : Number(v));
+              setOrdem(v === "nome" || v === "votos" || v === "secoes" ? v : Number(v));
             }}
             className="ml-2 rounded border border-gray-400 px-2 py-1 text-sm"
           >
             <option value="nome">nome</option>
             <option value="votos">comparecimento</option>
+            <option value="secoes">seções apuradas</option>
             {colunas.map((n) => (
               <option key={n} value={n}>
                 % {nome(n)}

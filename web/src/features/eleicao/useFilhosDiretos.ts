@@ -16,7 +16,8 @@ import type { FilhoPendente, RespostaApi, ResultadoAbrangencia, ResultadoFilho }
 
 const CONCORRENCIA = 4;
 const ESPERAS_MS = [1000, 3000];
-const INTERVALO_MS = 60_000; // o TSE envia Cache-Control max-age=60
+// Mesmo ritmo da página (25 s); a leitura revalida com o TSE em vez de usar a cópia de 60 s do navegador.
+const INTERVALO_MS = 25_000;
 const LOTE = 25;
 
 /**
@@ -44,7 +45,7 @@ function paraFilho(p: FilhoPendente, n: Pick<ResultadoFilho, "totais" | "candida
 async function lerUm(p: FilhoPendente): Promise<ResultadoFilho> {
   for (let t = 0; t <= ESPERAS_MS.length; t++) {
     try {
-      const r = await fetch(p.url);
+      const r = await fetch(p.url, { cache: "no-cache" });
       if (r.ok) return paraFilho(p, normalizarResultadoU(await r.json()));
       if (r.status === 404) break;
     } catch {

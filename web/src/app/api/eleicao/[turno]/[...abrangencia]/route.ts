@@ -44,7 +44,7 @@ export async function GET(
       200,
       finalizado
         ? "public, s-maxage=600, stale-while-revalidate=3600"
-        : "public, s-maxage=30, stale-while-revalidate=30",
+        : "public, s-maxage=5, stale-while-revalidate=5",
     );
   } catch (erro) {
     if (erro instanceof SemDados) {

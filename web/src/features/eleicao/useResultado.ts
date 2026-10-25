@@ -12,7 +12,7 @@ export interface EstadoResultado {
   carregando: boolean;
 }
 
-const INTERVALO_MS = 30_000;
+const INTERVALO_MS = 25_000;
 const memoria = new Map<string, { em: number; resp: RespostaApi }>();
 
 async function buscar(url: string, forcar: boolean): Promise<RespostaApi> {

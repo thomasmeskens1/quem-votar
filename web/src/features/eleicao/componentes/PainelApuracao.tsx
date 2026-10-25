@@ -234,7 +234,7 @@ export function PainelApuracao() {
       {turnoEscolhido === 2 && aguardando2 ? (
         <p role="status" className="rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
           2º turno (25/10/2026): aguardando apuração. O TSE ainda não totalizou seções; exibindo o resultado do 1º turno.
-          Esta página verifica novos dados a cada 30 segundos.
+          Esta página verifica novos dados a cada 25 segundos.
         </p>
       ) : null}
 

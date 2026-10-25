@@ -1,6 +1,6 @@
 /**
  * Cliente (servidor) dos JSON ao vivo do TSE. Cada abrangência normalizada fica
- * em cache ("use cache" + cacheLife) por 30 s (um arquivo) ou 60 s (Brasil, que lê
+ * em cache ("use cache" + cacheLife) por 20 s (um arquivo ou Brasil, que lê
  * 29 arquivos). Arquivos por município/cidade NÃO são lidos em massa aqui: o
  * navegador os busca direto no TSE (CORS liberado) — ver ../useFilhosDiretos.ts.
  * URLs, campos e frequência: ver ./config.ts.
@@ -133,7 +133,7 @@ const naoNulo = <T,>(x: T | null): x is T => x !== null;
 /** Abrangências de um único arquivo (município, cidade) — cache de 30 s. */
 async function aoVivoSimples(turno: Turno, abr: Abrangencia): Promise<ResultadoAbrangencia> {
   "use cache";
-  cacheLife({ stale: 30, revalidate: 30, expire: 600 });
+  cacheLife({ stale: 20, revalidate: 20, expire: 600 });
   const muns = await municipiosTse(turno).catch(() => ({}) as Record<string, MunicipioTse[]>);
   if (abr.nivel === "MUN") {
     const url = urlResultado(turno, abr.uf, abr.municipio);
@@ -161,7 +161,7 @@ async function aoVivoSimples(turno: Turno, abr: Abrangencia): Promise<ResultadoA
 /** Brasil (29 arquivos) e UF/exterior/país (1 arquivo + lista de pendentes) — cache de 60 s. */
 async function aoVivoAgregado(turno: Turno, abr: Abrangencia): Promise<ResultadoAbrangencia> {
   "use cache";
-  cacheLife({ stale: 30, revalidate: 60, expire: 900 });
+  cacheLife({ stale: 20, revalidate: 20, expire: 900 });
   const avisos: string[] = [];
 
   if (abr.nivel === "BR") {
@@ -247,6 +247,6 @@ export async function resultadoAoVivo(turno: Turno, abr: Abrangencia): Promise<R
 
 async function aoVivoSimplesBrasil(turno: Turno): Promise<Normalizado> {
   "use cache";
-  cacheLife({ stale: 30, revalidate: 30, expire: 600 });
+  cacheLife({ stale: 20, revalidate: 20, expire: 600 });
   return buscarNormalizado(urlResultado(turno, "br"));
 }
