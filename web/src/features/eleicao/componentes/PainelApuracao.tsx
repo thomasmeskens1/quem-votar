@@ -11,6 +11,7 @@ import type { Apuracao, CandidatoVotos, ResultadoAbrangencia, ResultadoFilho, To
 import { useResultado } from "../useResultado";
 import { Apurado, Cartoes } from "./Cartoes";
 import { Comparativo } from "./Comparativo";
+import { Definicao } from "./Definicao";
 import { FonteDados } from "./FonteDados";
 import { useLocais, type FocoLocal } from "../locais";
 import { AreaMapa } from "./AreaMapa";
@@ -269,6 +270,9 @@ export function PainelApuracao() {
           </div>
         </div>
         {vista ? <Cartoes totais={vista.totais} candidatos={vista.candidatos} info={info} apuracao={vista.apuracao} /> : null}
+        {vista && turno === 2 && abr.nivel === "BR" ? (
+          <Definicao totais={vista.totais} candidatos={vista.candidatos} info={info} apuracao={vista.apuracao} />
+        ) : null}
       </section>
 
       {dados && (dados.filhos?.length || dados.pendentes) ? (
